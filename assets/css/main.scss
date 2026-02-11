@@ -7,3 +7,47 @@ search: false
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+// Override portfolio grid - force 2 columns
+.wide .archive {
+  .list__item,
+  .grid__item {
+    width: 47% !important;
+    float: left !important;
+    margin-left: 0% !important;
+    margin-right: 2% !important;
+    margin-bottom: 2em !important;
+    clear: left !important;
+
+    &:nth-child(2n) {
+      margin-right: 0 !important;
+      clear: none !important;
+    }
+
+    @media (max-width: 768px) {
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      float: none !important;
+      clear: none !important;
+    }
+  }
+
+  .archive__item-teaser {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+
+    img {
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      object-fit: contain !important;
+    }
+  }
+
+  .archive__item-title {
+    font-size: 1.25em;
+    margin-top: 0.75em;
+  }
+}
