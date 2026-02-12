@@ -1,6 +1,6 @@
 ---
-title: "Sample Game Project"
-excerpt: "A sample game development project showcasing technical art skills."
+title: "Anime Shading Model"
+excerpt: "NPR Shading model implemented in Unreal Engine 5"
 header:
   teaser: /assets/images/cafebabe-pekora-header.jpg
 ---

@@ -5,6 +5,9 @@ layout: home
 author_profile: true
 ---
 
+{: .align-center}
+![Welcome](/assets/images/pfp.png)
+
 I'm Victor Lu, a passionate Game Developer and Technical Artist based in Pittsburgh.
 
 ## Background
@@ -18,7 +21,3 @@ I specialize in game development and technical art, combining creative vision wi
 - Shader Programming
 - Visual Effects
 - 3D Modeling & Animation
-
-## Contact
-
-Feel free to reach out to me at vclu@andrew.cmu.edu or connect with me on LinkedIn and ArtStation.
