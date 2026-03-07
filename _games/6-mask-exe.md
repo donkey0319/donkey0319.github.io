@@ -2,7 +2,7 @@
 title: "Mask.exe"
 excerpt: "A horror puzzle game unveiling the secret of the program."
 header:
-  teaser: /assets/images/cafebabe-pekora-header.jpg
+  teaser: /assets/images/maskexe/mask.png
 ---
 
 ## Overview

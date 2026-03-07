@@ -8,4 +8,4 @@ classes: wide
 author_profile: false
 ---
 
-A showcase of my game development and technical art projects.
+A showcase of my technical art projects:

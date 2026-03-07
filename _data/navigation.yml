@@ -4,5 +4,7 @@ main:
     url: /
   - title: "Posts"
     url: /posts/
+  - title: "Games"
+    url: /games/
   - title: "Portfolio"
     url: /portfolio/
