@@ -9,18 +9,8 @@ header:
 
 This is a sample portfolio project. Replace this with your actual projects!
 
-## Features
+{% include video id="KlP4yi8pVPE" provider="youtube" %}
 
-- Feature 1
-- Feature 2
-- Feature 3
+![Kung-Fu Penguin screenshot 1](/assets/images/kungfupenguin/penguin2.png)
 
-## Technologies Used
-
-- Unity/Unreal Engine
-- Shader Graph
-- Custom VFX
-
-## Gallery
-
-Add your project screenshots and videos here.
+![Kung-Fu Penguin screenshot 3](/assets/images/kungfupenguin/penguin3.png)
