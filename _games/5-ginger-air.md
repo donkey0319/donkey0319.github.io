@@ -2,25 +2,15 @@
 title: "Ginger Air"
 excerpt: "A sample game development project showcasing technical art skills."
 header:
-  teaser: /assets/images/cafebabe-pekora-header.jpg
+  teaser: /assets/images/gingerair/ginger.png
 ---
 
 ## Overview
 
+{% include video id="67u-HdfUOy0" provider="youtube" %}
+
 This is a sample portfolio project. Replace this with your actual projects!
 
-## Features
-
-- Feature 1
-- Feature 2
-- Feature 3
-
-## Technologies Used
-
-- Unity/Unreal Engine
-- Shader Graph
-- Custom VFX
-
-## Gallery
+![Ginger Air screenshot 1](/assets/images/gingerair/ginger3.png)
 
 Add your project screenshots and videos here.

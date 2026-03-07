@@ -7,20 +7,16 @@ header:
 
 ## Overview
 
+{% include video id="uThmX9nFVJw" provider="youtube" %}
+
 This is a sample portfolio project. Replace this with your actual projects!
 
-## Features
+![Decent Farewell screenshot 1](/assets/images/decentfarewell/farewell7.png)
 
-- Feature 1
-- Feature 2
-- Feature 3
+![Decent Farewell screenshot 2](/assets/images/decentfarewell/farewell6.png)
 
-## Technologies Used
+![Decent Farewell screenshot 3](/assets/images/decentfarewell/farewell3.png)
 
-- Unity/Unreal Engine
-- Shader Graph
-- Custom VFX
+![Decent Farewell playroom ](/assets/images/decentfarewell/farewell4.png)
 
-## Gallery
-
-Add your project screenshots and videos here.
+![Decent Farewell fair ](/assets/images/decentfarewell/farewell5.png)

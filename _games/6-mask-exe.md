@@ -11,18 +11,7 @@ This is a sample portfolio project. Replace this with your actual projects!
 
 [Play on itch.io](https://donkey0319.itch.io/maskexe)
 
-## Features
+![MaskEXE screenshot 1](/assets/images/maskexe/mask1.png)
 
-- Feature 1
-- Feature 2
-- Feature 3
+![MaskEXE screenshot 1](/assets/images/maskexe/mask2.png)
 
-## Technologies Used
-
-- Unity/Unreal Engine
-- Shader Graph
-- Custom VFX
-
-## Gallery
-
-Add your project screenshots and videos here.
