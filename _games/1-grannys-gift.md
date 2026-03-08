@@ -1,5 +1,5 @@
 ---
-title: "Grannys' Gift"
+title: "Granny's Gift"
 excerpt: "An arcade simulation for PC where Granny and Grandpa wrap Christmas gifts for their grandchildren using Unity and XBox Adaptive Controllers."
 header:
   teaser: /assets/images/grannygift/grannygift_1.png
