@@ -115,8 +115,8 @@ analytics:
 author:
   name             : "Victor Lu"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Passionate Game Developer and Technical Artist."
-  location         : "Pittsburgh"
+  # bio              : "Passionate Game Developer and Technical Artist."
+  # location         : "Pittsburgh"
   email            : "vclu@andrew.cmu.edu"
   links:
     - label: "LinkedIn"

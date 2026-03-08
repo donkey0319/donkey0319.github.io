@@ -8,16 +8,35 @@ author_profile: true
 {: .align-center}
 ![Welcome](/assets/images/pfp.png)
 
-I'm Victor Lu, a passionate Game Developer and Technical Artist based in Pittsburgh.
 
 ## Background
-
-I specialize in game development and technical art, combining creative vision with technical expertise to bring interactive experiences to life.
+I'm Victor Lu, a passionate Game Developer and Technical Artist based in Pittsburgh. I was studying Computer Engineering in college, and I am now focusing in technical art in game development.
 
 ## Skills
 
-- Game Development
-- Technical Art
-- Shader Programming
-- Visual Effects
-- 3D Modeling & Animation
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+    {% include portfolio-item.html
+        link="/portfolio/1-cafebabe-pekora/"
+        image="/assets/images/pekora/cafebabe-pekora-header.jpg"
+        title="Rendering" %}
+
+    {% include portfolio-item.html
+        link="/portfolio/2-painterly-shader/"
+        image="/assets/images/painterly/painterly.png"
+        title="Shader Programming" %}
+
+    {% include portfolio-item.html
+        link="/portfolio/3-ramu-cinematic/"
+        image="/assets/images/ramu/ramu.gif"
+        title="Modeling, Rigging, and Animation" %}
+    
+    {% include portfolio-item.html
+        link="/portfolio/1-cafebabe-pekora/"
+        image="/assets/images/pekora/cafebabe-pekora-header.jpg"
+        title="Texturing" %}
+    
+    {% include portfolio-item.html
+        link="/portfolio/1-cafebabe-pekora/"
+        image="/assets/images/pekora/cafebabe-pekora-header.jpg"
+        title="Technical Animation" %}
+</div>
