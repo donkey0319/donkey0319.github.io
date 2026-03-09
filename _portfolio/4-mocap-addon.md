@@ -5,20 +5,21 @@ header:
   teaser: /assets/images/mocap/mocap.gif
 ---
 
-<video width="100%" controls>
-  <source src="/assets/videos/ramu/ramu.mp4" type="video/mp4">
-</video>
+This is a Blender Addon using pose-estimation AI models to replicate the movement to a humanoid model.
 
-Anime Unity Shader
-![Ramu screenshot 1](/assets/images/ramu/ramu2.png)
+<div style="text-align: center;">
+  <img src="/assets/images/mocap/mocap.gif" alt="Ramu screenshot 1">
+</div>
+<p class="caption">Users can select a video, and the addon will detect its motion and copy it to the character armature.</p>
 
-Electricity Shader
-![Ramu screenshot 1](/assets/images/ramu/ramu3.png)
+To use this, the user can select the corresponding bones for retargeting.  
 
-Done 3D modeling in Blender
-![Ramu screenshot 1](/assets/images/ramu/ramu4.png)
+<div style="text-align: center;">
+  <img src="/assets/images/mocap/posecap1.gif" alt="Ramu screenshot 1">
+</div>
 
-Rigged the character and made an animation
-<video width="100%" controls>
-  <source src="/assets/videos/ramu/ramu2.mp4" type="video/mp4">
-</video>
+And then the user can select a video and then it will automatically create an animation for the armature.
+
+<div style="text-align: center;">
+  <img src="/assets/images/mocap/posecap2.gif" alt="Ramu screenshot 1">
+</div>

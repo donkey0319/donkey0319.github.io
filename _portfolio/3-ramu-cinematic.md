@@ -10,13 +10,19 @@ header:
 </video>
 
 Anime Shader
-![Ramu screenshot 1](/assets/images/ramu/ramu2.png)
+<div style="text-align: center;">
+  <img src="/assets/images/ramu/ramu2.png" alt="Ramu screenshot 1">
+</div>
 
 Electricity Shader Effect
-![Ramu screenshot 1](/assets/images/ramu/ramu3.png)
+<div style="text-align: center;">
+  <img src="/assets/images/ramu/ramu3.png" alt="Ramu screenshot 1">
+</div>
 
 3D modeling in Blender
-![Ramu screenshot 1](/assets/images/ramu/ramu4.png)
+<div style="text-align: center;">
+  <img src="/assets/images/ramu/ramu4.png" alt="Ramu screenshot 1">
+</div>
 
 Rigged the character and made an animation
 <video width="100%" controls>

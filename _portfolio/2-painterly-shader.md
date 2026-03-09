@@ -18,10 +18,14 @@ This is implemented through a anisotrophic kuwahara filter, which perfectly rema
 ### Custom Normal Map
 I also created a hand-painted normal map on certain objects such that light doesn't reflect based on the hardsurface normal.
 
-![Painterly screenshot 2](/assets/images/painterly/painterly3.png)
+<div style="text-align: center;">
+  <img src="/assets/images/painterly/painterly3.png" alt="Painterly screenshot 2">
+</div>
 
 ### Painterly-like Textures
 A great technique of adding more details to the scene is to add noise (color variations) to some objects. 
 
-![Painterly screenshot 1](/assets/images/painterly/painterly2.png)
+<div style="text-align: center;">
+  <img src="/assets/images/painterly/painterly2.png" alt="Painterly screenshot 1">
+</div>
 <p class="caption">The color on the wall is noised.</p>
