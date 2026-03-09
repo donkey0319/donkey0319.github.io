@@ -1,18 +1,19 @@
 ---
-title: "About"
+title: 
 permalink: /
 layout: single
 author_profile: true
 ---
 
-{: .align-center}
-![Welcome](/assets/images/pfp.png)
+<div style="text-align:center;">
+  <img src="/assets/images/pfp.png" alt="Welcome">
+</div>
 
 
 ## Background
-I'm Victor Lu, a passionate Game Developer and Technical Artist based in Pittsburgh. I was studying Computer Engineering in college, and I am now focusing in technical art in game development.
+I'm Victor Lu, a passionate Game Developer and <span style="color:orange;">Technical Artist</span> based in Pittsburgh. I was studying Computer Engineering in college, and I am now focusing in technical art in game development, especially in <span style="color:orange;">shaders</span>, <span style="color:orange;">rendering</span>, and <span style="color:orange;">technical animation</span>.
 
-## Skills
+## Past Work
 
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
     {% include portfolio-item.html
@@ -31,12 +32,8 @@ I'm Victor Lu, a passionate Game Developer and Technical Artist based in Pittsbu
         title="Modeling, Rigging, and Animation" %}
     
     {% include portfolio-item.html
-        link="/portfolio/1-cafebabe-pekora/"
-        image="/assets/images/pekora/cafebabe-pekora-header.jpg"
-        title="Texturing" %}
-    
-    {% include portfolio-item.html
-        link="/portfolio/1-cafebabe-pekora/"
-        image="/assets/images/pekora/cafebabe-pekora-header.jpg"
+        link="/portfolio/4-mocap-addon/"
+        image="/assets/images/mocap/mocap.gif"
         title="Technical Animation" %}
+    
 </div>

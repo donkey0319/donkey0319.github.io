@@ -1,6 +1,4 @@
-<div>
-  <a href="{{ include.link }}">
-    <img src="{{ include.image }}" alt="{{ include.title }}" style="margin-bottom:0.5rem;">
-  </a>
-  <a href="{{ include.link }}"><p>{{ include.title }}</p></a>
-</div>
+<a href="{{ include.link }}" style="display:block; background-color:#545454; border-radius:6px; padding:1.5rem; text-decoration:none;">
+  <img src="{{ include.image }}" alt="{{ include.title }}" style="margin-bottom:0.5rem; width:100%;">
+  <p style="text-align:center; color:#ffffff">{{ include.title }}</p>
+</a>
