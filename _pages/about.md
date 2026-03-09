@@ -17,7 +17,7 @@ I'm Victor Lu, a passionate Game Developer and Technical Artist based in Pittsbu
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
     {% include portfolio-item.html
         link="/portfolio/1-cafebabe-pekora/"
-        image="/assets/images/pekora/cafebabe-pekora-header.jpg"
+        image="/assets/images/pekora/faceshadow.gif"
         title="Rendering" %}
 
     {% include portfolio-item.html
