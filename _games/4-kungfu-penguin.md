@@ -26,3 +26,17 @@ The players goal is to bring as many stones as possible back to their house with
 There are also random events which can knock off penguins from the arena!
 
 ## Work
+
+I was mainly working on the 3D modeling and animation for the project. I modeled, rigged, and animated the penguin. Here are some animation clips I made.
+
+<video controls width="100%">
+  <source src="/assets/videos/kungfupenguin/penguinAnimation (1).mp4" type="video/mp4">
+</video>
+
+<video controls width="100%">
+  <source src="/assets/videos/kungfupenguin/penguinAnimation (2).mp4" type="video/mp4">
+</video>
+
+<video controls width="100%">
+  <source src="/assets/videos/kungfupenguin/penguinAnimation (3).mp4" type="video/mp4">
+</video>

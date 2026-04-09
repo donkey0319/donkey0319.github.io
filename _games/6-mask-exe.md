@@ -18,3 +18,9 @@ We designed a puzzle in which the players have to fill the area with blocks. If 
 ![MaskEXE screenshot 1](/assets/images/maskexe/mask2.png)
 
 ## Work
+
+I was mainly working on the final 3D scene of the game. I worked on 3D modeling for all objects, texturing, lighting, and post-process filtering.
+
+![MaskEXE screenshot 1](/assets/images/maskexe/mask.png)
+
+In addition to art, I also worked on the audio script and some program aspect of the game, including camera controlling and some tweening animations.
