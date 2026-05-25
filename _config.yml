@@ -304,7 +304,7 @@ defaults:
       author_profile: true
       read_time: true
       comments: # true
-      share: true
+      share: false
       related: true
   # _portfolio
   - scope:
@@ -312,13 +312,13 @@ defaults:
       type: portfolio
     values:
       layout: single
-      author_profile: true
-      share: true
+      author_profile: false
+      share: false
   # _games
   - scope:
       path: ""
       type: games
     values:
       layout: single
-      author_profile: true
-      share: true
+      author_profile: false
+      share: false

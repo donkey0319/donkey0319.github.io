@@ -5,6 +5,9 @@ search: false
 
 @charset "utf-8";
 
+$right-sidebar-width-narrow: 160px;
+$right-sidebar-width: 200px;
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
@@ -61,17 +64,3 @@ search: false
   font-size: 0.5em;
 }
 
-// Remove sidebar gap on portfolio page
-.wide {
-  .page__content,
-  .archive {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 0 !important;
-    float: none !important;
-  }
-
-  .sidebar {
-    display: none !important;
-  }
-}
