@@ -57,6 +57,16 @@ $right-sidebar-width: 200px;
   }
 }
 
+// Portfolio glass card
+.portfolio-glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
 // Caption style
 .caption {
   text-align: center;

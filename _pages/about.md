@@ -15,7 +15,7 @@ I'm Victor Lu, a passionate Game Developer and <span style="color:orange;">Techn
 
 ## Past Work
 
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:stretch;">
     {% include portfolio-item.html
         link="/portfolio/1-cafebabe-pekora/"
         image="/assets/images/pekora/faceshadow.gif"
