@@ -11,6 +11,21 @@ $right-sidebar-width: 200px;
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
+// Page fade transition (class added by JS so pages stay visible if JS fails)
+html.has-page-fade body {
+  opacity: 0;
+
+  &.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  &.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+
 // Override portfolio grid - force 2 columns
 .wide .archive {
   .entries-grid {
@@ -75,6 +90,14 @@ $right-sidebar-width: 200px;
   .archive__item-title {
     font-size: 1.25em;
     margin-top: 0.75em;
+
+    a {
+      text-decoration: none !important;
+    }
+  }
+
+  .archive__item-excerpt {
+    opacity: 0.85;
   }
 }
 
