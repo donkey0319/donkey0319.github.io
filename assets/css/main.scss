@@ -11,8 +11,10 @@ $right-sidebar-width: 200px;
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
-// Page fade transition (class added by JS so pages stay visible if JS fails)
-html.has-page-fade body {
+// Page fade transition — content only, not the masthead nav or the sidebar
+// (class added by JS so content stays visible if JS fails)
+html.has-page-fade #main > article.page,
+html.has-page-fade #main > .archive {
   opacity: 0;
 
   &.fade-in {

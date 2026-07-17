@@ -4,7 +4,12 @@
 (function () {
   var FADE_MS = 300;
 
-  document.body.classList.add('fade-in');
+  function fadeTarget() {
+    return document.querySelector('#main > article.page, #main > .archive');
+  }
+
+  var target = fadeTarget();
+  if (target) target.classList.add('fade-in');
 
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a');
@@ -18,9 +23,12 @@
     if (url.origin !== window.location.origin) return;
     if (url.pathname === window.location.pathname && url.hash) return;
 
+    var current = fadeTarget();
+    if (!current) return;
+
     e.preventDefault();
-    document.body.classList.remove('fade-in');
-    document.body.classList.add('fade-out');
+    current.classList.remove('fade-in');
+    current.classList.add('fade-out');
     setTimeout(function () {
       window.location = link.href;
     }, FADE_MS);
@@ -28,8 +36,11 @@
 
   window.addEventListener('pageshow', function (e) {
     if (e.persisted) {
-      document.body.classList.remove('fade-out');
-      document.body.classList.add('fade-in');
+      var restored = fadeTarget();
+      if (restored) {
+        restored.classList.remove('fade-out');
+        restored.classList.add('fade-in');
+      }
     }
   });
 })();
