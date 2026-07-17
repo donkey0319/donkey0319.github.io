@@ -13,26 +13,47 @@ $right-sidebar-width: 200px;
 
 // Override portfolio grid - force 2 columns
 .wide .archive {
+  .entries-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+  }
+
   .list__item,
   .grid__item {
+    display: flex !important;
     width: 47% !important;
-    float: left !important;
     margin-left: 0% !important;
     margin-right: 2% !important;
     margin-bottom: 2em !important;
-    clear: left !important;
 
     &:nth-child(2n) {
       margin-right: 0 !important;
-      clear: none !important;
     }
 
     @media (max-width: 768px) {
       width: 100% !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
-      float: none !important;
-      clear: none !important;
+    }
+  }
+
+  .archive__item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
     }
   }
 
