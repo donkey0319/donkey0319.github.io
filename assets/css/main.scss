@@ -11,7 +11,40 @@ $right-sidebar-width: 200px;
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
-// Page fade transition — content only, not the masthead nav or the sidebar
+// Native cross-document page transition (Chromium). Browsers without support
+// simply ignore this and fall back to the JS fade below.
+@view-transition {
+  navigation: auto;
+}
+
+// Pull the masthead and sidebar into their own named groups so they don't
+// take part in the root crossfade below — they stay static across the
+// transition, matching the JS fallback (content only fades).
+.masthead {
+  view-transition-name: vt-masthead;
+}
+
+.sidebar {
+  view-transition-name: vt-sidebar;
+}
+
+::view-transition-old(vt-masthead),
+::view-transition-new(vt-masthead),
+::view-transition-old(vt-sidebar),
+::view-transition-new(vt-sidebar) {
+  animation: none;
+}
+
+// Everything left in the root group (page content, background) does a
+// simple crossfade, timed to match the old JS fade.
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+}
+
+// Fallback fade transition for browsers without view-transition support —
+// content only, not the masthead nav or the sidebar
 // (class added by JS so content stays visible if JS fails)
 html.has-page-fade #main > article.page,
 html.has-page-fade #main > .archive {

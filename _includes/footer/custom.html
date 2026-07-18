@@ -2,6 +2,11 @@
 
 <script>
 (function () {
+  // Browsers that support native cross-document view transitions handle the
+  // whole crossfade themselves (see @view-transition in main.scss) — skip
+  // the manual fade-then-navigate dance entirely so links stay instant.
+  if ('startViewTransition' in document) return;
+
   var FADE_MS = 300;
 
   function fadeTarget() {

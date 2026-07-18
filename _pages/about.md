@@ -11,7 +11,7 @@ author_profile: true
 
 
 ## Background
-I'm Victor Lu, a passionate Game Developer and <span style="color:orange;">Technical Artist</span> based in Pittsburgh. I was studying Computer Engineering in college, and I am now focusing in technical art in game development, especially in <span style="color:orange;">shaders</span>, <span style="color:orange;">rendering</span>, and <span style="color:orange;">technical animation</span>.
+I'm Victor Lu, a passionate Game Developer and <span style="color:orange;">Technical Artist</span> based in Pittsburgh. I was studying Computer Engineering, and I am now focusing in technical art in game development, especially in <span style="color:orange;">shaders</span>, <span style="color:orange;">rendering</span>, and <span style="color:orange;">technical animation</span>.
 
 ## Past Work
 

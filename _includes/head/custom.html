@@ -2,6 +2,13 @@
 
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
-<script>document.documentElement.classList.add('has-page-fade');</script>
+<script>
+  // Only use the JS fade fallback in browsers without native cross-document
+  // view transitions (see main.scss for the @view-transition rule) — pairing
+  // both would fade the content out twice.
+  if (!('startViewTransition' in document)) {
+    document.documentElement.classList.add('has-page-fade');
+  }
+</script>
 
 <!-- end custom head snippets -->
