@@ -16,23 +16,23 @@ I'm Victor Lu, a passionate Game Developer and <span style="color:orange;">Techn
 ## Past Work
 
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:stretch;">
-    {% include portfolio-item.html
-        link="/portfolio/1-cafebabe-pekora/"
+    {% include artwork-item.html
+        link="/artwork/1-cafebabe-pekora/"
         image="/assets/images/pekora/faceshadow.gif"
         title="Rendering" %}
 
-    {% include portfolio-item.html
-        link="/portfolio/2-painterly-shader/"
+    {% include artwork-item.html
+        link="/artwork/2-painterly-shader/"
         image="/assets/images/painterly/painterly.png"
         title="Shader Programming" %}
 
-    {% include portfolio-item.html
-        link="/portfolio/3-ramu-cinematic/"
+    {% include artwork-item.html
+        link="/artwork/3-ramu-cinematic/"
         image="/assets/images/ramu/ramu.gif"
         title="Modeling, Rigging, and Animation" %}
     
-    {% include portfolio-item.html
-        link="/portfolio/4-mocap-addon/"
+    {% include artwork-item.html
+        link="/artwork/4-mocap-addon/"
         image="/assets/images/mocap/mocap.gif"
         title="Technical Animation" %}
     

@@ -61,7 +61,7 @@ html.has-page-fade #main > .archive {
   }
 }
 
-// Override portfolio grid - force 2 columns
+// Override games/artwork grid - force 2 columns
 .wide .archive {
   .entries-grid {
     display: flex !important;
@@ -136,8 +136,8 @@ html.has-page-fade #main > .archive {
   }
 }
 
-// Portfolio glass card
-.portfolio-glass-card {
+// Artwork glass card
+.artwork-glass-card {
   background: rgba(255, 255, 255, 0.08);
   transition: background 0.2s ease;
 
