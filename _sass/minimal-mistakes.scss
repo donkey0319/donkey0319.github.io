@@ -35,3 +35,49 @@
 @import "minimal-mistakes/archive";
 @import "minimal-mistakes/sidebar";
 @import "minimal-mistakes/print";
+
+/* ==========================================================================
+   CUSTOM: centered collection grid (Portfolio / Games pages)
+   ========================================================================== */
+
+.centered-grid {
+  .archive {
+    @include breakpoint($large) {
+      float: none;
+      width: 100%;
+      padding-inline-end: 0;
+    }
+
+    @include breakpoint($x-large) {
+      width: 100%;
+      padding-inline-end: 0;
+    }
+
+    > .page__title,
+    > p {
+      text-align: center;
+    }
+  }
+
+  .entries-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+  }
+
+  .grid__item {
+    float: none;
+    clear: none;
+    margin-inline: 0;
+    width: 100%;
+
+    @include breakpoint($small) {
+      width: calc(50% - 0.75em);
+    }
+
+    @include breakpoint($medium) {
+      width: calc(25% - 1.125em);
+    }
+  }
+}

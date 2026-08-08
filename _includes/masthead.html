@@ -21,6 +21,20 @@
               >{{ link.title }}</a>
             </li>
           {%- endfor -%}
+          {%- if site.author.email or site.author.links -%}
+            <li class="masthead__menu-item" style="display:flex; align-items:center;">
+              {%- if site.author.email -%}
+                <a href="mailto:{{ site.author.email }}" aria-label="Email" title="Email" style="margin-inline:0.3rem;"><i class="fas fa-envelope-square" aria-hidden="true"></i></a>
+              {%- endif -%}
+              {%- if site.author.links -%}
+                {%- for link in site.author.links -%}
+                  {%- if link.label and link.url -%}
+                    <a href="{{ link.url }}" rel="nofollow noopener noreferrer me" target="_blank" aria-label="{{ link.label }}" title="{{ link.label }}" style="margin-inline:0.3rem;"><i class="{{ link.icon | default: 'fas fa-link' }}" aria-hidden="true"></i></a>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </li>
+          {%- endif -%}
         </ul>
         {% if site.search == true %}
         <button class="search__toggle" type="button">

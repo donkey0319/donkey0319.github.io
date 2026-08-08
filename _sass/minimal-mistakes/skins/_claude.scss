@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Claude skin
+   Dark, warm palette based on Anthropic's brand guidelines
+   ========================================================================== */
+
+/* Brand accents (not used by the theme directly, handy for custom overrides) */
+$claude-orange: #d97757 !default;
+$claude-blue: #6a9bcc !default;
+$claude-green: #788c5d !default;
+$claude-mid-gray: #b0aea5 !default;
+$claude-light-gray: #e8e6dc !default;
+
+/* Colors */
+$background-color: #141413 !default;
+$text-color: #faf9f5 !default;
+$primary-color: $claude-orange !default;
+$border-color: mix($claude-light-gray, $background-color, 18%) !default;
+$code-background-color: mix(#000, $background-color, 20%) !default;
+$code-background-color-dark: mix(#000, $background-color, 30%) !default;
+$form-background-color: mix(#000, $background-color, 20%) !default;
+$footer-background-color: mix(#000, $background-color, 35%) !default;
+$link-color: mix($primary-color, $text-color, 55%) !default;
+$link-color-hover: mix(#fff, $link-color, 20%) !default;
+$link-color-visited: mix(#000, $link-color, 25%) !default;
+$masthead-link-color: $text-color !default;
+$masthead-link-color-hover: $claude-orange !default;
+$navicon-link-color-hover: mix(#000, $background-color, 30%) !default;
+
+.author__urls.social-icons i,
+.author__urls.social-icons .svg-inline--fa,
+.page__footer-follow .social-icons i,
+.page__footer-follow .social-icons .svg-inline--fa  {
+  color: inherit;
+}
+
+.ais-search-box .ais-search-box--input {
+  background-color: $form-background-color;
+}

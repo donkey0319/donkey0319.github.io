@@ -8,6 +8,24 @@ search: false
 $right-sidebar-width-narrow: 160px;
 $right-sidebar-width: 200px;
 
+// Claude-inspired typography: Poppins for headings, Lora for body copy
+$header-font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+$sans-serif-narrow: $header-font-family;
+$global-font-family: 'Lora', Georgia, "Times New Roman", serif;
+$caption-font-family: $global-font-family;
+
+// Softer, more rounded corners + a warmer ambient shadow, matching Claude's UI
+$border-radius: 10px;
+$box-shadow: 0 2px 10px rgba(20, 20, 19, 0.35);
+
+// Anthropic brand accents (fallback definitions so custom rules below still
+// compile even if the skin is switched away from "claude" later)
+$claude-orange: #d97757 !default;
+$claude-blue: #6a9bcc !default;
+$claude-green: #788c5d !default;
+$claude-mid-gray: #b0aea5 !default;
+$claude-light-gray: #e8e6dc !default;
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
@@ -93,17 +111,18 @@ html.has-page-fade #main > .archive {
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(250, 249, 245, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-    border-radius: 6px;
+    border: 1px solid rgba(217, 119, 87, 0.25);
+    box-shadow: 0 4px 24px rgba(20, 20, 19, 0.35);
+    border-radius: $border-radius;
     padding: 1.5rem;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(250, 249, 245, 0.09);
+      border-color: rgba(217, 119, 87, 0.45);
     }
   }
 
@@ -138,18 +157,20 @@ html.has-page-fade #main > .archive {
 
 // Portfolio glass card
 .portfolio-glass-card {
-  background: rgba(255, 255, 255, 0.08);
-  transition: background 0.2s ease;
+  background: rgba(250, 249, 245, 0.05);
+  border-color: rgba(217, 119, 87, 0.25) !important;
+  transition: background 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(250, 249, 245, 0.09);
+    border-color: rgba(217, 119, 87, 0.45) !important;
   }
 }
 
 // Caption style
 .caption {
   text-align: center;
-  color: #aaaaaa;
+  color: $claude-mid-gray;
   font-size: 0.5em;
 }
 
