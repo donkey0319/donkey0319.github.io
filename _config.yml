@@ -286,7 +286,7 @@ compress_html:
 
 # Collections
 collections:
-  portfolio:
+  artwork:
     output: true
     permalink: /:collection/:path/
   games:
@@ -306,10 +306,10 @@ defaults:
       comments: # true
       share: false
       related: true
-  # _portfolio
+  # _artwork
   - scope:
       path: ""
-      type: portfolio
+      type: artwork
     values:
       layout: single
       author_profile: false

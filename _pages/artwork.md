@@ -1,8 +1,8 @@
 ---
-title: "Portfolio"
-permalink: /portfolio/
+title: "Artwork"
+permalink: /artwork/
 layout: collection
-collection: portfolio
+collection: artwork
 entries_layout: grid
 classes: wide centered-grid
 author_profile: false
