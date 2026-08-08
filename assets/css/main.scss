@@ -53,12 +53,36 @@ $claude-light-gray: #e8e6dc !default;
   animation: none;
 }
 
-// Everything left in the root group (page content, background) does a
-// simple crossfade, timed to match the old JS fade.
-::view-transition-old(root),
+// Everything left in the root group (page content, background) gets a soft
+// fade + drift instead of the browser's default crossfade — outgoing content
+// eases up and out, incoming content eases in from just below.
+@keyframes vt-page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes vt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 0.32s cubic-bezier(0.4, 0, 0.2, 1) both vt-page-out;
+}
+
 ::view-transition-new(root) {
-  animation-duration: 0.3s;
-  animation-timing-function: ease;
+  animation: 0.32s cubic-bezier(0.4, 0, 0.2, 1) both vt-page-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 // Fallback fade transition for browsers without view-transition support —
@@ -67,15 +91,33 @@ $claude-light-gray: #e8e6dc !default;
 html.has-page-fade #main > article.page,
 html.has-page-fade #main > .archive {
   opacity: 0;
+  transform: translateY(10px);
 
   &.fade-in {
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transform: translateY(0);
+    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &.fade-out {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transform: translateY(-10px);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-page-fade #main > article.page,
+  html.has-page-fade #main > .archive {
+    opacity: 1;
+    transform: none;
+
+    &.fade-in,
+    &.fade-out {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 }
 
@@ -118,11 +160,16 @@ html.has-page-fade #main > .archive {
     box-shadow: 0 4px 24px rgba(20, 20, 19, 0.35);
     border-radius: $border-radius;
     padding: 1.5rem;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
       background: rgba(250, 249, 245, 0.09);
       border-color: rgba(217, 119, 87, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(20, 20, 19, 0.45);
     }
   }
 
@@ -138,7 +185,12 @@ html.has-page-fade #main > .archive {
       height: auto !important;
       max-height: none !important;
       object-fit: contain !important;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+  }
+
+  .archive__item:hover .archive__item-teaser img {
+    transform: scale(1.05);
   }
 
   .archive__item-title {
@@ -159,11 +211,16 @@ html.has-page-fade #main > .archive {
 .portfolio-glass-card {
   background: rgba(250, 249, 245, 0.05);
   border-color: rgba(217, 119, 87, 0.25) !important;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     background: rgba(250, 249, 245, 0.09);
     border-color: rgba(217, 119, 87, 0.45) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(20, 20, 19, 0.45);
   }
 }
 
@@ -172,5 +229,89 @@ html.has-page-fade #main > .archive {
   text-align: center;
   color: $claude-mid-gray;
   font-size: 0.5em;
+}
+
+// ==========================================================================
+// Micro-interactions
+// ==========================================================================
+
+// Nav links: underline grows in on hover/focus
+.masthead__menu-item {
+  a:not([aria-label]) {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: $claude-orange;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      width: 100%;
+    }
+  }
+
+  // Contact icons: gentle pop on hover/focus
+  a[aria-label] i {
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  }
+
+  a[aria-label]:hover i,
+  a[aria-label]:focus-visible i {
+    transform: scale(1.15);
+  }
+}
+
+// Buttons: light tactile press
+.btn {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 14px rgba(20, 20, 19, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .masthead__menu-item a:not([aria-label])::after,
+  .masthead__menu-item a[aria-label] i,
+  .btn {
+    transition: none !important;
+  }
+}
+
+// ==========================================================================
+// Scroll reveal
+// (`.reveal-pending` is only added by JS — see footer/custom.html — so
+// content stays visible by default if JavaScript fails to run)
+// ==========================================================================
+
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pending {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
