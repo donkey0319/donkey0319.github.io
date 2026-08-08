@@ -2,7 +2,7 @@
 title: "Granny's Gift"
 excerpt: "An arcade simulation where Granny and Grandpa wrap Christmas gifts for their grandchildren using Unity and XBox Adaptive Controllers."
 header:
-  teaser: /assets/images/grannygift/grannygift_1.png
+  teaser: /assets/images/grannygift/grannygift_1-teaser.jpg
 ---
 
 ## Gameplay Video

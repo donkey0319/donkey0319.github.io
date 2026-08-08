@@ -2,7 +2,7 @@
 title: "Kung-Fu Penguin"
 excerpt: "A party game using a special hardware where 4 players compete against each other to become the penguin king!"
 header:
-  teaser: /assets/images/kungfupenguin/penguin1.png
+  teaser: /assets/images/kungfupenguin/penguin1-teaser.jpg
 ---
 
 ## Gameplay Video

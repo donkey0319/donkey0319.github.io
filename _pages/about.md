@@ -18,7 +18,8 @@ I'm Victor Lu, a passionate Game Developer and <span style="color:#d97757;">Tech
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:stretch;">
     {% include artwork-item.html
         link="/artwork/1-cafebabe-pekora/"
-        image="/assets/images/pekora/faceshadow.gif"
+        image="/assets/images/pekora/faceshadow-poster.jpg"
+        video="/assets/videos/pekora/faceshadow-teaser.mp4"
         title="Rendering" %}
 
     {% include artwork-item.html
@@ -28,12 +29,14 @@ I'm Victor Lu, a passionate Game Developer and <span style="color:#d97757;">Tech
 
     {% include artwork-item.html
         link="/artwork/3-ramu-cinematic/"
-        image="/assets/images/ramu/ramu.gif"
+        image="/assets/images/ramu/ramu-poster.jpg"
+        video="/assets/videos/ramu/ramu-teaser.mp4"
         title="Modeling, Rigging, and Animation" %}
     
     {% include artwork-item.html
         link="/artwork/4-mocap-addon/"
-        image="/assets/images/mocap/mocap.gif"
+        image="/assets/images/mocap/mocap-poster.jpg"
+        video="/assets/videos/mocap/mocap-teaser.mp4"
         title="Technical Animation" %}
     
 </div>

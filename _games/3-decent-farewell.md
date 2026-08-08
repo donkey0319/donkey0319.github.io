@@ -2,7 +2,7 @@
 title: "A Decent Farewell"
 excerpt: "A short VR experience where players play as an undertaker dressing up a corpse."
 header:
-  teaser: /assets/images/decentfarewell/farewell.png
+  teaser: /assets/images/decentfarewell/farewell-teaser.jpg
 ---
 
 ## Gameplay Video

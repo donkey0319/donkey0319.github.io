@@ -1,4 +1,8 @@
-<a href="{{ include.link }}" class="artwork-glass-card" style="display:flex; flex-direction:column; height:100%; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.18); box-shadow:0 4px 24px rgba(0,0,0,0.15); border-radius:6px; padding:1.5rem; text-decoration:none;">
-  <img src="{{ include.image }}" alt="{{ include.title }}" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;">
+<a href="{{ include.link }}" class="artwork-glass-card" style="display:flex; flex-direction:column; height:100%; border:1px solid rgba(217,119,87,0.25); box-shadow:0 4px 24px rgba(20,20,19,0.35); border-radius:6px; padding:1.5rem; text-decoration:none;">
+  {% if include.video %}
+    <video src="{{ include.video }}" poster="{{ include.image }}" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;" autoplay muted loop playsinline preload="auto"></video>
+  {% else %}
+    <img src="{{ include.image }}" alt="{{ include.title }}" loading="lazy" decoding="async" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;">
+  {% endif %}
   <p style="text-align:center; color:#ffffff">{{ include.title }}</p>
 </a>

@@ -53,29 +53,19 @@ $claude-light-gray: #e8e6dc !default;
   animation: none;
 }
 
-// Everything left in the root group (page content, background) gets a soft
-// fade + drift instead of the browser's default crossfade — outgoing content
-// eases up and out, incoming content eases in from just below.
-@keyframes vt-page-out {
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes vt-page-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-}
-
+// Everything left in the root group (page content, background) gets a quick
+// opacity crossfade — kept deliberately short and transform-free. This
+// animation runs on *every* navigation at the exact moment the new page is
+// also laying out fonts/JS, so a longer or heavier animation here directly
+// delays how soon scrolling feels responsive after switching pages.
 ::view-transition-old(root) {
-  animation: 0.32s cubic-bezier(0.4, 0, 0.2, 1) both vt-page-out;
+  animation-duration: 0.12s;
+  animation-timing-function: ease-out;
 }
 
 ::view-transition-new(root) {
-  animation: 0.32s cubic-bezier(0.4, 0, 0.2, 1) both vt-page-in;
+  animation-duration: 0.12s;
+  animation-timing-function: ease-in;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -91,18 +81,15 @@ $claude-light-gray: #e8e6dc !default;
 html.has-page-fade #main > article.page,
 html.has-page-fade #main > .archive {
   opacity: 0;
-  transform: translateY(10px);
 
   &.fade-in {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.12s ease-in;
   }
 
   &.fade-out {
     opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.12s ease-out;
   }
 }
 
@@ -110,12 +97,10 @@ html.has-page-fade #main > .archive {
   html.has-page-fade #main > article.page,
   html.has-page-fade #main > .archive {
     opacity: 1;
-    transform: none;
 
     &.fade-in,
     &.fade-out {
       opacity: 1;
-      transform: none;
       transition: none;
     }
   }
@@ -153,9 +138,7 @@ html.has-page-fade #main > .archive {
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
-    background: rgba(250, 249, 245, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(250, 249, 245, 0.06);
     border: 1px solid rgba(217, 119, 87, 0.25);
     box-shadow: 0 4px 24px rgba(20, 20, 19, 0.35);
     border-radius: $border-radius;
@@ -207,9 +190,9 @@ html.has-page-fade #main > .archive {
   }
 }
 
-// Portfolio glass card
-.portfolio-glass-card {
-  background: rgba(250, 249, 245, 0.05);
+// Artwork glass card
+.artwork-glass-card {
+  background: rgba(250, 249, 245, 0.06);
   border-color: rgba(217, 119, 87, 0.25) !important;
   transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
@@ -291,27 +274,17 @@ html.has-page-fade #main > .archive {
 }
 
 // ==========================================================================
-// Scroll reveal
-// (`.reveal-pending` is only added by JS — see footer/custom.html — so
-// content stays visible by default if JavaScript fails to run)
+// Content top spacing
+// Adjust the two values below to change the gap between the masthead and
+// where content starts. First rule = single pages (About, Artwork detail
+// pages). Second rule = archive/grid pages (Artwork grid, Games grid).
 // ==========================================================================
 
-.reveal-pending {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &.is-revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.page .page__inner-wrap {
+  margin-top: 2.5em;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal-pending {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+.archive {
+  margin-top: 2.5em;
 }
 

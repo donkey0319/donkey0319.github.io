@@ -8,7 +8,7 @@
   if ('startViewTransition' in document) return;
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var FADE_MS = reduceMotion ? 0 : 320;
+  var FADE_MS = reduceMotion ? 0 : 120;
 
   function fadeTarget() {
     return document.querySelector('#main > article.page, #main > .archive');
@@ -49,40 +49,6 @@
       }
     }
   });
-})();
-</script>
-
-<script>
-(function () {
-  // Fade + rise cards into view as they scroll onscreen. Everything stays
-  // visible by default (no CSS hides anything up front) — this only adds
-  // the "start hidden" class once JS has actually run and can observe it,
-  // so a JS failure never leaves content stuck invisible.
-  if (!('IntersectionObserver' in window)) return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var targets = document.querySelectorAll('.archive__item, .portfolio-glass-card');
-  if (!targets.length) return;
-
-  // Stagger siblings within the same grid/list so cards don't all pop at once.
-  var seen = new Map();
-  targets.forEach(function (el) {
-    el.classList.add('reveal-pending');
-    var parent = el.closest('.entries-grid, .entries-list') || el.parentNode;
-    var index = seen.get(parent) || 0;
-    el.style.transitionDelay = Math.min(index * 70, 280) + 'ms';
-    seen.set(parent, index + 1);
-  });
-
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-revealed');
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-
-  targets.forEach(function (el) { observer.observe(el); });
 })();
 </script>
 

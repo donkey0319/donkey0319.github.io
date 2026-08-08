@@ -2,7 +2,7 @@
 title: "Ginger Air"
 excerpt: "A competitive game where two gingerbread man deliver as many gifts as possible to become the best helper for Santa!"
 header:
-  teaser: /assets/images/gingerair/ginger.png
+  teaser: /assets/images/gingerair/ginger-teaser.jpg
 ---
 
 ## Gameplay Video

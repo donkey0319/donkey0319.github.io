@@ -2,7 +2,7 @@
 title: "Ramu Cinematic"
 excerpt: "#UE5 #Shader #Character Modeling #Character Animation #Rigging"
 header:
-  teaser: /assets/images/ramu/ramu.gif
+  teaser: /assets/images/ramu/ramu-poster.jpg
 ---
 
 <video width="100%" controls>

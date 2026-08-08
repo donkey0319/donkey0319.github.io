@@ -2,7 +2,7 @@
 title: "Mask.exe"
 excerpt: "A horror puzzle game unveiling the secret of the program."
 header:
-  teaser: /assets/images/maskexe/mask.png
+  teaser: /assets/images/maskexe/mask-teaser.jpg
 ---
 
 [Play on itch.io](https://donkey0319.itch.io/maskexe)
