@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><link href="https://donkey0319.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://donkey0319.github.io/" rel="alternate" type="text/html" /><updated>2026-10-17T18:25:47-04:00</updated><id>https://donkey0319.github.io/feed.xml</id><title type="html">Victor’s Website</title><subtitle>A website showing Victor&apos;s work!</subtitle><author><name>Victor Lu</name><email>vclu@andrew.cmu.edu</email></author><entry><title type="html">Welcome to My Site</title><link href="https://donkey0319.github.io/welcome-to-my-site/" rel="alternate" type="text/html" title="Welcome to My Site" /><published>2026-02-10T00:00:00-05:00</published><updated>2026-02-10T00:00:00-05:00</updated><id>https://donkey0319.github.io/welcome-to-my-site</id><content type="html" xml:base="https://donkey0319.github.io/welcome-to-my-site/"><![CDATA[<p>Welcome to my personal website! I’m Victor Lu, a passionate game developer and technical artist based in Pittsburgh.</p>
+
+<h2 id="what-youll-find-here">What You’ll Find Here</h2>
+
+<p>I’ll be sharing my journey in game development, including:</p>
+
+<ul>
+  <li><strong>Game Projects</strong> - Breakdowns of games I’m working on</li>
+  <li><strong>Technical Art</strong> - Shaders, VFX, and rendering techniques</li>
+  <li><strong>Tutorials</strong> - Tips and tricks I’ve learned along the way</li>
+</ul>
+
+<p>Stay tuned for more updates!</p>]]></content><author><name>Victor Lu</name><email>vclu@andrew.cmu.edu</email></author><summary type="html"><![CDATA[Welcome to my personal website! I’m Victor Lu, a passionate game developer and technical artist based in Pittsburgh.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://donkey0319.github.io/assets/images/cafebabe-pekora-header.jpg" /><media:content medium="image" url="https://donkey0319.github.io/assets/images/cafebabe-pekora-header.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en-US" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Victor’s Website</title>
+  <meta name="description" content="A website showing Victor’s work!">
+  <meta name="author" content="Victor Lu">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Victor's Website">
+  <meta property="og:title" content="Victor’s Website">
+  <meta property="og:url" content="https://donkey0319.github.io/">
+  <meta property="og:description" content="A website showing Victor’s work!">
+  <link rel="canonical" href="https://donkey0319.github.io/">
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Victor's Website Feed">
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+    // Only use the JS fade fallback in browsers without native cross-document
+    // view transitions (see site.css for the @view-transition rule) — pairing
+    // both would fade the content out twice.
+    if (!('startViewTransition' in document)) {
+      document.documentElement.classList.add('has-page-fade');
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/theme.css">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+  <!-- Claude-inspired typography: Poppins for headings, Lora for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="layout--single" dir="ltr">
+  <nav class="skip-links">
+    <ul>
+      <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+      <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+      <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+    </ul>
+  </nav>
+
+  <div class="masthead">
+    <div class="masthead__inner-wrap">
+      <div class="masthead__menu">
+        <nav id="site-nav" class="greedy-nav">
+          <a class="site-title" href="/">Victor's Website</a>
+          <ul class="visible-links">
+            <li class="masthead__menu-item"><a href="/">About</a></li>
+            <li class="masthead__menu-item"><a href="/games/">Games</a></li>
+            <li class="masthead__menu-item"><a href="/artwork/">Artwork</a></li>
+            <li class="masthead__menu-item" style="display:flex; align-items:center;">
+              <a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email" style="margin-inline:0.3rem;"><i class="fas fa-envelope-square" aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/victor-chan-lu/" rel="nofollow noopener noreferrer me" target="_blank" aria-label="LinkedIn" title="LinkedIn" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i></a>
+              <a href="https://www.artstation.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="ArtStation" title="ArtStation" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-artstation" aria-hidden="true"></i></a>
+              <a href="https://github.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="GitHub" title="GitHub" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-github" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+          <button class="greedy-nav__toggle hidden" type="button">
+            <span class="visually-hidden">Toggle menu</span>
+            <div class="navicon"></div>
+          </button>
+          <ul class="hidden-links hidden"></ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="initial-content">
+    <div id="main" role="main">
+      <div class="sidebar sticky">
+        <div itemscope itemtype="https://schema.org/Person" class="h-card">
+          <div class="author__content"></div>
+          <div class="author__urls-wrapper">
+            <button class="btn btn--inverse">Follow</button>
+            <ul class="author__urls social-icons"></ul>
+          </div>
+        </div>
+      </div>
+
+      <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+        <div class="page__inner-wrap">
+          <header></header>
+
+          <section class="page__content" itemprop="text">
+            <div style="text-align:center;">
+              <img src="/assets/images/pfp.png" alt="Welcome">
+            </div>
+
+            <h2 id="background">Background</h2>
+            <p>I’m Victor Lu, a passionate Game Developer and <span style="color:#d97757;">Technical Artist</span> based in Pittsburgh. I was studying Computer Engineering, and I am now focusing in technical art in game development, especially in <span style="color:#d97757;">shaders</span>, <span style="color:#d97757;">rendering</span>, and <span style="color:#d97757;">technical animation</span>.</p>
+
+            <h2 id="past-work">Past Work</h2>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:stretch;">
+              <a href="/artwork/1-cafebabe-pekora/" class="artwork-glass-card" style="display:flex; flex-direction:column; height:100%; border:1px solid rgba(217,119,87,0.25); box-shadow:0 4px 24px rgba(20,20,19,0.35); border-radius:6px; padding:1.5rem; text-decoration:none;">
+                <video src="/assets/videos/pekora/faceshadow-teaser.mp4" poster="/assets/images/pekora/faceshadow-poster.jpg" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;" autoplay muted loop playsinline preload="auto"></video>
+                <p style="text-align:center; color:#ffffff">Rendering</p>
+              </a>
+
+              <a href="/artwork/2-painterly-shader/" class="artwork-glass-card" style="display:flex; flex-direction:column; height:100%; border:1px solid rgba(217,119,87,0.25); box-shadow:0 4px 24px rgba(20,20,19,0.35); border-radius:6px; padding:1.5rem; text-decoration:none;">
+                <img src="/assets/images/painterly/painterly.png" alt="Shader Programming" loading="lazy" decoding="async" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;">
+                <p style="text-align:center; color:#ffffff">Shader Programming</p>
+              </a>
+
+              <a href="/artwork/3-ramu-cinematic/" class="artwork-glass-card" style="display:flex; flex-direction:column; height:100%; border:1px solid rgba(217,119,87,0.25); box-shadow:0 4px 24px rgba(20,20,19,0.35); border-radius:6px; padding:1.5rem; text-decoration:none;">
+                <video src="/assets/videos/ramu/ramu-teaser.mp4" poster="/assets/images/ramu/ramu-poster.jpg" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;" autoplay muted loop playsinline preload="auto"></video>
+                <p style="text-align:center; color:#ffffff">Modeling, Rigging, and Animation</p>
+              </a>
+
+              <a href="/artwork/4-mocap-addon/" class="artwork-glass-card" style="display:flex; flex-direction:column; height:100%; border:1px solid rgba(217,119,87,0.25); box-shadow:0 4px 24px rgba(20,20,19,0.35); border-radius:6px; padding:1.5rem; text-decoration:none;">
+                <video src="/assets/videos/mocap/mocap-teaser.mp4" poster="/assets/images/mocap/mocap-poster.jpg" style="margin-bottom:0.5rem; width:100%; height:200px; object-fit:cover; border-radius:4px;" autoplay muted loop playsinline preload="auto"></video>
+                <p style="text-align:center; color:#ffffff">Technical Animation</p>
+              </a>
+            </div>
+          </section>
+
+          <footer class="page__meta"></footer>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div id="footer" class="page__footer">
+    <footer>
+      <div class="page__footer-follow">
+        <ul class="social-icons">
+          <li><strong>Follow:</strong></li>
+          <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+        </ul>
+      </div>
+      <div class="page__footer-copyright">&copy; 2013 - 2026 <a href="https://donkey0319.github.io">Victor's Website</a>.</div>
+    </footer>
+  </div>
+
+  <script src="/assets/js/page-fade.js"></script>
+  <script src="/assets/js/main.min.js"></script>
+</body>
+</html>
