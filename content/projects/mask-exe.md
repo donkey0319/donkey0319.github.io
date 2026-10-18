@@ -3,7 +3,7 @@ title: Mask.exe
 type: game
 label: Games
 categories: [environment]
-tags: []
+tags: [Unity, Game Jam]
 summary: 3D modeling, texturing, lighting and post-processing for the final scene, plus audio scripting and camera work.
 description: A horror puzzle game unveiling the secret of the program.
 thumbnail: /assets/images/maskexe/mask-teaser.jpg

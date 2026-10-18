@@ -5,7 +5,7 @@ type: work              # work = individual piece · game = also listed on the G
 
 # ── Card + filters ─────────────────────────────────────────────────────────
 label:                  # small orange word above the title, e.g. Shaders / Games
-categories: []          # Work-page filters, keys from content/site.md, e.g. [shaders, environment]
+categories: []          # Work-page filters, keys from content/categories.md, e.g. [shaders, environment]
 tags: []                # grey tool pills, e.g. [UE5, HLSL, Houdini]
 summary:                # one line under the card title — what you did
 thumbnail:              # card image, e.g. /assets/images/{{slug}}/thumb.jpg

@@ -90,7 +90,7 @@ test('bad content exits 1 and names the file and field', () => {
   writeFileSync(md, readFileSync(md, 'utf8').replace('[shaders, environment]', '[vfx]'));
   const r = run(dir, 'build');
   assert.equal(r.code, 1);
-  assert.match(r.out, /content\/projects\/alpha\.md: categories: unknown filter "vfx"/);
+  assert.match(r.out, /content\/projects\/alpha\.md: categories: unknown category "vfx"/);
 });
 
 test('dev serves pages with live reload and survives a bad save', async () => {

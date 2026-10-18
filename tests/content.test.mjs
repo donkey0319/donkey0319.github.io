@@ -142,3 +142,24 @@ test('a misspelled setting is an error that suggests the right name', () => {
   expectError(dir, { file: 'alpha.md', field: 'catgories' });
   assert.throws(() => loadContent(dir, { assetRoot: ROOT }), /did you mean "categories"/);
 });
+
+test('categories come from content/categories.md, in order', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'categories.md'), '  shaders: Shaders\n', '  vfx: VFX Art\n  shaders: Shaders\n'));
+  const { site } = loadContent(dir, { assetRoot: ROOT });
+  assert.deepEqual(site.filters.map((f) => [f.key, f.label]), [['vfx', 'VFX Art'], ['shaders', 'Shaders'], ['environment', 'Environment Design']]);
+});
+
+test('an unknown category points to content/categories.md', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), '[shaders, environment]', '[vfx]'));
+  assert.throws(() => loadContent(dir, { assetRoot: ROOT }), /unknown category "vfx" — add it to content\/categories\.md/);
+});
+
+test('a bad category key in categories.md is a clear error', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'categories.md'), '  shaders: Shaders', '  Shader Art: Shaders'));
+  expectError(dir, { file: 'categories.md', field: 'categories' });
+});
+
+test('filters left in site.md say where they moved', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'site.md'), 'highlights:', 'filters:\n  shaders: Shaders\nhighlights:'));
+  assert.throws(() => loadContent(dir, { assetRoot: ROOT }), /content\/site\.md: filters: .*content\/categories\.md/);
+});

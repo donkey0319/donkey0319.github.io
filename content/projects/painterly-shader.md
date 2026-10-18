@@ -2,8 +2,8 @@
 title: Painterly Shader
 type: work
 label: Shaders
-categories: [shaders, environment]
-tags: [UE5, Post-processing, Shader, Substance Painter, Substance Designer]
+categories: [shaders]
+tags: [UE5, Shader, Substance Painter, Substance Designer]
 summary: Post-processing, custom normal maps and painterly textures for a painted look.
 description: "#UE5 #Postprocessing #Shader #Substance Painter #Substance Designer"
 thumbnail: /assets/images/painterly/painterly.png

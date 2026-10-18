@@ -143,12 +143,12 @@ test('old home hashes forward to the new pages', () => {
 
 const LABELS = {
   '/projects/cafebabe-pekora/': ['shaders'],
-  '/projects/painterly-shader/': ['shaders', 'environment'],
-  '/projects/ramu-cinematic/': ['shaders', 'techanim'],
-  '/projects/mocap-addon/': ['techanim'],
+  '/projects/painterly-shader/': ['shaders'],
+  '/projects/ramu-cinematic/': ['shaders', 'animation'],
+  '/projects/mocap-addon/': ['animation'],
   '/projects/a-gentelmans-dispute/': ['environment'],
   '/projects/decent-farewell/': ['environment'],
-  '/projects/kungfu-penguin/': ['techanim'],
+  '/projects/kungfu-penguin/': ['animation'],
   '/projects/ginger-air/': ['environment'],
   '/projects/mask-exe/': ['environment'],
 };
@@ -161,13 +161,13 @@ test('work page lists every project with its labels', () => {
   );
 });
 
-test('work filters are All, Shaders, Technical Animation, Environment Design', () => {
+test('work filters are All, Shaders, Animation, Environment Design', () => {
   const html = read('work/index.html');
   const buttons = [...html.matchAll(/<button class="filter[^"]*"[^>]*data-filter="([^"]*)"[^>]*>([^<]*)</g)].map((m) => [m[1], m[2].trim()]);
   assert.deepEqual(buttons, [
     ['', 'All'],
     ['shaders', 'Shaders'],
-    ['techanim', 'Technical Animation'],
+    ['animation', 'Animation'],
     ['environment', 'Environment Design'],
   ]);
 });
@@ -206,7 +206,7 @@ for (const page of PROJECTS) {
   test(`${page}: follows the project template`, () => {
     const html = read(page);
     assert.match(html, /<a class="back" href="\/work\/">/);
-    assert.match(html, /<p class="project__kind">(Shaders|Rendering|Tech Anim|Games)<\/p>/);
+    assert.match(html, /<p class="project__kind">[^<]+<\/p>/);
     assert.match(html, /<div class="project__hero">/);
     assert.ok(html.includes('class="what-i-did"') || html.includes('TODO(victor): what I did'));
   });

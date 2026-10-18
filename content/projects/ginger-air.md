@@ -3,7 +3,7 @@ title: Ginger Air
 type: game
 label: Games
 categories: [environment]
-tags: []
+tags: [Unity, Environmental Art]
 summary:
 description: A competitive game where two gingerbread man deliver as many gifts as possible to become the best helper for Santa!
 thumbnail: /assets/images/gingerair/ginger-teaser.jpg

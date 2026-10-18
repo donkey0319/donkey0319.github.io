@@ -3,7 +3,7 @@ title: A Gentlemen’s Dispute
 type: game
 label: Games
 categories: [environment]
-tags: []
+tags: [Environmental Art]
 summary: Contract artist building map assets.
 description: A friendslop party game where players fight each other as gentlemen until the last standing.
 thumbnail: /assets/images/AGD/AGD-teaser.jpg

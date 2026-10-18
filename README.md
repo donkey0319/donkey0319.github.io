@@ -29,7 +29,8 @@ push a stale page by accident.
 ## Where things live
 
 ```
-content/site.md                  Filters, home highlights, title line, About text (shown on Home)
+content/site.md                  Home highlights, title line, About text (shown on Home)
+content/categories.md            Work-page categories and their button names
 content/projects/<name>.md       One file per project: settings + full write-up
 
 tools/site.mjs                   The tool (dev / build / check / new)
@@ -76,7 +77,7 @@ The block between the `---` lines at the top of each project file:
 | `title` | Project name (required) |
 | `type` | `work` for individual pieces, `game` to also list it on the Games page |
 | `label` | Small orange word above the title, e.g. `Shaders`, `Games` |
-| `categories` | Work-page filters it appears under, e.g. `[shaders, environment]` — keys from `content/site.md` |
+| `categories` | Work-page filters it appears under, e.g. `[shaders, environment]` — keys from `content/categories.md` |
 | `tags` | Grey tool pills on the card, e.g. `[UE5, HLSL, Houdini]` |
 | `summary` | One line under the card title — what you did |
 | `description` | Text for search engines and link previews (defaults to `summary`) |
@@ -110,13 +111,31 @@ Plain markdown: `## Heading`, `### Smaller heading`, paragraphs, **bold**, *ital
 
 Use `![](…)` (empty text) for a video with no caption.
 
+## Categories — `content/categories.md`
+
+Each line is a category key and the name shown on its Work-page filter button:
+
+```yaml
+categories:              # buttons in this order, after "All" (automatic)
+  shaders: Shaders
+  animation: Animation
+  environment: Environment Design
+```
+
+- **Add a category:** add a line like `vfx: VFX`, then add `vfx` to the `categories` of the
+  projects that belong under it.
+- **Rename a button:** change the text after the colon.
+- **Remove a category:** delete the line and remove its key from projects' `categories`
+  (the tool tells you which files still use it).
+- After changing categories, update the `LABELS` table and the "work filters are…" test in
+  `tests/site.test.mjs` so `npm test` passes.
+
+Categories are not tags: tags (the grey pills like `UE5`) are free text in each project's
+`tags:` list and aren't listed anywhere else.
+
 ## Site settings — `content/site.md`
 
 ```yaml
-filters:                 # Work-page filter buttons, in order ("All" is automatic)
-  shaders: Shaders
-  techanim: Technical Animation
-  environment: Environment Design
 highlights:              # Home level-select tiles, in order (project file names)
   - cafebabe-pekora
   - painterly-shader
@@ -125,12 +144,7 @@ highlights:              # Home level-select tiles, in order (project file names
 title_role: Technical Artist
 ```
 
-- **Add a filter:** add a line like `vfx: VFX`, then add `vfx` to the `categories` of the
-  projects that belong under it.
-- **Rename a filter:** change the text after the colon.
-- **Remove a filter:** delete the line and remove its key from projects' `categories`
-  (the tool tells you which files still use it).
-- **Change the home highlights:** edit the list (four looks best: 4 across, 2×2 on phones).
+- **Change the home highlights:** edit the list (four looks best, as a 2×2 grid).
 - **About text:** everything below the second `---`. It appears on the Home page between
   your name and the Highlights, with your photo and contact links. `**bold**` shows in orange.
 

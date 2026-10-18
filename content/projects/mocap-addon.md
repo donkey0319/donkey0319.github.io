@@ -1,8 +1,8 @@
 ---
 title: Blender Motion Capture Addon
 type: work
-label: Tech Anim
-categories: [techanim]
+label: Technical Animation
+categories: [animation]
 tags: [Blender, Python, Technical Animation]
 summary: A Blender addon that uses pose-estimation AI to drive a humanoid model.
 description: "#Blender #Python #Technical Animation"

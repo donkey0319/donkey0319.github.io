@@ -3,7 +3,7 @@ title: A Decent Farewell
 type: game
 label: Games
 categories: [environment]
-tags: [VR]
+tags: [VR, Environmental Art]
 summary:
 description: A short VR experience where players play as an undertaker dressing up a corpse.
 thumbnail: /assets/images/decentfarewell/farewell-teaser.jpg

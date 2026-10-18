@@ -21,7 +21,8 @@ const PROJECT_FIELDS = [
   'title', 'type', 'label', 'categories', 'tags', 'summary', 'description', 'thumbnail', 'preview', 'order',
   'hero', 'hero_poster', 'hero_caption', 'hero_loop', 'facts', 'links', 'what_i_did', 'highlight_image', 'highlight_video',
 ];
-const SITE_FIELDS = ['filters', 'highlights', 'title_role'];
+const SITE_FIELDS = ['highlights', 'title_role'];
+const CATEGORY_FIELDS = ['categories'];
 
 function distance(a, b) {
   const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
@@ -117,23 +118,37 @@ function loadSite(contentDir) {
   const file = path.join(contentDir, 'site.md');
   if (!existsSync(file)) throw new ContentError(label, 'file', 'missing');
   const { data, body } = readFile(file, label);
+  if ('filters' in data) {
+    throw new ContentError(label, 'filters', 'categories now live in content/categories.md — move these lines there, under categories:');
+  }
   checkFields(label, data, SITE_FIELDS);
 
-  const rawFilters = data.filters ?? {};
-  if (typeof rawFilters !== 'object' || Array.isArray(rawFilters)) {
-    throw new ContentError(label, 'filters', 'must be "key: Label" lines');
-  }
-  const filters = Object.entries(rawFilters).map(([key, value]) => {
-    if (!SLUG.test(key)) throw new ContentError(label, 'filters', `key "${key}" must be lowercase letters, numbers and dashes`);
-    return { key, label: str(value) || key };
-  });
-
   return {
-    filters,
+    filters: loadCategories(contentDir),
     highlights: list(label, 'highlights', data.highlights),
     titleRole: str(data.title_role) || 'Technical Artist',
     aboutMarkdown: body.trim(),
   };
+}
+
+// content/categories.md: each category key and the name shown on its Work-page filter button.
+function loadCategories(contentDir) {
+  const label = 'content/categories.md';
+  const file = path.join(contentDir, 'categories.md');
+  if (!existsSync(file)) throw new ContentError(label, 'file', 'missing — it lists the Work-page categories');
+  const { data } = readFile(file, label);
+  checkFields(label, data, CATEGORY_FIELDS);
+
+  const raw = data.categories ?? {};
+  if (typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new ContentError(label, 'categories', 'must be "key: Display Name" lines, e.g. shaders: Shaders');
+  }
+  return Object.entries(raw).map(([key, value]) => {
+    if (!SLUG.test(key)) {
+      throw new ContentError(label, 'categories', `key "${key}" must be lowercase letters, numbers and dashes (the display name goes after the colon)`);
+    }
+    return { key, label: str(value) || key };
+  });
 }
 
 function loadProject(file, name, site, assetRoot) {
@@ -155,7 +170,7 @@ function loadProject(file, name, site, assetRoot) {
   const known = site.filters.map((f) => f.key);
   for (const c of categories) {
     if (!known.includes(c)) {
-      throw new ContentError(label, 'categories', `unknown filter "${c}" — add it under filters: in content/site.md (known: ${known.join(', ')})`);
+      throw new ContentError(label, 'categories', `unknown category "${c}" — add it to content/categories.md (known: ${known.join(', ')})`);
     }
   }
 

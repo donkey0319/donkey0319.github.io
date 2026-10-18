@@ -1,12 +1,7 @@
 ---
 # Site-wide settings. Edit, save, and `npm run dev` rebuilds the pages.
 
-# Work page filter buttons, in order ("All" is added automatically).
-# key: Label — use the key in a project's categories: list.
-filters:
-  shaders: Shaders
-  techanim: Technical Animation
-  environment: Environment Design
+# Work page categories (filter buttons) are in content/categories.md.
 
 # Home page level-select tiles, in order — project file names (without .md).
 highlights:

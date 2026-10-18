@@ -1,7 +1,4 @@
 ---
-filters:
-  shaders: Shaders
-  environment: Environment Design
 highlights:
   - alpha
 title_role: Technical Artist

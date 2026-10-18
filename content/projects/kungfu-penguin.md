@@ -2,8 +2,8 @@
 title: Kung-Fu Penguin
 type: game
 label: Games
-categories: [techanim]
-tags: [Jam-O-Drum]
+categories: [animation]
+tags: [Animation]
 summary: Modeled, rigged and animated the penguin.
 description: A party game using a special hardware where 4 players compete against each other to become the penguin king!
 thumbnail: /assets/images/kungfupenguin/penguin1-teaser.jpg

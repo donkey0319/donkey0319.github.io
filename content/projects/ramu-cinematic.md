@@ -1,9 +1,9 @@
 ---
 title: Ramu Cinematic
 type: work
-label: Tech Anim
-categories: [shaders, techanim]
-tags: [UE5, Shader, Character Modeling, Character Animation, Rigging]
+label: Cinematic
+categories: [shaders, animation]
+tags: [UE5, Character Modeling, Character Animation, Rigging]
 summary:
 description: "#UE5 #Shader #Character Modeling #Character Animation #Rigging"
 thumbnail: /assets/images/ramu/ramu-poster.jpg
