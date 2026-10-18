@@ -100,3 +100,9 @@ for (const page of CONVERTED.filter((p) => /^(artwork|games)\//.test(p))) {
     assert.ok(html.includes('class="what-i-did"') || html.includes('TODO(victor): what I did'));
   });
 }
+
+for (const page of CONVERTED.filter((p) => p.startsWith('games/'))) {
+  test(`${page}: no empty Work heading`, () => {
+    assert.doesNotMatch(read(page), /<h2[^>]*>\s*Work\s*<\/h2>\s*(<\/section>|<\/div>|<\/main>|$)/);
+  });
+}

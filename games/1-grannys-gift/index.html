@@ -1,134 +1,81 @@
 <!doctype html>
-<html lang="en-US" class="no-js">
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
-  <title>Granny’s Gift - Victor’s Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Granny’s Gift · Victor Lu</title>
   <meta name="description" content="An arcade simulation where Granny and Grandpa wrap Christmas gifts for their grandchildren using Unity and XBox Adaptive Controllers.">
   <meta name="author" content="Victor Lu">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta property="og:type" content="article">
   <meta property="og:locale" content="en_US">
-  <meta property="og:site_name" content="Victor's Website">
+  <meta property="og:site_name" content="Victor Lu">
   <meta property="og:title" content="Granny’s Gift">
   <meta property="og:url" content="https://donkey0319.github.io/games/1-grannys-gift/">
   <meta property="og:description" content="An arcade simulation where Granny and Grandpa wrap Christmas gifts for their grandchildren using Unity and XBox Adaptive Controllers.">
-  <meta property="og:image" content="https://donkey0319.github.io/assets/images/grannygift/grannygift_1-teaser.jpg">
   <link rel="canonical" href="https://donkey0319.github.io/games/1-grannys-gift/">
-  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Victor's Website Feed">
-
-  <script>
-    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-    // Only use the JS fade fallback in browsers without native cross-document
-    // view transitions (see site.css for the @view-transition rule) — pairing
-    // both would fade the content out twice.
-    if (!('startViewTransition' in document)) {
-      document.documentElement.classList.add('has-page-fade');
-    }
-  </script>
-
-  <link rel="stylesheet" href="/assets/css/theme.css">
-  <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
-
-  <!-- Claude-inspired typography: Poppins for headings, Lora for body -->
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="layout--single" dir="ltr">
-  <nav class="skip-links">
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary">
+      <a class="nav__brand" href="/">Victor Lu</a>
+      <ul class="nav__links">
+        <li><a href="/">Work</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      </ul>
+      <ul class="nav__social">
+        <li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me" aria-label="ArtStation" title="ArtStation"><i class="fa-brands fa-artstation" aria-hidden="true"></i></a></li>
+        <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="project container container--narrow">
+    <a class="back" href="/">← All work</a>
+    <p class="project__kind">Games</p>
+    <h1>Granny’s Gift</h1>
+
+    <div class="project__hero">
+      <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/OBWbWAWUkXg" title="Granny’s Gift gameplay video" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    </div>
+
+    <dl class="facts">
+      <div><dt>Tools</dt><dd>Unity, Xbox Adaptive Controller</dd></div>
+    </dl>
+
+    <!-- TODO(victor): what I did -->
+    <!-- <section class="what-i-did"><h2>What I did</h2><p>…</p></section> -->
+
+    <div class="project__body reveal">
+      <h2 id="interaction-video">Interaction Video</h2>
+      <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/Zvz14z_fuNA" title="Granny’s Gift interaction video" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+
+      <h2 id="overview">Overview</h2>
+      <img src="/assets/images/grannygift/grannygift_3.png" alt="Granny's Gift screenshot 2" loading="lazy">
+      <p>Granny’s Gift is a game where players have to wrap as many gifts as possible in a given amount of time. Players can choose three types of wrapping paper, some of them is hard to wrap while others are relatively easy. The hard wrapping papers give more scores than the easy ones.</p>
+      <img src="/assets/images/grannygift/grannygift_2.png" alt="Granny's Gift screenshot 3" loading="lazy">
+      <p>To wrap gifts, players have to hit the buttons in the correct order indicated from the screen.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer container">
     <ul>
-      <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
-      <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
-      <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+      <li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me" aria-label="ArtStation" title="ArtStation"><i class="fa-brands fa-artstation" aria-hidden="true"></i></a></li>
+        <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
     </ul>
-  </nav>
+    <span>© 2026 Victor Lu</span>
+  </footer>
 
-  <div class="masthead">
-    <div class="masthead__inner-wrap">
-      <div class="masthead__menu">
-        <nav id="site-nav" class="greedy-nav">
-          <a class="site-title" href="/">Victor's Website</a>
-          <ul class="visible-links">
-            <li class="masthead__menu-item"><a href="/">About</a></li>
-            <li class="masthead__menu-item"><a href="/games/">Games</a></li>
-            <li class="masthead__menu-item"><a href="/artwork/">Artwork</a></li>
-            <li class="masthead__menu-item" style="display:flex; align-items:center;">
-              <a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email" style="margin-inline:0.3rem;"><i class="fas fa-envelope-square" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/victor-chan-lu/" rel="nofollow noopener noreferrer me" target="_blank" aria-label="LinkedIn" title="LinkedIn" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i></a>
-              <a href="https://www.artstation.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="ArtStation" title="ArtStation" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-artstation" aria-hidden="true"></i></a>
-              <a href="https://github.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="GitHub" title="GitHub" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-github" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-          <button class="greedy-nav__toggle hidden" type="button">
-            <span class="visually-hidden">Toggle menu</span>
-            <div class="navicon"></div>
-          </button>
-          <ul class="hidden-links hidden"></ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-
-  <div class="initial-content">
-    <div id="main" role="main">
-      <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-        <meta itemprop="headline" content="Granny’s Gift">
-        <meta itemprop="description" content="An arcade simulation where Granny and Grandpa wrap Christmas gifts for their grandchildren using Unity and XBox Adaptive Controllers.">
-        <div class="page__inner-wrap">
-          <header>
-            <h1 id="page-title" class="page__title" itemprop="headline">
-              <a href="/games/1-grannys-gift/" itemprop="url">Granny’s Gift</a>
-            </h1>
-          </header>
-
-          <section class="page__content" itemprop="text">
-            <h2 id="gameplay-video">Gameplay Video</h2>
-
-            <div class="responsive-video-container">
-              <iframe src="https://www.youtube-nocookie.com/embed/OBWbWAWUkXg" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-            </div>
-
-            <h2 id="interaction-video">Interaction Video</h2>
-
-            <div class="responsive-video-container">
-              <iframe src="https://www.youtube-nocookie.com/embed/Zvz14z_fuNA" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-            </div>
-
-            <h2 id="overview">Overview</h2>
-
-            <p><img src="/assets/images/grannygift/grannygift_3.png" alt="Granny's Gift screenshot 2" /></p>
-
-            <p>Granny’s Gift is a game where players have to wrap as many gifts as possible in a given amount of time. Players can choose three types of wrapping paper, some of them is hard to wrap while others are relatively easy. The hard wrapping papers give more scores than the easy ones.</p>
-
-            <p><img src="/assets/images/grannygift/grannygift_2.png" alt="Granny's Gift screenshot 3" /></p>
-
-            <p>To wrap gifts, players have to hit the buttons in the correct order indicated from the screen.</p>
-
-            <h2 id="work">Work</h2>
-          </section>
-
-          <footer class="page__meta"></footer>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <div id="footer" class="page__footer">
-    <footer>
-      <div class="page__footer-follow">
-        <ul class="social-icons">
-          <li><strong>Follow:</strong></li>
-          <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-        </ul>
-      </div>
-      <div class="page__footer-copyright">&copy; 2013 - 2026 <a href="https://donkey0319.github.io">Victor's Website</a>.</div>
-    </footer>
-  </div>
-
-  <script src="/assets/js/page-fade.js"></script>
-  <script src="/assets/js/main.min.js"></script>
+  <script src="/assets/js/site.js"></script>
 </body>
 </html>

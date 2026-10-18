@@ -44,4 +44,4 @@ export const REDESIGNED = [
 ];
 
 // Pages converted so far; grows task by task until it equals REDESIGNED.
-export const CONVERTED = ['index.html', 'about/index.html', ...REDESIGNED.filter((p) => p.startsWith('artwork/'))];
+export const CONVERTED = ['index.html', 'about/index.html', ...REDESIGNED.filter((p) => /^(artwork|games)\//.test(p))];
