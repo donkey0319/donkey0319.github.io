@@ -123,3 +123,10 @@ test('code blocks on project pages are not indented by the template', async () =
   });
   assert.match(html, /<pre><code>line one\n    line two\n<\/code><\/pre>/);
 });
+
+test('top bar has no social icons', () => {
+  for (const p of ['index.html', 'work/index.html', 'games/index.html', 'about/index.html', 'projects/alpha/index.html']) {
+    const header = page(p).match(/<header class="site-header">[\s\S]*?<\/header>/)[0];
+    assert.doesNotMatch(header, /nav__social|fa-brands|fa-envelope/, p);
+  }
+});

@@ -186,18 +186,13 @@ button {
   margin-right: auto;
 }
 
-.nav__links,
-.nav__social {
+.nav__links {
   display: flex;
   align-items: center;
   gap: 22px;
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.nav__social {
-  gap: 14px;
 }
 
 .nav__links a {
@@ -229,14 +224,12 @@ button {
   width: 100%;
 }
 
-.nav__social a,
 .site-footer a {
   color: var(--muted);
   font-size: 1.1rem;
   transition: color 0.2s var(--ease);
 }
 
-.nav__social a:hover,
 .site-footer a:hover {
   color: var(--accent);
 }
@@ -248,10 +241,6 @@ button {
 
   .nav__brand {
     flex-basis: 100%;
-  }
-
-  .nav__social {
-    margin-left: auto;
   }
 }
 
