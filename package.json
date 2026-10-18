@@ -3,6 +3,10 @@
   "private": true,
   "description": "Victor Lu's portfolio — pages are generated from content/ by tools/site.mjs",
   "scripts": {
+    "dev": "node tools/site.mjs dev",
+    "build": "node tools/site.mjs build",
+    "check": "node tools/site.mjs check",
+    "new": "node tools/site.mjs new",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {

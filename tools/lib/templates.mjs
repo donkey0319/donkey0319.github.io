@@ -86,9 +86,12 @@ export const projectUrl = (p) => `/projects/${p.slug}/`;
 
 export function card(p, { withCategories }) {
   const cats = withCategories ? ` data-categories="${esc(p.categories.join(' '))}"` : '';
+  const poster = p.thumbnail ? ` poster="${esc(p.thumbnail)}"` : '';
   const media = p.preview
-    ? `<video src="${esc(p.preview)}" poster="${esc(p.thumbnail)}" autoplay muted loop playsinline preload="metadata"></video>`
-    : `<img src="${esc(p.thumbnail)}" alt="" loading="lazy" decoding="async">`;
+    ? `<video src="${esc(p.preview)}"${poster} autoplay muted loop playsinline preload="metadata"></video>`
+    : p.thumbnail
+      ? `<img src="${esc(p.thumbnail)}" alt="" loading="lazy" decoding="async">`
+      : `<!-- no thumbnail yet — set thumbnail: in ${p.source} -->`;
   const lines = [
     `<article class="card reveal"${cats}>`,
     `  <a class="card__link" href="${projectUrl(p)}">`,
@@ -253,7 +256,12 @@ ${indent(renderAbout(site.aboutMarkdown), 4)}
 }
 
 export function projectPage(p) {
-  const hero = renderMedia(p.hero, { poster: p.heroPoster, caption: p.heroCaption, loop: p.heroLoop, alt: p.title });
+  const hero = p.hero
+    ? `
+    <div class="project__hero">
+${indent(renderMedia(p.hero, { poster: p.heroPoster, caption: p.heroCaption, loop: p.heroLoop, alt: p.title }), 6)}
+    </div>`
+    : '';
   const facts = p.facts.length
     ? `\n    <dl class="facts">\n${p.facts.map(([k, v]) => `      <div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n')}\n    </dl>\n`
     : '';
@@ -267,10 +275,7 @@ export function projectPage(p) {
     <a class="back" href="/work/">← All work</a>
     <p class="project__kind">${esc(p.label)}</p>
     <h1>${esc(p.title)}</h1>
-
-    <div class="project__hero">
-${indent(hero, 6)}
-    </div>
+${hero}
 ${facts}${what}${links}
     <div class="project__body reveal">
 ${indent(renderBody(p.body), 6)}
