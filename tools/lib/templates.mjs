@@ -78,6 +78,9 @@ ${headExtra}  <script>document.documentElement.classList.add('js');addEventListe
       <ul class="nav__links">
 ${nav}
       </ul>
+      <ul class="nav__social">
+        ${SOCIAL}
+      </ul>
     </nav>
   </header>
 
