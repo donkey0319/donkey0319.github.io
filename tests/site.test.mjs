@@ -122,3 +122,25 @@ test('sitemap lists About and drops the old grids', () => {
   assert.ok(!xml.includes('<loc>https://donkey0319.github.io/games/</loc>'));
   assert.ok(!xml.includes('<loc>https://donkey0319.github.io/artwork/</loc>'));
 });
+
+// ---------------------------------------------------------------------------
+// Final review fixes
+
+test('back link ignores a home referrer when the tab has no history', () => {
+  const { shouldUseHistoryBack } = require('../assets/js/site.js');
+  const o = 'https://donkey0319.github.io';
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/', o, 1), false);
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/', o, 2), true);
+});
+
+for (const page of REDESIGNED) {
+  test(`${page}: reveal falls back to visible if site.js never runs`, () => {
+    const html = read(page);
+    assert.match(html, /window\.__siteReady/);
+    assert.match(html, /classList\.remove\('js'\)/);
+  });
+}
+
+test('site.js marks itself as running', () => {
+  assert.match(read('assets/js/site.js'), /window\.__siteReady\s*=\s*true/);
+});

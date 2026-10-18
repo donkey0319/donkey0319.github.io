@@ -1,9 +1,11 @@
 (function () {
   // True only when the visitor arrived from the home page on this site, so
   // "← All work" can step back to the exact filter and scroll position they
-  // left. Anything else (direct visit, search engine) follows the plain link.
-  function shouldUseHistoryBack(referrer, origin) {
+  // left. Anything else (direct visit, search engine, a fresh tab opened from
+  // home with nothing to go back to) follows the plain link.
+  function shouldUseHistoryBack(referrer, origin, historyLength) {
     if (!referrer) return false;
+    if (historyLength !== undefined && historyLength < 2) return false;
     try {
       var url = new URL(referrer);
       return url.origin === origin && url.pathname === '/';
@@ -16,6 +18,9 @@
     module.exports = { shouldUseHistoryBack: shouldUseHistoryBack };
     return;
   }
+
+  // The inline head script un-hides .reveal content if this never gets set.
+  window.__siteReady = true;
 
   var hasIO = 'IntersectionObserver' in window;
 
@@ -53,7 +58,7 @@
   document.addEventListener('click', function (e) {
     var back = e.target.closest('a.back');
     if (!back || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    if (shouldUseHistoryBack(document.referrer, location.origin)) {
+    if (shouldUseHistoryBack(document.referrer, location.origin, history.length)) {
       e.preventDefault();
       history.back();
     }

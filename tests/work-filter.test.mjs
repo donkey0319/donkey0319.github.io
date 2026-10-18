@@ -30,3 +30,10 @@ test('toggle selects, switches and clears', () => {
   assert.equal(toggle('games', 'games'), null);
   assert.equal(toggle('games', 'shaders'), 'shaders');
 });
+
+test('cardState only forces cards visible when a filter shows them', () => {
+  const { cardState } = require('../assets/js/work-filter.js');
+  assert.deepEqual(cardState('games', null), { hidden: false, forceVisible: false });
+  assert.deepEqual(cardState('games', 'games'), { hidden: false, forceVisible: true });
+  assert.deepEqual(cardState('games', 'shaders'), { hidden: true, forceVisible: false });
+});

@@ -16,8 +16,16 @@
     return current === clicked ? null : clicked;
   }
 
+  // A card shown by an active filter is revealed at once (it may never have
+  // scrolled into view while hidden); with no filter, cards keep their
+  // normal scroll reveal.
+  function cardState(categoriesAttr, filter) {
+    var show = matches(categoriesAttr, filter);
+    return { hidden: !show, forceVisible: show && !!filter };
+  }
+
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { CATEGORIES: CATEGORIES, parseHash: parseHash, matches: matches, toggle: toggle };
+    module.exports = { CATEGORIES: CATEGORIES, parseHash: parseHash, matches: matches, toggle: toggle, cardState: cardState };
     return;
   }
 
@@ -31,10 +39,9 @@
   function apply(filter) {
     current = filter;
     cards.forEach(function (card) {
-      var show = matches(card.getAttribute('data-categories'), filter);
-      card.classList.toggle('is-hidden', !show);
-      // A card hidden before it scrolled into view never got revealed.
-      if (show) card.classList.add('is-visible');
+      var state = cardState(card.getAttribute('data-categories'), filter);
+      card.classList.toggle('is-hidden', state.hidden);
+      if (state.forceVisible) card.classList.add('is-visible');
     });
     tiles.forEach(function (tile) {
       var on = tile.getAttribute('data-filter') === filter;
