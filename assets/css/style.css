@@ -556,14 +556,17 @@ html.js .reveal.is-visible {
 
 .project__hero {
   margin-bottom: 8px;
-  overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--surface);
 }
 
 .project__hero img,
 .project__hero video {
   width: 100%;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.project__hero .caption {
+  margin: 10px 0 0;
 }
 
 .embed {
