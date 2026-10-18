@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { ROOT } from './helpers.mjs';
-import { buildSite, LEGACY } from '../tools/lib/build.mjs';
+import { buildSite } from '../tools/lib/build.mjs';
 
 const out = buildSite({ contentDir: path.join(ROOT, 'tests/fixtures/content'), assetRoot: ROOT });
 const page = (p) => {
@@ -19,10 +19,8 @@ test('builds every page, project page, redirect and the sitemap', () => {
     'about/index.html',
     'projects/alpha/index.html',
     'projects/beta-game/index.html',
-    'artwork/index.html',
     'sitemap.xml',
   ]) assert.ok(out.has(p), p);
-  for (const old of Object.keys(LEGACY)) assert.ok(out.has(`${old}/index.html`), old);
 });
 
 test('every generated page says where it came from', () => {
@@ -103,11 +101,9 @@ test('about renders site.md text with orange bold', () => {
   assert.match(page('about/index.html'), /<strong class="accent">Technical Artist<\/strong>/);
 });
 
-test('redirect stubs point at the new pages', () => {
-  assert.match(page('artwork/index.html'), /content="0; url=\/work\/"/);
-  const [old, slug] = Object.entries(LEGACY)[0];
-  assert.match(page(`${old}/index.html`), /content="0; url=\/(projects\/[a-z0-9-]+|work)\/"/);
-  assert.ok(slug);
+test('no redirect pages are generated for old addresses', () => {
+  const extra = [...out.keys()].filter((p) => /^(artwork\/|games\/.+\/)/.test(p));
+  assert.deepEqual(extra, []);
 });
 
 test('sitemap lists pages, projects and the old blog', () => {

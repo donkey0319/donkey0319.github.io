@@ -3,20 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { loadContent } from './content.mjs';
-import { homePage, workPage, gamesPage, aboutPage, projectPage, redirectPage, sitemap, projectUrl } from './templates.mjs';
-
-// Old project URLs (before everything moved to /projects/) → new slug.
-export const LEGACY = {
-  'artwork/1-cafebabe-pekora': 'cafebabe-pekora',
-  'artwork/2-painterly-shader': 'painterly-shader',
-  'artwork/3-ramu-cinematic': 'ramu-cinematic',
-  'artwork/4-mocap-addon': 'mocap-addon',
-  'games/2-a-gentelmans-dispute': 'a-gentelmans-dispute',
-  'games/3-decent-farewell': 'decent-farewell',
-  'games/4-kungfu-penguin': 'kungfu-penguin',
-  'games/5-ginger-air': 'ginger-air',
-  'games/6-mask-exe': 'mask-exe',
-};
+import { homePage, workPage, gamesPage, aboutPage, projectPage, sitemap, projectUrl } from './templates.mjs';
 
 // Hand-written pages outside the generator that still belong in the sitemap.
 const EXTRA_SITEMAP = ['/posts/', '/welcome-to-my-site/'];
@@ -31,14 +18,6 @@ export function buildSite({ contentDir, assetRoot }) {
   out.set('games/index.html', gamesPage(content));
   out.set('about/index.html', aboutPage(content));
   for (const p of projects) out.set(`projects/${p.slug}/index.html`, projectPage(p));
-
-  const slugs = new Set(projects.map((p) => p.slug));
-  out.set('artwork/index.html', redirectPage('/work/', { title: 'Artwork', message: 'Artwork now lives on the Work page.', source: 'tools/lib/build.mjs' }));
-  for (const [old, slug] of Object.entries(LEGACY)) {
-    const to = slugs.has(slug) ? `/projects/${slug}/` : '/work/';
-    out.set(`${old}/index.html`, redirectPage(to, { title: 'Moved', message: 'This page has moved.', source: 'tools/lib/build.mjs' }));
-  }
-
   out.set('sitemap.xml', sitemap(['/', '/work/', '/games/', '/about/', ...projects.map(projectUrl), ...EXTRA_SITEMAP]));
   return out;
 }

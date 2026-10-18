@@ -4,7 +4,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { ROOT, read, localRefs, resolves, REDESIGNED, LISTINGS, PROJECTS } from './helpers.mjs';
-import { buildSite, diffSite, LEGACY } from '../tools/lib/build.mjs';
+import { buildSite, diffSite } from '../tools/lib/build.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -225,8 +225,9 @@ test("Granny's Gift page is gone", () => {
   assert.ok(!existsSync(path.join(ROOT, 'games/1-grannys-gift')));
 });
 
-test('old artwork grid redirects to the work page', () => {
-  assert.match(read('artwork/index.html'), /http-equiv="refresh" content="0; url=\/work\/"/);
+test('old artwork/ folder is gone and games/ holds only the Games page', () => {
+  assert.ok(!existsSync(path.join(ROOT, 'artwork')));
+  assert.deepEqual(readdirSync(path.join(ROOT, 'games')), ['index.html']);
 });
 
 test('sitemap matches the new pages', () => {
@@ -234,12 +235,6 @@ test('sitemap matches the new pages', () => {
   for (const p of ['/', '/work/', '/games/', '/about/']) assert.ok(xml.includes(`<loc>https://donkey0319.github.io${p}</loc>`), p);
   assert.ok(!xml.includes('/artwork/</loc>'));
   assert.doesNotMatch(xml, /grann/i);
-});
-
-test('every old project URL redirects to its new page', () => {
-  for (const [old, slug] of Object.entries(LEGACY)) {
-    assert.match(read(`${old}/index.html`), new RegExp(`http-equiv="refresh" content="0; url=/projects/${slug}/"`), old);
-  }
 });
 
 test('committed HTML is up to date with content/ (run: npm run build)', () => {

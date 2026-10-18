@@ -304,27 +304,6 @@ ${indent(renderBody(p.body), 6)}
   });
 }
 
-export function redirectPage(to, { title, message, source }) {
-  return `<!doctype html>
-${banner(source)}
-<html lang="en-US">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(title)} · Victor Lu</title>
-  <meta http-equiv="refresh" content="0; url=${to}">
-  <meta name="robots" content="noindex">
-  <link rel="canonical" href="${SITE_URL}${to}">
-  <script>location.replace('${to}');</script>
-  <style>body { background: #141413; color: #faf9f5; font-family: system-ui, sans-serif; padding: 48px 16px; } a { color: #d97757; }</style>
-</head>
-<body>
-  <p>${esc(message)} <a href="${to}">Go there</a>.</p>
-</body>
-</html>
-`;
-}
-
 export function sitemap(paths) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

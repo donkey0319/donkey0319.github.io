@@ -44,7 +44,6 @@ assets/resume/Victor_Lu_Resume.pdf
 ── Generated — don't edit, your changes would be overwritten ──
 index.html, work/, games/index.html, about/   the four main pages
 projects/<name>/                              one page per project
-artwork/, games/<old-name>/                   redirects from old addresses
 sitemap.xml
 
 posts/, welcome-to-my-site/      Old blog (hand-written, not linked from the nav)
