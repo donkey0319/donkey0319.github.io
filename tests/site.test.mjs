@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
-import { ROOT, read } from './helpers.mjs';
+import { ROOT, read, localRefs, resolves, CONVERTED } from './helpers.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -38,3 +38,55 @@ test('shouldUseHistoryBack only for same-origin home referrers', () => {
   assert.equal(shouldUseHistoryBack('', o), false);
   assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/games/4-kungfu-penguin/', o), false);
 });
+
+// ---------------------------------------------------------------------------
+// Pages
+
+const RESUME_LINK = '<a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a>';
+const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, '');
+
+test('home has 10 cards with valid categories', () => {
+  const { CATEGORIES } = require('../assets/js/work-filter.js');
+  const html = read('index.html');
+  const cats = [...html.matchAll(/class="card[^"]*"[^>]*data-categories="([^"]*)"/g)].map((m) => m[1]);
+  assert.equal(cats.length, 10);
+  for (const token of cats.join(' ').split(/\s+/)) assert.ok(CATEGORIES.includes(token), token);
+});
+
+test('every category has a tile and at least one card', () => {
+  const { CATEGORIES } = require('../assets/js/work-filter.js');
+  const html = read('index.html');
+  const tiles = [...html.matchAll(/data-filter="([^"]*)"/g)].map((m) => m[1]);
+  assert.deepEqual(tiles, CATEGORIES);
+  for (const c of CATEGORIES) assert.match(html, new RegExp(`data-categories="[^"]*\\b${c}\\b`));
+});
+
+test('card videos are muted and inline', () => {
+  const videos = read('index.html').match(/<video\b[^>]*>/g) || [];
+  assert.ok(videos.length > 0);
+  for (const v of videos) {
+    assert.match(v, /\bmuted\b/);
+    assert.match(v, /\bplaysinline\b/);
+  }
+});
+
+for (const page of CONVERTED) {
+  test(`${page}: uses only the new stylesheet and shared nav`, () => {
+    const html = read(page);
+    assert.ok(html.includes('/assets/css/style.css'));
+    assert.ok(html.includes('/assets/js/site.js'));
+    for (const old of ['theme.css', 'site.css', 'main.min.js', 'page-fade.js', 'fontawesome-free@latest']) {
+      assert.ok(!html.includes(old), `still references ${old}`);
+    }
+    assert.ok(html.includes(RESUME_LINK));
+  });
+
+  test(`${page}: no broken local references`, () => {
+    const broken = localRefs(read(page)).filter((r) => !resolves(r));
+    assert.deepEqual(broken, []);
+  });
+
+  test(`${page}: no visible TODO text`, () => {
+    assert.doesNotMatch(stripComments(read(page)), /TODO/);
+  });
+}
