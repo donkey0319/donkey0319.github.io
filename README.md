@@ -1,158 +1,156 @@
 # donkey0319.github.io
 
-Victor Lu's portfolio site — plain static HTML/CSS/JS, served as-is by GitHub Pages
-(`.nojekyll` disables the Jekyll build).
+Victor Lu's portfolio. Every page is **generated from markdown in `content/`** by
+`tools/site.mjs`, and served as plain static files by GitHub Pages (`.nojekyll` disables
+Jekyll — nothing is built on GitHub).
 
-## Layout
+## Quick start
 
 ```
-index.html                     Home: level-select title screen with 4 highlights
-work/index.html                Work: every project, with label filters
-games/index.html               Games: the games you've worked on
-about/index.html               About: photo, background, contact, resume
-artwork/<project>/index.html   Individual art piece pages
-games/<project>/index.html     Game pages
-artwork/index.html             Old grid URL — redirects to /work/
-posts/, welcome-to-my-site/    Old blog (not linked from the nav, still uses theme.css)
+npm install        # once, downloads the two small markdown libraries
+npm run dev        # preview at http://localhost:8000 — rebuilds and reloads on every save
+```
 
-assets/css/style.css     All site styles (colors are the --tokens at the top)
-assets/js/site.js        Scroll reveal, pause offscreen videos, "← All work" back link
-assets/js/work-filter.js Filter buttons on the Work page (reads them from the page)
-assets/js/home.js        Swaps the title-screen background when hovering a highlight
+Edit anything in `content/`, save, and the browser refreshes. If something in a file is
+wrong (a typo in the settings block, an image path that doesn't exist, an unknown filter),
+the browser shows exactly which file and setting to fix.
+
+When you're happy:
+
+```
+npm run build && npm test     # regenerate everything + run the checks
+git add -A && git commit      # commit the markdown AND the generated HTML together
+git push
+```
+
+`npm test` fails if the generated HTML is out of date with the markdown, so you can't
+push a stale page by accident.
+
+## Where things live
+
+```
+content/site.md                  Filters, home highlights, title line, About text
+content/projects/<name>.md       One file per project: settings + full write-up
+
+tools/site.mjs                   The tool (dev / build / check / new)
+tools/lib/                       Content loader, markdown renderer, page templates, build
+tools/templates/new-project.md   What `npm run new` starts you with
+
+assets/css/style.css             All styles (colors are the --tokens at the top)
+assets/js/                       Browser scripts: reveal, filters, home title screen
+assets/images, assets/videos     Media
 assets/resume/Victor_Lu_Resume.pdf
-assets/images, assets/videos   Media
 
-assets/css/theme.css, assets/css/site.css,
-assets/js/main.min.js, assets/js/page-fade.js   Blog pages only — not used by the redesign
+── Generated — don't edit, your changes would be overwritten ──
+index.html, work/, games/index.html, about/   the four main pages
+projects/<name>/                              one page per project
+artwork/, games/<old-name>/                   redirects from old addresses
+sitemap.xml
 
-tests/                   node --test checks (structure, links, labels, filter logic)
-feed.xml, sitemap.xml, robots.txt
+posts/, welcome-to-my-site/      Old blog (hand-written, not linked from the nav)
+tests/                           Checks run by npm test
 ```
 
-Every page carries its own copy of the header and footer, so a nav change has to be
-made in each `index.html`.
+Every generated file starts with a comment naming the markdown it came from.
 
-## Customizing
+## Add a project
 
-### Change a project's labels
-
-Labels live on the project's card in `work/index.html`, in `data-categories`
-(space-separated):
-
-```html
-<article class="card reveal" data-categories="shaders environment">
+```
+npm run new -- my-new-piece
 ```
 
-Available labels are whatever the filter buttons offer (below). A card with no labels
-only shows under "All".
+This creates `content/projects/my-new-piece.md` with every setting listed and explained.
+Fill in what you know, delete what you don't, write the breakdown under the settings
+block. With `npm run dev` running, the page appears at `/projects/my-new-piece/` and on
+the Work page as soon as you save. Put its images and videos under `assets/`.
 
-The small orange word above a card's title (`<p class="card__kind">Shaders</p>`) is just
-display text — change it freely; it doesn't affect filtering.
+The file name is the address, so use lowercase letters, numbers and dashes.
 
-### Add, rename or remove a filter
+To remove a project, delete its markdown file and run `npm run build` — its page goes away.
 
-Filter buttons are at the top of `work/index.html`:
+## Project settings
 
-```html
-<div class="filters" role="group" aria-label="Filter projects">
-  <button class="filter" type="button" data-filter="" aria-pressed="true">All</button>
-  <button class="filter" type="button" data-filter="shaders" aria-pressed="false">Shaders</button>
-  <button class="filter" type="button" data-filter="techanim" aria-pressed="false">Technical Animation</button>
-  <button class="filter" type="button" data-filter="environment" aria-pressed="false">Environment Design</button>
-</div>
+The block between the `---` lines at the top of each project file:
+
+| Setting | What it does |
+|---|---|
+| `title` | Project name (required) |
+| `type` | `work` for individual pieces, `game` to also list it on the Games page |
+| `label` | Small orange word above the title, e.g. `Shaders`, `Games` |
+| `categories` | Work-page filters it appears under, e.g. `[shaders, environment]` — keys from `content/site.md` |
+| `tags` | Grey tool pills on the card, e.g. `[UE5, HLSL, Houdini]` |
+| `summary` | One line under the card title — what you did |
+| `description` | Text for search engines and link previews (defaults to `summary`) |
+| `thumbnail` | Card image |
+| `preview` | Optional muted looping video on the card (`thumbnail` is its still) |
+| `order` | Position in the lists, lower first |
+| `hero` | Big media at the top of the page: image, `.mp4`, or YouTube link |
+| `hero_poster` | Still shown before a hero video plays |
+| `hero_caption` | Caption under the hero |
+| `hero_loop` | `true` = hero video autoplays muted on loop instead of showing controls |
+| `facts` | The facts strip, one `Name: value` per line (e.g. `Role: Solo`, `Year: 2026`) |
+| `links` | Buttons under the facts, e.g. `- [Play on itch.io →, https://…]` |
+| `what_i_did` | The "What I did" box (use `|` and indent for several lines/paragraphs) |
+| `highlight_image`, `highlight_video` | Only for home highlights — override the tile image/background (default to `thumbnail`/`preview`) |
+
+Leave a setting empty or delete it and that part simply isn't shown.
+
+## Writing the breakdown
+
+Plain markdown: `## Heading`, `### Smaller heading`, paragraphs, **bold**, *italic*,
+`[links](https://…)`, lists. Media:
+
+| Write | You get |
+|---|---|
+| `![Alt text](/assets/images/x/shot.png)` | Full-width image |
+| `*Caption*` on the line right after an image | Caption under that image |
+| `![Caption](/assets/videos/x/clip.mp4)` | Video with controls; the text becomes its caption |
+| `![Caption](/assets/videos/x/clip.mp4 "loop")` | Muted looping video (no controls) |
+| `![Caption](/assets/videos/x/clip.mp4 "loop poster=/assets/images/x/still.jpg")` | …with a still shown before it plays |
+| `![](https://www.youtube.com/watch?v=VIDEO_ID)` | YouTube player |
+
+Use `![](…)` (empty text) for a video with no caption.
+
+## Site settings — `content/site.md`
+
+```yaml
+filters:                 # Work-page filter buttons, in order ("All" is automatic)
+  shaders: Shaders
+  techanim: Technical Animation
+  environment: Environment Design
+highlights:              # Home level-select tiles, in order (project file names)
+  - cafebabe-pekora
+  - painterly-shader
+  - a-gentelmans-dispute
+  - decent-farewell
+title_role: Technical Artist
 ```
 
-- **Add a filter:** copy a button line, give it a new `data-filter` key (lowercase, no
-  spaces, e.g. `vfx`) and a label, then add that key to the cards' `data-categories`.
-  No JavaScript changes needed — the filter script reads the buttons from the page.
-- **Rename:** change the button's text. (Changing the key means updating the cards too.)
-- **Remove:** delete the button and remove its key from the cards.
-- A filtered view has its own link, e.g. `/work/#environment`.
+- **Add a filter:** add a line like `vfx: VFX`, then add `vfx` to the `categories` of the
+  projects that belong under it.
+- **Rename a filter:** change the text after the colon.
+- **Remove a filter:** delete the line and remove its key from projects' `categories`
+  (the tool tells you which files still use it).
+- **Change the home highlights:** edit the list (four looks best: 4 across, 2×2 on phones).
+- **About text:** everything below the second `---`. `**bold**` shows in orange.
 
-Then update the expected labels in `tests/site.test.mjs` (the `LABELS` table and the
-"work filters are …" test) so the checks match.
-
-### Change the home highlights
-
-In `index.html`, each highlight is one `<a class="level">` tile inside
-`<nav class="levels">`:
-
-```html
-<a class="level" href="/artwork/2-painterly-shader/" data-poster="/assets/images/painterly/painterly.png">
-  <img src="/assets/images/painterly/painterly.png" alt="" decoding="async">
-  <span class="level__num">02</span>
-  <span class="level__name">Painterly Shader</span>
-</a>
-```
-
-- `href` — the project page it opens.
-- `data-poster` and `<img src>` — the still image (usually the same file).
-- `data-video` (optional) — a short muted loop that plays behind the title on hover.
-- The first tile has `is-active`; the title background starts on it, so the
-  `<video class="title__video">` near the top of `<main>` should use the same video/poster.
-
-Keep it to four tiles for the 4-across layout (it becomes 2×2 on phones). Update the
-"home highlights" test in `tests/site.test.mjs` if you change which projects appear.
-
-### Add a project
-
-1. Copy an existing project page (e.g. `games/6-mask-exe/index.html`) to a new folder.
-   Update the `<title>`, meta tags, canonical URL, `project__kind`, title, hero media,
-   the facts list (only facts you know — delete the rest, or the whole `<dl>`),
-   "What I did", and the breakdown.
-2. Add a card to `work/index.html` (and to `games/index.html` too if it's a game):
-   ```html
-   <article class="card reveal" data-categories="shaders">
-     <a class="card__link" href="/artwork/5-new-thing/">
-       <div class="card__media"><img src="..." alt="" loading="lazy" decoding="async"></div>
-       <p class="card__kind">Shaders</p>
-       <h3 class="card__title">New Thing</h3>
-       <p class="card__what">One line on what you did.</p>
-       <ul class="tags"><li>UE5</li><li>HLSL</li></ul>
-     </a>
-   </article>
-   ```
-   On the Games page, leave out `data-categories`. For a looping preview instead of an
-   image use `<video src="..." poster="..." autoplay muted loop playsinline preload="metadata"></video>`.
-3. Add the page to `REDESIGNED` in `tests/helpers.mjs`, its labels to `LABELS` in
-   `tests/site.test.mjs`, and its URL to `sitemap.xml`.
-
-### Update your resume
+## Update your resume
 
 Replace `assets/resume/Victor_Lu_Resume.pdf` with the new PDF **using exactly the same
-file name**, then commit and push. Every Resume link points at that name. GitHub Pages
-caches files for about 10 minutes; a hard refresh shows the new one immediately.
+file name**, then commit and push. GitHub Pages caches files for about 10 minutes; a hard
+refresh shows the new one immediately.
 
-### Fill in "What I did"
+## Still to fill in
 
-Some projects don't have this text yet. Search for `TODO(victor)` — each appears in the
-project's card (`work/index.html`, plus `games/index.html` for games) and on its page.
+Ramu Cinematic, A Decent Farewell and Ginger Air have no `summary` / `what_i_did` yet —
+open their files in `content/projects/` and fill those in.
 
-- **Card:** replace the comment with `<p class="card__what">Your one line.</p>`
-- **Page:** replace the two comment lines with
-  ```html
-  <section class="what-i-did">
-    <h2>What I did</h2>
-    <p>One to three sentences.</p>
-  </section>
-  ```
+## Commands
 
-Currently missing: Ramu Cinematic, A Decent Farewell, Ginger Air.
-
-## Checks
-
-```
-node --test tests/*.test.mjs
-```
-
-Verifies every page uses the new stylesheet and nav, no local link or media path is
-broken, no TODO text is visible, every card label has a filter, and the filter logic works.
-
-## Local preview
-
-```
-python -m http.server 8000
-```
-
-Then open http://localhost:8000. Pages use root-relative paths, so open them through
-a server rather than from the file system.
+| Command | Does |
+|---|---|
+| `npm run dev` | Preview + rebuild on save + auto-reload (`-- --port 3000` for another port) |
+| `npm run build` | Regenerate all pages once |
+| `npm run check` | List generated files that are out of date |
+| `npm run new -- <name>` | Start a new project file |
+| `npm test` | Run all checks (includes `check`) |
