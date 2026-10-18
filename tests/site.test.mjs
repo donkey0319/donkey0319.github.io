@@ -90,3 +90,13 @@ for (const page of CONVERTED) {
     assert.doesNotMatch(stripComments(read(page)), /TODO/);
   });
 }
+
+for (const page of CONVERTED.filter((p) => /^(artwork|games)\//.test(p))) {
+  test(`${page}: follows the project template`, () => {
+    const html = read(page);
+    assert.match(html, /<a class="back" href="\/">/);
+    assert.match(html, /<p class="project__kind">(Shaders|Rendering|Tech Anim|Games)<\/p>/);
+    assert.match(html, /<div class="project__hero">/);
+    assert.ok(html.includes('class="what-i-did"') || html.includes('TODO(victor): what I did'));
+  });
+}

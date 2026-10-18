@@ -1,141 +1,102 @@
 <!doctype html>
-<html lang="en-US" class="no-js">
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
-  <title>Anime Shading Model - Victor’s Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Shading Model · Victor Lu</title>
   <meta name="description" content="#UE5 #Engine Customization #Rendering #Shader">
   <meta name="author" content="Victor Lu">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta property="og:type" content="article">
   <meta property="og:locale" content="en_US">
-  <meta property="og:site_name" content="Victor's Website">
+  <meta property="og:site_name" content="Victor Lu">
   <meta property="og:title" content="Anime Shading Model">
   <meta property="og:url" content="https://donkey0319.github.io/artwork/1-cafebabe-pekora/">
   <meta property="og:description" content="#UE5 #Engine Customization #Rendering #Shader">
-  <meta property="og:image" content="https://donkey0319.github.io/assets/images/pekora/cafebabe-pekora-header.jpg">
   <link rel="canonical" href="https://donkey0319.github.io/artwork/1-cafebabe-pekora/">
-  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Victor's Website Feed">
-
-  <script>
-    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-    // Only use the JS fade fallback in browsers without native cross-document
-    // view transitions (see site.css for the @view-transition rule) — pairing
-    // both would fade the content out twice.
-    if (!('startViewTransition' in document)) {
-      document.documentElement.classList.add('has-page-fade');
-    }
-  </script>
-
-  <link rel="stylesheet" href="/assets/css/theme.css">
-  <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
-
-  <!-- Claude-inspired typography: Poppins for headings, Lora for body -->
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="layout--single" dir="ltr">
-  <nav class="skip-links">
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary">
+      <a class="nav__brand" href="/">Victor Lu</a>
+      <ul class="nav__links">
+        <li><a href="/">Work</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+      </ul>
+      <ul class="nav__social">
+        <li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me" aria-label="ArtStation" title="ArtStation"><i class="fa-brands fa-artstation" aria-hidden="true"></i></a></li>
+        <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="project container container--narrow">
+    <a class="back" href="/">← All work</a>
+    <p class="project__kind">Rendering</p>
+    <h1>Anime Shading Model</h1>
+
+    <div class="project__hero">
+      <video controls playsinline preload="metadata" poster="/assets/images/pekora/faceshadow-poster.jpg">
+        <source src="/assets/videos/pekora/multicolor-demo.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <dl class="facts">
+      <div><dt>Tools</dt><dd>UE5, engine customization</dd></div>
+    </dl>
+
+    <section class="what-i-did">
+      <h2>What I did</h2>
+      <p>I made a shading model for Unreal Engine 5 which reacts to ambient light while maintaining an unlit shader-like appearance.</p>
+    </section>
+
+    <div class="project__body reveal">
+      <p class="caption">The character skin reacts to the light when the color is changed.</p>
+
+      <video controls playsinline preload="metadata">
+        <source src="/assets/videos/pekora/multisource-demo.mp4" type="video/mp4">
+      </video>
+      <p class="caption">The shading model also works for multiple and different kinds of light sources.</p>
+
+      <p>Addtionally, I also made a shadow falloff control option for the shading model, so that artists can control the shadow falloff in certain areas</p>
+
+      <video controls playsinline preload="metadata">
+        <source src="/assets/videos/pekora/faceshadow-demo.mp4" type="video/mp4">
+      </video>
+      <p class="caption">For example in Anime faces, it is important to control the face shadow falloff in a special way ignoring the traditional shadow calculation method.</p>
+
+      <video controls playsinline preload="metadata">
+        <source src="/assets/videos/pekora/shadowfalloff.mp4" type="video/mp4">
+      </video>
+      <p class="caption">Artists can also use a color curve to control the sharpness and area of the shadow.</p>
+
+      <video controls playsinline preload="metadata">
+        <source src="/assets/videos/pekora/shadowtint.mp4" type="video/mp4">
+      </video>
+      <p class="caption">Moreover, artist can also decide the tint of the shadow.</p>
+
+      <p>See custom shading model in Unreal Engine <a href="https://github.com/donkey0319/UnrealEngine/tree/Anime_Rendering">here</a>.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer container">
     <ul>
-      <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
-      <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
-      <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+      <li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me" aria-label="ArtStation" title="ArtStation"><i class="fa-brands fa-artstation" aria-hidden="true"></i></a></li>
+        <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
     </ul>
-  </nav>
+    <span>© 2026 Victor Lu</span>
+  </footer>
 
-  <div class="masthead">
-    <div class="masthead__inner-wrap">
-      <div class="masthead__menu">
-        <nav id="site-nav" class="greedy-nav">
-          <a class="site-title" href="/">Victor's Website</a>
-          <ul class="visible-links">
-            <li class="masthead__menu-item"><a href="/">About</a></li>
-            <li class="masthead__menu-item"><a href="/games/">Games</a></li>
-            <li class="masthead__menu-item"><a href="/artwork/">Artwork</a></li>
-            <li class="masthead__menu-item" style="display:flex; align-items:center;">
-              <a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email" style="margin-inline:0.3rem;"><i class="fas fa-envelope-square" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/victor-chan-lu/" rel="nofollow noopener noreferrer me" target="_blank" aria-label="LinkedIn" title="LinkedIn" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i></a>
-              <a href="https://www.artstation.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="ArtStation" title="ArtStation" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-artstation" aria-hidden="true"></i></a>
-              <a href="https://github.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="GitHub" title="GitHub" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-github" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-          <button class="greedy-nav__toggle hidden" type="button">
-            <span class="visually-hidden">Toggle menu</span>
-            <div class="navicon"></div>
-          </button>
-          <ul class="hidden-links hidden"></ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-
-  <div class="initial-content">
-    <div id="main" role="main">
-      <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-        <meta itemprop="headline" content="Anime Shading Model">
-        <meta itemprop="description" content="#UE5 #Engine Customization #Rendering #Shader">
-        <div class="page__inner-wrap">
-          <header>
-            <h1 id="page-title" class="page__title" itemprop="headline">
-              <a href="/artwork/1-cafebabe-pekora/" itemprop="url">Anime Shading Model</a>
-            </h1>
-          </header>
-
-          <section class="page__content" itemprop="text">
-            <p>I made a shading model for Unreal Engine 5 which reacts to ambient light while maintaining an unlit shader-like appearance.</p>
-
-            <video width="100%" controls="">
-              <source src="/assets/videos/pekora/multicolor-demo.mp4" type="video/mp4" />
-            </video>
-            <p class="caption">The character skin reacts to the light when the color is changed.</p>
-
-            <video width="100%" controls="">
-              <source src="/assets/videos/pekora/multisource-demo.mp4" type="video/mp4" />
-            </video>
-            <p class="caption">The shading model also works for multiple and different kinds of light sources.</p>
-
-            <p>Addtionally, I also made a shadow falloff control option for the shading model, so that artists can control the shadow falloff in certain areas</p>
-
-            <video width="100%" controls="">
-              <source src="/assets/videos/pekora/faceshadow-demo.mp4" type="video/mp4" />
-            </video>
-            <p class="caption">For example in Anime faces, it is important to control the face shadow falloff in a special way ignoring the traditional shadow calculation method.</p>
-
-            <video width="100%" controls="">
-              <source src="/assets/videos/pekora/shadowfalloff.mp4" type="video/mp4" />
-            </video>
-            <p class="caption">Artists can also use a color curve to control the sharpness and area of the shadow.</p>
-
-            <video width="100%" controls="">
-              <source src="/assets/videos/pekora/shadowtint.mp4" type="video/mp4" />
-            </video>
-            <p class="caption">Moreover, artist can also decide the tint of the shadow.</p>
-
-            <p>See custom shading model in Unreal Engine <a href="https://github.com/donkey0319/UnrealEngine/tree/Anime_Rendering">here</a>.</p>
-          </section>
-
-          <footer class="page__meta"></footer>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <div id="footer" class="page__footer">
-    <footer>
-      <div class="page__footer-follow">
-        <ul class="social-icons">
-          <li><strong>Follow:</strong></li>
-          <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-        </ul>
-      </div>
-      <div class="page__footer-copyright">&copy; 2013 - 2026 <a href="https://donkey0319.github.io">Victor's Website</a>.</div>
-    </footer>
-  </div>
-
-  <script src="/assets/js/page-fade.js"></script>
-  <script src="/assets/js/main.min.js"></script>
+  <script src="/assets/js/site.js"></script>
 </body>
 </html>
