@@ -8,7 +8,7 @@ import { buildSite, diffSite } from '../tools/lib/build.mjs';
 
 const require = createRequire(import.meta.url);
 
-const NAV = ['/', '/work/', '/games/', '/about/'];
+const NAV = ['/', '/work/', '/games/'];
 const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, '');
 const navOf = (html) => (html.match(/<ul class="nav__links">([\s\S]*?)<\/ul>/) || [])[1] || '';
 const cardsOf = (html) =>
@@ -69,7 +69,7 @@ for (const page of REDESIGNED) {
     }
   });
 
-  test(`${page}: nav is Home, Work, Games, About`, () => {
+  test(`${page}: nav is Home, Work, Games`, () => {
     const hrefs = [...navOf(read(page)).matchAll(/href="([^"]*)"/g)].map((m) => m[1]);
     assert.deepEqual(hrefs, NAV);
   });
@@ -100,8 +100,8 @@ for (const [page, current] of Object.entries(LISTINGS)) {
   });
 }
 
-test('resume is reachable from Home and About', () => {
-  for (const page of ['index.html', 'about/index.html']) {
+test('resume is reachable from Home', () => {
+  for (const page of ['index.html']) {
     assert.match(read(page), /<a href="\/assets\/resume\/Victor_Lu_Resume\.pdf" target="_blank" rel="noopener">(<i [^>]*><\/i>)?Resume<\/a>/, page);
   }
 });
@@ -232,11 +232,16 @@ test('old artwork/ folder is gone and games/ holds only the Games page', () => {
 
 test('sitemap matches the new pages', () => {
   const xml = read('sitemap.xml');
-  for (const p of ['/', '/work/', '/games/', '/about/']) assert.ok(xml.includes(`<loc>https://donkey0319.github.io${p}</loc>`), p);
+  for (const p of ['/', '/work/', '/games/']) assert.ok(xml.includes(`<loc>https://donkey0319.github.io${p}</loc>`), p);
+  assert.ok(!xml.includes('/about/'));
   assert.ok(!xml.includes('/artwork/</loc>'));
   assert.doesNotMatch(xml, /grann/i);
 });
 
 test('committed HTML is up to date with content/ (run: npm run build)', () => {
   assert.deepEqual(diffSite(ROOT, buildSite({ contentDir: path.join(ROOT, 'content'), assetRoot: ROOT })), []);
+});
+
+test('the About page is gone', () => {
+  assert.ok(!existsSync(path.join(ROOT, 'about')));
 });

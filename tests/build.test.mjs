@@ -16,7 +16,6 @@ test('builds every page, project page, redirect and the sitemap', () => {
     'index.html',
     'work/index.html',
     'games/index.html',
-    'about/index.html',
     'projects/alpha/index.html',
     'projects/beta-game/index.html',
     'sitemap.xml',
@@ -88,17 +87,34 @@ test('project page without facts or what-I-did', () => {
   assert.match(html, /<p class="project__links"><a href="https:\/\/example\.com\/play" target="_blank" rel="noopener">Play on itch\.io →<\/a><\/p>/);
 });
 
-test('nav is Home, Work, Games, About with the right page marked', () => {
-  const current = { 'index.html': '/', 'work/index.html': '/work/', 'games/index.html': '/games/', 'about/index.html': '/about/', 'projects/alpha/index.html': null };
+test('nav is Home, Work, Games with the right page marked', () => {
+  const current = { 'index.html': '/', 'work/index.html': '/work/', 'games/index.html': '/games/', 'projects/alpha/index.html': null };
   for (const [p, cur] of Object.entries(current)) {
     const nav = navOf(page(p));
-    assert.deepEqual([...nav.matchAll(/href="([^"]*)"/g)].map((m) => m[1]), ['/', '/work/', '/games/', '/about/'], p);
+    assert.deepEqual([...nav.matchAll(/href="([^"]*)"/g)].map((m) => m[1]), ['/', '/work/', '/games/'], p);
     assert.deepEqual([...nav.matchAll(/href="([^"]*)" aria-current="page"/g)].map((m) => m[1]), cur ? [cur] : [], p);
   }
 });
 
-test('about renders site.md text with orange bold', () => {
-  assert.match(page('about/index.html'), /<strong class="accent">Technical Artist<\/strong>/);
+test('no About page is generated', () => {
+  assert.ok(!out.has('about/index.html'));
+  assert.ok(![...out.values()].some((html) => html.includes('href="/about/"')));
+});
+
+test('home shows the About content between the title and the highlights', () => {
+  const html = page('index.html');
+  const title = html.indexOf('class="title__name"');
+  const about = html.indexOf('class="title__about"');
+  const heading = html.indexOf('class="levels__heading"');
+  const tiles = html.indexOf('class="levels"');
+  assert.ok(title < about && about < heading && heading < tiles, 'order: title, about, Highlights heading, tiles');
+  const block = html.slice(about, heading);
+  assert.match(block, /<strong class="accent">Technical Artist<\/strong>/);
+  assert.match(block, /<img class="title__photo" src="\/assets\/images\/pfp\.png"/);
+  for (const link of ['mailto:vclu@andrew.cmu.edu', 'https://www.linkedin.com/in/victor-chan-lu/', 'https://www.artstation.com/donkey0319', 'https://github.com/donkey0319', '/assets/resume/Victor_Lu_Resume.pdf']) {
+    assert.ok(block.includes(`href="${link}"`), link);
+  }
+  assert.match(html, /<h2 class="levels__heading">Highlights<\/h2>/);
 });
 
 test('no redirect pages are generated for old addresses', () => {
@@ -108,7 +124,7 @@ test('no redirect pages are generated for old addresses', () => {
 
 test('sitemap lists pages, projects and the old blog', () => {
   const xml = page('sitemap.xml');
-  for (const p of ['/', '/work/', '/games/', '/about/', '/projects/alpha/', '/projects/beta-game/', '/posts/', '/welcome-to-my-site/']) {
+  for (const p of ['/', '/work/', '/games/', '/projects/alpha/', '/projects/beta-game/', '/posts/', '/welcome-to-my-site/']) {
     assert.ok(xml.includes(`<loc>https://donkey0319.github.io${p}</loc>`), p);
   }
   assert.doesNotMatch(xml, /\/artwork\//);
@@ -125,7 +141,7 @@ test('code blocks on project pages are not indented by the template', async () =
 });
 
 test('top bar has no social icons', () => {
-  for (const p of ['index.html', 'work/index.html', 'games/index.html', 'about/index.html', 'projects/alpha/index.html']) {
+  for (const p of ['index.html', 'work/index.html', 'games/index.html', 'projects/alpha/index.html']) {
     const header = page(p).match(/<header class="site-header">[\s\S]*?<\/header>/)[0];
     assert.doesNotMatch(header, /nav__social|fa-brands|fa-envelope/, p);
   }

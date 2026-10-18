@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { loadContent } from './content.mjs';
-import { homePage, workPage, gamesPage, aboutPage, projectPage, sitemap, projectUrl } from './templates.mjs';
+import { homePage, workPage, gamesPage, projectPage, sitemap, projectUrl } from './templates.mjs';
 
 // Hand-written pages outside the generator that still belong in the sitemap.
 const EXTRA_SITEMAP = ['/posts/', '/welcome-to-my-site/'];
@@ -16,9 +16,8 @@ export function buildSite({ contentDir, assetRoot }) {
   out.set('index.html', homePage(content));
   out.set('work/index.html', workPage(content));
   out.set('games/index.html', gamesPage(content));
-  out.set('about/index.html', aboutPage(content));
   for (const p of projects) out.set(`projects/${p.slug}/index.html`, projectPage(p));
-  out.set('sitemap.xml', sitemap(['/', '/work/', '/games/', '/about/', ...projects.map(projectUrl), ...EXTRA_SITEMAP]));
+  out.set('sitemap.xml', sitemap(['/', '/work/', '/games/', ...projects.map(projectUrl), ...EXTRA_SITEMAP]));
   return out;
 }
 

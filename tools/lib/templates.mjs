@@ -13,7 +13,6 @@ const NAV = [
   ['/', 'Home'],
   ['/work/', 'Work'],
   ['/games/', 'Games'],
-  ['/about/', 'About'],
 ];
 
 const SOCIAL = `<li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
@@ -152,15 +151,32 @@ export function homePage({ site, projects }) {
         <ul class="title__menu">
           <li><a href="/work/">All Work</a></li>
           <li><a href="/games/">Games</a></li>
-          <li><a href="/about/">About</a></li>
           <li><a href="${RESUME}" target="_blank" rel="noopener">Resume</a></li>
         </ul>
       </div>
 
+      <!-- About: the text below the settings in content/site.md. -->
+      <section class="title__about" aria-label="About">
+        <img class="title__photo" src="/assets/images/pfp.png" alt="Victor Lu">
+        <div class="title__bio">
+${indent(renderAbout(site.aboutMarkdown), 10)}
+          <ul class="title__contact">
+            <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
+            <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
+            <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
+            <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
+            <li><a href="${RESUME}" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
+          </ul>
+        </div>
+      </section>
+
       <!-- Highlights come from highlights: in content/site.md. -->
-      <nav class="levels" aria-label="Highlights">
-${indent(tiles, 8)}
-      </nav>
+      <section class="title__highlights">
+        <h2 class="levels__heading">Highlights</h2>
+        <nav class="levels" aria-label="Highlights">
+${indent(tiles, 10)}
+        </nav>
+      </section>
     </div>
   </main>`;
 
@@ -236,29 +252,6 @@ export function gamesPage({ projects }) {
       cards: projects.filter((p) => p.type === 'game').map((p) => card(p, { withCategories: false })),
     }),
     source: 'content/projects/*.md',
-  });
-}
-
-export function aboutPage({ site }) {
-  const main = `  <main class="about container container--narrow reveal">
-    <img class="about__photo" src="/assets/images/pfp.png" alt="Victor Lu">
-    <h1>About</h1>
-${indent(renderAbout(site.aboutMarkdown), 4)}
-    <ul class="about__contact">
-      <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
-      <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
-      <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
-      <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
-      <li><a href="${RESUME}" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
-    </ul>
-  </main>`;
-  return layout({
-    title: 'About · Victor Lu',
-    description: 'Victor Lu is a game developer and technical artist based in Pittsburgh, focusing on shaders, rendering and technical animation.',
-    url: '/about/',
-    current: '/about/',
-    main,
-    source: 'content/site.md',
   });
 }
 

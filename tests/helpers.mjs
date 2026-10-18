@@ -32,7 +32,6 @@ export const REDESIGNED = [
   'index.html',
   'work/index.html',
   'games/index.html',
-  'about/index.html',
   'projects/cafebabe-pekora/index.html',
   'projects/painterly-shader/index.html',
   'projects/ramu-cinematic/index.html',
@@ -45,6 +44,6 @@ export const REDESIGNED = [
 ];
 
 // Listing pages and the nav link each one marks as current.
-export const LISTINGS = { 'index.html': '/', 'work/index.html': '/work/', 'games/index.html': '/games/', 'about/index.html': '/about/' };
+export const LISTINGS = { 'index.html': '/', 'work/index.html': '/work/', 'games/index.html': '/games/' };
 
 export const PROJECTS = REDESIGNED.filter((p) => p.startsWith('projects/'));

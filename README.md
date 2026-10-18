@@ -29,7 +29,7 @@ push a stale page by accident.
 ## Where things live
 
 ```
-content/site.md                  Filters, home highlights, title line, About text
+content/site.md                  Filters, home highlights, title line, About text (shown on Home)
 content/projects/<name>.md       One file per project: settings + full write-up
 
 tools/site.mjs                   The tool (dev / build / check / new)
@@ -42,7 +42,7 @@ assets/images, assets/videos     Media
 assets/resume/Victor_Lu_Resume.pdf
 
 ── Generated — don't edit, your changes would be overwritten ──
-index.html, work/, games/index.html, about/   the four main pages
+index.html, work/, games/index.html          the three main pages
 projects/<name>/                              one page per project
 sitemap.xml
 
@@ -131,7 +131,8 @@ title_role: Technical Artist
 - **Remove a filter:** delete the line and remove its key from projects' `categories`
   (the tool tells you which files still use it).
 - **Change the home highlights:** edit the list (four looks best: 4 across, 2×2 on phones).
-- **About text:** everything below the second `---`. `**bold**` shows in orange.
+- **About text:** everything below the second `---`. It appears on the Home page between
+  your name and the Highlights, with your photo and contact links. `**bold**` shows in orange.
 
 ## Update your resume
 

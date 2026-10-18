@@ -37,7 +37,6 @@
         <li><a href="/" aria-current="page">Home</a></li>
         <li><a href="/work/">Work</a></li>
         <li><a href="/games/">Games</a></li>
-        <li><a href="/about/">About</a></li>
       </ul>
     </nav>
   </header>
@@ -55,30 +54,47 @@
         <ul class="title__menu">
           <li><a href="/work/">All Work</a></li>
           <li><a href="/games/">Games</a></li>
-          <li><a href="/about/">About</a></li>
           <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
         </ul>
       </div>
 
+      <!-- About: the text below the settings in content/site.md. -->
+      <section class="title__about" aria-label="About">
+        <img class="title__photo" src="/assets/images/pfp.png" alt="Victor Lu">
+        <div class="title__bio">
+          <p>I’m Victor Lu, a passionate Game Developer and <strong class="accent">Technical Artist</strong> based in Pittsburgh. I was studying Computer Engineering, and I am now focusing in technical art in game development, especially in <strong class="accent">shaders</strong>, <strong class="accent">rendering</strong>, and <strong class="accent">technical animation</strong>.</p>
+          <ul class="title__contact">
+            <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
+            <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
+            <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
+            <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
+            <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
+          </ul>
+        </div>
+      </section>
+
       <!-- Highlights come from highlights: in content/site.md. -->
-      <nav class="levels" aria-label="Highlights">
-        <a class="level is-active" href="/projects/cafebabe-pekora/" data-video="/assets/videos/pekora/faceshadow-teaser.mp4" data-poster="/assets/images/pekora/faceshadow-poster.jpg">
-          <img src="/assets/images/pekora/faceshadow-poster.jpg" alt="" decoding="async">
-          <span class="level__name">Anime Shading Model</span>
-        </a>
-        <a class="level" href="/projects/painterly-shader/" data-poster="/assets/images/painterly/painterly.png">
-          <img src="/assets/images/painterly/painterly.png" alt="" decoding="async">
-          <span class="level__name">Painterly Shader</span>
-        </a>
-        <a class="level" href="/projects/a-gentelmans-dispute/" data-poster="/assets/images/AGD/egypt-teaser.jpg">
-          <img src="/assets/images/AGD/egypt-teaser.jpg" alt="" decoding="async">
-          <span class="level__name">A Gentlemen’s Dispute</span>
-        </a>
-        <a class="level" href="/projects/decent-farewell/" data-poster="/assets/images/decentfarewell/farewell-teaser.jpg">
-          <img src="/assets/images/decentfarewell/farewell-teaser.jpg" alt="" decoding="async">
-          <span class="level__name">A Decent Farewell</span>
-        </a>
-      </nav>
+      <section class="title__highlights">
+        <h2 class="levels__heading">Highlights</h2>
+        <nav class="levels" aria-label="Highlights">
+          <a class="level is-active" href="/projects/cafebabe-pekora/" data-video="/assets/videos/pekora/faceshadow-teaser.mp4" data-poster="/assets/images/pekora/faceshadow-poster.jpg">
+            <img src="/assets/images/pekora/faceshadow-poster.jpg" alt="" decoding="async">
+            <span class="level__name">Anime Shading Model</span>
+          </a>
+          <a class="level" href="/projects/painterly-shader/" data-poster="/assets/images/painterly/painterly.png">
+            <img src="/assets/images/painterly/painterly.png" alt="" decoding="async">
+            <span class="level__name">Painterly Shader</span>
+          </a>
+          <a class="level" href="/projects/a-gentelmans-dispute/" data-poster="/assets/images/AGD/egypt-teaser.jpg">
+            <img src="/assets/images/AGD/egypt-teaser.jpg" alt="" decoding="async">
+            <span class="level__name">A Gentlemen’s Dispute</span>
+          </a>
+          <a class="level" href="/projects/decent-farewell/" data-poster="/assets/images/decentfarewell/farewell-teaser.jpg">
+            <img src="/assets/images/decentfarewell/farewell-teaser.jpg" alt="" decoding="async">
+            <span class="level__name">A Decent Farewell</span>
+          </a>
+        </nav>
+      </section>
     </div>
   </main>
 
