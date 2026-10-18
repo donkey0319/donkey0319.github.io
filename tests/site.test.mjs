@@ -4,6 +4,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { ROOT, read, localRefs, resolves, REDESIGNED, LISTINGS, PROJECTS } from './helpers.mjs';
+import { buildSite, diffSite, LEGACY } from '../tools/lib/build.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -112,10 +113,10 @@ test('home highlights are the four chosen pieces, in order', () => {
   const html = stripComments(read('index.html'));
   const hrefs = [...html.matchAll(/<a class="level[^"]*"[^>]*href="([^"]*)"/g)].map((m) => m[1]);
   assert.deepEqual(hrefs, [
-    '/artwork/1-cafebabe-pekora/',
-    '/artwork/2-painterly-shader/',
-    '/games/2-a-gentelmans-dispute/',
-    '/games/3-decent-farewell/',
+    '/projects/cafebabe-pekora/',
+    '/projects/painterly-shader/',
+    '/projects/a-gentelmans-dispute/',
+    '/projects/decent-farewell/',
   ]);
 });
 
@@ -141,15 +142,15 @@ test('old home hashes forward to the new pages', () => {
 // Work page: all projects + filters
 
 const LABELS = {
-  '/artwork/1-cafebabe-pekora/': ['shaders'],
-  '/artwork/2-painterly-shader/': ['shaders', 'environment'],
-  '/artwork/3-ramu-cinematic/': ['shaders', 'techanim'],
-  '/artwork/4-mocap-addon/': ['techanim'],
-  '/games/2-a-gentelmans-dispute/': ['environment'],
-  '/games/3-decent-farewell/': ['environment'],
-  '/games/4-kungfu-penguin/': ['techanim'],
-  '/games/5-ginger-air/': ['environment'],
-  '/games/6-mask-exe/': ['environment'],
+  '/projects/cafebabe-pekora/': ['shaders'],
+  '/projects/painterly-shader/': ['shaders', 'environment'],
+  '/projects/ramu-cinematic/': ['shaders', 'techanim'],
+  '/projects/mocap-addon/': ['techanim'],
+  '/projects/a-gentelmans-dispute/': ['environment'],
+  '/projects/decent-farewell/': ['environment'],
+  '/projects/kungfu-penguin/': ['techanim'],
+  '/projects/ginger-air/': ['environment'],
+  '/projects/mask-exe/': ['environment'],
 };
 
 test('work page lists every project with its labels', () => {
@@ -190,11 +191,11 @@ test('no element id on the work page collides with a filter hash', () => {
 test('games page lists the five games', () => {
   const hrefs = cardsOf(read('games/index.html')).map((c) => c.href);
   assert.deepEqual(hrefs, [
-    '/games/2-a-gentelmans-dispute/',
-    '/games/3-decent-farewell/',
-    '/games/4-kungfu-penguin/',
-    '/games/5-ginger-air/',
-    '/games/6-mask-exe/',
+    '/projects/a-gentelmans-dispute/',
+    '/projects/decent-farewell/',
+    '/projects/kungfu-penguin/',
+    '/projects/ginger-air/',
+    '/projects/mask-exe/',
   ]);
 });
 
@@ -211,7 +212,7 @@ for (const page of PROJECTS) {
   });
 }
 
-for (const page of PROJECTS.filter((p) => p.startsWith('games/'))) {
+for (const page of PROJECTS) {
   test(`${page}: no empty Work heading`, () => {
     assert.doesNotMatch(read(page), /<h2[^>]*>\s*Work\s*<\/h2>\s*(<\/section>|<\/div>|<\/main>|$)/);
   });
@@ -233,4 +234,14 @@ test('sitemap matches the new pages', () => {
   for (const p of ['/', '/work/', '/games/', '/about/']) assert.ok(xml.includes(`<loc>https://donkey0319.github.io${p}</loc>`), p);
   assert.ok(!xml.includes('/artwork/</loc>'));
   assert.doesNotMatch(xml, /grann/i);
+});
+
+test('every old project URL redirects to its new page', () => {
+  for (const [old, slug] of Object.entries(LEGACY)) {
+    assert.match(read(`${old}/index.html`), new RegExp(`http-equiv="refresh" content="0; url=/projects/${slug}/"`), old);
+  }
+});
+
+test('committed HTML is up to date with content/ (run: npm run build)', () => {
+  assert.deepEqual(diffSite(ROOT, buildSite({ contentDir: path.join(ROOT, 'content'), assetRoot: ROOT })), []);
 });

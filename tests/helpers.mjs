@@ -33,18 +33,18 @@ export const REDESIGNED = [
   'work/index.html',
   'games/index.html',
   'about/index.html',
-  'artwork/1-cafebabe-pekora/index.html',
-  'artwork/2-painterly-shader/index.html',
-  'artwork/3-ramu-cinematic/index.html',
-  'artwork/4-mocap-addon/index.html',
-  'games/2-a-gentelmans-dispute/index.html',
-  'games/3-decent-farewell/index.html',
-  'games/4-kungfu-penguin/index.html',
-  'games/5-ginger-air/index.html',
-  'games/6-mask-exe/index.html',
+  'projects/cafebabe-pekora/index.html',
+  'projects/painterly-shader/index.html',
+  'projects/ramu-cinematic/index.html',
+  'projects/mocap-addon/index.html',
+  'projects/a-gentelmans-dispute/index.html',
+  'projects/decent-farewell/index.html',
+  'projects/kungfu-penguin/index.html',
+  'projects/ginger-air/index.html',
+  'projects/mask-exe/index.html',
 ];
 
 // Listing pages and the nav link each one marks as current.
 export const LISTINGS = { 'index.html': '/', 'work/index.html': '/work/', 'games/index.html': '/games/', 'about/index.html': '/about/' };
 
-export const PROJECTS = REDESIGNED.filter((p) => /^(artwork|games)\/[^/]+\/index\.html$/.test(p));
+export const PROJECTS = REDESIGNED.filter((p) => p.startsWith('projects/'));
