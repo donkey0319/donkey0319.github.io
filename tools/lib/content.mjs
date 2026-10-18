@@ -130,6 +130,7 @@ function loadProject(file, name, site, assetRoot) {
     hero: str(d.hero),
     heroPoster: opt(d.hero_poster),
     heroCaption: opt(d.hero_caption),
+    heroLoop: d.hero_loop === true,
     facts: Object.entries(facts).map(([k, v]) => [k, str(v)]).filter(([, v]) => v),
     links,
     order,
