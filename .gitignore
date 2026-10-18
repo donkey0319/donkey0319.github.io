@@ -12,3 +12,6 @@ Thumbs.db
 
 # Brainstorm mockups
 .superpowers/
+
+# Tooling
+node_modules/
