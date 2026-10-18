@@ -320,11 +320,13 @@ html:has(body.is-home) {
   background: var(--bg);
 }
 
+/* --dim goes from 0 (top of the page) to 1 (bottom), set by home.js as you
+   scroll: the video fades from 45% to about 12% brightness. */
 .title__video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.45;
+  opacity: calc(0.45 - 0.33 * var(--dim, 0));
 }
 
 /* Darken the background so text stays readable everywhere on it. */
