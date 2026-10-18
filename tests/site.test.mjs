@@ -257,3 +257,12 @@ test('home scenes: fades only hide content once home.js runs, respect reduced mo
   assert.match(js, /classList\.add\('scenes'\)/);
   assert.match(js, /IntersectionObserver/);
 });
+
+test('highlights are a 2x2 grid on every screen size', () => {
+  const css = read('assets/css/style.css');
+  const levels = [...css.matchAll(/\.levels\s*\{([^}]*)\}/g)].map((m) => m[1]);
+  assert.ok(levels.length >= 1);
+  for (const rule of levels) {
+    if (/grid-template-columns/.test(rule)) assert.match(rule, /grid-template-columns:\s*1fr 1fr;/);
+  }
+});
