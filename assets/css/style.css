@@ -383,6 +383,11 @@ html.js .reveal.is-visible {
 }
 
 @media (min-width: 720px) {
+  /* Shorter tiles on wide screens so the first projects show above the fold. */
+  .tile {
+    aspect-ratio: 5 / 2;
+  }
+
   .tile__label {
     left: 20px;
     bottom: 16px;
