@@ -161,14 +161,14 @@ test('work page lists every project with its labels', () => {
   );
 });
 
-test('work filters are All, Shaders, Animation, Environment Design', () => {
+test('work filters are All, Shaders, Animation, Environment Art', () => {
   const html = read('work/index.html');
   const buttons = [...html.matchAll(/<button class="filter[^"]*"[^>]*data-filter="([^"]*)"[^>]*>([^<]*)</g)].map((m) => [m[1], m[2].trim()]);
   assert.deepEqual(buttons, [
     ['', 'All'],
     ['shaders', 'Shaders'],
     ['animation', 'Animation'],
-    ['environment', 'Environment Design'],
+    ['environment', 'Environment Art'],
   ]);
 });
 
