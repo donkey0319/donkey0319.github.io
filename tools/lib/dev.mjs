@@ -86,7 +86,14 @@ export async function createDevServer({ root, assetRoot = root, port = 8000, qui
       req.on('close', () => clients.delete(res));
       return;
     }
-    const file = resolveFile(roots, req.url);
+    let file;
+    try {
+      file = resolveFile(roots, req.url);
+    } catch {
+      // A malformed %-escape must not take the whole preview down.
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      return res.end('Bad address');
+    }
     const isHtml = !file || file.endsWith('.html');
     if (lastError && isHtml) {
       res.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-store' });

@@ -102,3 +102,43 @@ test('rejects invalid YAML with the file name', () => {
   const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), 'tags: [UE5, Shader]', 'tags: [UE5, Shader'));
   expectError(dir, { file: 'alpha.md', field: 'front matter' });
 });
+
+test('a byte-order mark at the start of a file is ignored', () => {
+  const { data } = parseFrontMatter('\uFEFF---\ntitle: X\n---\nbody');
+  assert.equal(data.title, 'X');
+  const dir = scratch((d) => {
+    for (const f of ['site.md', 'projects/alpha.md']) {
+      const p = path.join(d, f);
+      writeFileSync(p, '\uFEFF' + readFileSync(p, 'utf8'));
+    }
+  });
+  const { site, projects } = loadContent(dir, { assetRoot: ROOT });
+  assert.equal(site.filters.length, 2);
+  assert.equal(projects[0].title, 'Alpha Piece');
+});
+
+test('a % in an asset path is a clear error, not a crash', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), 'thumbnail: /assets/images/painterly/painterly.png', 'thumbnail: /assets/images/100%.png'));
+  expectError(dir, { file: 'alpha.md', field: 'thumbnail' });
+});
+
+test('asset paths must match the real file name letter-for-letter', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), 'thumbnail: /assets/images/painterly/painterly.png', 'thumbnail: /assets/images/Painterly/painterly.PNG'));
+  expectError(dir, { file: 'alpha.md', field: 'thumbnail' });
+});
+
+test('images and videos in the write-up are checked too', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), '![A clip](/assets/videos/painterly/painterly.mp4)', '![A clip](/assets/videos/painterly/nope.mp4)'));
+  expectError(dir, { file: 'alpha.md', field: 'body' });
+});
+
+test('poster hints in the write-up are checked', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), '![A clip](/assets/videos/painterly/painterly.mp4)', '![A clip](/assets/videos/painterly/painterly.mp4 "loop poster=/assets/nope.jpg")'));
+  expectError(dir, { file: 'alpha.md', field: 'body' });
+});
+
+test('a misspelled setting is an error that suggests the right name', () => {
+  const dir = scratch((d) => rewrite(path.join(d, 'projects/alpha.md'), 'categories: [shaders, environment]', 'catgories: [shaders, environment]'));
+  expectError(dir, { file: 'alpha.md', field: 'catgories' });
+  assert.throws(() => loadContent(dir, { assetRoot: ROOT }), /did you mean "categories"/);
+});

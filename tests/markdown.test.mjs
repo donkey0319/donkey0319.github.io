@@ -69,3 +69,8 @@ test('renderMedia is reused for heroes', () => {
 test('About bold text is orange', () => {
   assert.match(renderAbout('I am a **Technical Artist**.'), /<strong class="accent">Technical Artist<\/strong>/);
 });
+
+test('code blocks keep their indentation and blank lines', () => {
+  const html = renderBody('```hlsl\nfloat4 main() {\n    return 1;\n\n\n}\n```');
+  assert.match(html, /<pre><code class="language-hlsl">float4 main\(\) \{\n    return 1;\n\n\n\}\n<\/code><\/pre>/);
+});

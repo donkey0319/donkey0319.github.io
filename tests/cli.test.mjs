@@ -116,3 +116,15 @@ test('dev serves pages with live reload and survives a bad save', async () => {
     await server.close();
   }
 });
+
+test('dev survives a malformed address', async () => {
+  const dir = tempSite();
+  const server = await createDevServer({ root: dir, assetRoot: ROOT, port: 0, quiet: true });
+  try {
+    const bad = await fetch(server.url + '/%E0%A4%A');
+    assert.equal(bad.status, 400);
+    assert.equal((await fetch(server.url + '/')).status, 200);
+  } finally {
+    await server.close();
+  }
+});

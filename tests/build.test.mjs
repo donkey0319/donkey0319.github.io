@@ -117,3 +117,13 @@ test('sitemap lists pages, projects and the old blog', () => {
   }
   assert.doesNotMatch(xml, /\/artwork\//);
 });
+
+test('code blocks on project pages are not indented by the template', async () => {
+  const { projectPage } = await import('../tools/lib/templates.mjs');
+  const html = projectPage({
+    slug: 'x', source: 'content/projects/x.md', title: 'X', type: 'work', label: '', categories: [], tags: [],
+    summary: '', description: '', thumbnail: '', hero: '', facts: [], links: [], order: 1,
+    body: '```\nline one\n    line two\n```',
+  });
+  assert.match(html, /<pre><code>line one\n    line two\n<\/code><\/pre>/);
+});

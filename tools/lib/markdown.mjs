@@ -93,14 +93,20 @@ function makeMarked({ accentStrong = false } = {}) {
   return marked;
 }
 
+// Tidy blank lines, but never inside <pre> (code keeps its exact spacing).
+const tidyOutsidePre = (html) =>
+  html
+    .split(/(<pre[\s\S]*?<\/pre>)/)
+    .map((part, i) => (i % 2 ? part : part.replace(/\n{3,}/g, '\n\n')))
+    .join('');
+
 function finish(html) {
-  return html
+  return tidyOutsidePre(html
     // An italic-only paragraph right after media is that media's caption.
     .replace(new RegExp(`${MEDIA_END}\\s*<p data-em-only><em>([\\s\\S]*?)</em></p>`, 'g'), `${MEDIA_END}\n<p class="caption">$1</p>`)
     .replace(/<p data-em-only>/g, '<p>')
     .replace(new RegExp(MEDIA_START, 'g'), '')
-    .replace(new RegExp(MEDIA_END, 'g'), '\n')
-    .replace(/\n{3,}/g, '\n\n')
+    .replace(new RegExp(MEDIA_END, 'g'), '\n'))
     .trim();
 }
 
