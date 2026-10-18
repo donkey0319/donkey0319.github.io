@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
-import { ROOT, read, localRefs, resolves, CONVERTED } from './helpers.mjs';
+import { ROOT, read, localRefs, resolves, CONVERTED, REDESIGNED } from './helpers.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -106,3 +106,19 @@ for (const page of CONVERTED.filter((p) => p.startsWith('games/'))) {
     assert.doesNotMatch(read(page), /<h2[^>]*>\s*Work\s*<\/h2>\s*(<\/section>|<\/div>|<\/main>|$)/);
   });
 }
+
+test('every redesigned page is converted', () => {
+  assert.deepEqual([...CONVERTED].sort(), [...REDESIGNED].sort());
+});
+
+test('old grid pages redirect into the home grid', () => {
+  assert.match(read('games/index.html'), /http-equiv="refresh" content="0; url=\/#games"/);
+  assert.match(read('artwork/index.html'), /http-equiv="refresh" content="0; url=\/"/);
+});
+
+test('sitemap lists About and drops the old grids', () => {
+  const xml = read('sitemap.xml');
+  assert.ok(xml.includes('<loc>https://donkey0319.github.io/about/</loc>'));
+  assert.ok(!xml.includes('<loc>https://donkey0319.github.io/games/</loc>'));
+  assert.ok(!xml.includes('<loc>https://donkey0319.github.io/artwork/</loc>'));
+});

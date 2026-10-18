@@ -1,148 +1,16 @@
 <!doctype html>
-<html lang="en-US" class="no-js">
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
-  <title>Artwork - Victor’s Website</title>
-  <meta name="description" content="A website showing Victor’s work!">
-  <meta name="author" content="Victor Lu">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:site_name" content="Victor's Website">
-  <meta property="og:title" content="Artwork">
-  <meta property="og:url" content="https://donkey0319.github.io/artwork/">
-  <meta property="og:description" content="A website showing Victor’s work!">
-  <link rel="canonical" href="https://donkey0319.github.io/artwork/">
-  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Victor's Website Feed">
-
-  <script>
-    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-    // Only use the JS fade fallback in browsers without native cross-document
-    // view transitions (see site.css for the @view-transition rule) — pairing
-    // both would fade the content out twice.
-    if (!('startViewTransition' in document)) {
-      document.documentElement.classList.add('has-page-fade');
-    }
-  </script>
-
-  <link rel="stylesheet" href="/assets/css/theme.css">
-  <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
-
-  <!-- Claude-inspired typography: Poppins for headings, Lora for body -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Artwork · Victor Lu</title>
+  <meta http-equiv="refresh" content="0; url=/">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://donkey0319.github.io/">
+  <script>location.replace('/');</script>
+  <style>body { background: #141413; color: #faf9f5; font-family: system-ui, sans-serif; padding: 48px 16px; } a { color: #d97757; }</style>
 </head>
-<body class="layout--collection wide centered-grid" dir="ltr">
-  <nav class="skip-links">
-    <ul>
-      <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
-      <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
-      <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
-    </ul>
-  </nav>
-
-  <div class="masthead">
-    <div class="masthead__inner-wrap">
-      <div class="masthead__menu">
-        <nav id="site-nav" class="greedy-nav">
-          <a class="site-title" href="/">Victor's Website</a>
-          <ul class="visible-links">
-            <li class="masthead__menu-item"><a href="/">About</a></li>
-            <li class="masthead__menu-item"><a href="/games/">Games</a></li>
-            <li class="masthead__menu-item"><a href="/artwork/">Artwork</a></li>
-            <li class="masthead__menu-item" style="display:flex; align-items:center;">
-              <a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email" style="margin-inline:0.3rem;"><i class="fas fa-envelope-square" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/victor-chan-lu/" rel="nofollow noopener noreferrer me" target="_blank" aria-label="LinkedIn" title="LinkedIn" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i></a>
-              <a href="https://www.artstation.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="ArtStation" title="ArtStation" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-artstation" aria-hidden="true"></i></a>
-              <a href="https://github.com/donkey0319" rel="nofollow noopener noreferrer me" target="_blank" aria-label="GitHub" title="GitHub" style="margin-inline:0.3rem;"><i class="fab fa-fw fa-github" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-          <button class="greedy-nav__toggle hidden" type="button">
-            <span class="visually-hidden">Toggle menu</span>
-            <div class="navicon"></div>
-          </button>
-          <ul class="hidden-links hidden"></ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-
-  <div class="initial-content">
-    <div id="main" role="main">
-      <div class="archive">
-        <h1 id="page-title" class="page__title">Artwork</h1>
-        <p>A showcase of my technical art projects:</p>
-
-        <div class="entries-grid">
-          <div class="grid__item">
-            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-              <div class="archive__item-teaser">
-                <img src="/assets/images/pekora/cafebabe-pekora-header.jpg" alt="" loading="lazy" decoding="async">
-              </div>
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-                <a href="/artwork/1-cafebabe-pekora/" rel="permalink">Anime Shading Model</a>
-              </h2>
-              <p class="archive__item-excerpt" itemprop="description">#UE5 #Engine Customization #Rendering #Shader</p>
-            </article>
-          </div>
-
-          <div class="grid__item">
-            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-              <div class="archive__item-teaser">
-                <img src="/assets/images/painterly/painterly.png" alt="" loading="lazy" decoding="async">
-              </div>
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-                <a href="/artwork/2-painterly-shader/" rel="permalink">Painterly Shader</a>
-              </h2>
-              <p class="archive__item-excerpt" itemprop="description">#UE5 #Postprocessing #Shader #Substance Painter #Substance Designer</p>
-            </article>
-          </div>
-
-          <div class="grid__item">
-            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-              <div class="archive__item-teaser">
-                <img src="/assets/images/ramu/ramu-poster.jpg" alt="" loading="lazy" decoding="async">
-              </div>
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-                <a href="/artwork/3-ramu-cinematic/" rel="permalink">Ramu Cinematic</a>
-              </h2>
-              <p class="archive__item-excerpt" itemprop="description">#UE5 #Shader #Character Modeling #Character Animation #Rigging</p>
-            </article>
-          </div>
-
-          <div class="grid__item">
-            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-              <div class="archive__item-teaser">
-                <img src="/assets/images/mocap/mocap-poster.jpg" alt="" loading="lazy" decoding="async">
-              </div>
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-                <a href="/artwork/4-mocap-addon/" rel="permalink">Blender Motion Capture Addon</a>
-              </h2>
-              <p class="archive__item-excerpt" itemprop="description">#Blender #Python #Technical Animation</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="footer" class="page__footer">
-    <footer>
-      <div class="page__footer-follow">
-        <ul class="social-icons">
-          <li><strong>Follow:</strong></li>
-          <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-        </ul>
-      </div>
-      <div class="page__footer-copyright">&copy; 2013 - 2026 <a href="https://donkey0319.github.io">Victor's Website</a>.</div>
-    </footer>
-  </div>
-
-  <script src="/assets/js/page-fade.js"></script>
-  <script src="/assets/js/main.min.js"></script>
+<body>
+  <p>Artwork now lives on the home page: <a href="/">see all work</a>.</p>
 </body>
 </html>
