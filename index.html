@@ -41,62 +41,73 @@
     </nav>
   </header>
 
-  <main class="title">
-    <!-- Background: starts on the first highlight; home.js swaps it as you hover the tiles below. -->
-    <div class="title__bg" aria-hidden="true">
-      <video class="title__video" src="/assets/videos/pekora/faceshadow-teaser.mp4" poster="/assets/images/pekora/faceshadow-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    </div>
+  <!-- One background behind all three scenes; home.js swaps it as you hover a highlight. -->
+  <div class="home__bg" aria-hidden="true">
+    <video class="title__video" src="/assets/videos/pekora/faceshadow-teaser.mp4" poster="/assets/images/pekora/faceshadow-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  </div>
 
-    <div class="title__inner container">
-      <div class="title__text">
-        <h1 class="title__name">Victor Lu</h1>
-        <p class="title__role">Technical Artist</p>
-        <ul class="title__menu">
+  <main class="home">
+    <section class="scene scene--title" id="scene-title" aria-label="Title">
+      <div class="scene__inner container">
+        <h1 class="title__name fade" style="--i: 0">Victor Lu</h1>
+        <p class="title__role fade" style="--i: 1">Technical Artist</p>
+        <ul class="title__menu fade" style="--i: 2">
           <li><a href="/work/">All Work</a></li>
           <li><a href="/games/">Games</a></li>
           <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
         </ul>
       </div>
+      <a class="scene__hint" href="#scene-about" aria-label="Scroll to About">scroll <span aria-hidden="true">▾</span></a>
+    </section>
 
-      <!-- About: the text below the settings in content/site.md. -->
-      <section class="title__about" aria-label="About">
-        <img class="title__photo" src="/assets/images/pfp.png" alt="Victor Lu">
-        <div class="title__bio">
+    <!-- About: the text below the settings in content/site.md. -->
+    <section class="scene scene--about" id="scene-about" aria-label="About">
+      <div class="scene__inner container about">
+        <img class="title__photo fade" style="--i: 0" src="/assets/images/pfp.png" alt="Victor Lu">
+        <div class="title__bio fade" style="--i: 1">
           <p>I’m Victor Lu, a passionate Game Developer and <strong class="accent">Technical Artist</strong> based in Pittsburgh. I was studying Computer Engineering, and I am now focusing in technical art in game development, especially in <strong class="accent">shaders</strong>, <strong class="accent">rendering</strong>, and <strong class="accent">technical animation</strong>.</p>
-          <ul class="title__contact">
-            <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
-            <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
-            <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
-            <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
-            <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
-          </ul>
         </div>
-      </section>
+        <ul class="title__contact fade" style="--i: 2">
+          <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
+          <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
+          <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
+          <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
+          <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
+        </ul>
+      </div>
+    </section>
 
-      <!-- Highlights come from highlights: in content/site.md. -->
-      <section class="title__highlights">
-        <h2 class="levels__heading">Highlights</h2>
+    <!-- Highlights come from highlights: in content/site.md. -->
+    <section class="scene scene--highlights" id="scene-highlights" aria-label="Highlights">
+      <div class="scene__inner container">
+        <h2 class="levels__heading fade" style="--i: 0">Highlights</h2>
         <nav class="levels" aria-label="Highlights">
-          <a class="level is-active" href="/projects/cafebabe-pekora/" data-video="/assets/videos/pekora/faceshadow-teaser.mp4" data-poster="/assets/images/pekora/faceshadow-poster.jpg">
+          <a class="level is-active fade" href="/projects/cafebabe-pekora/" data-video="/assets/videos/pekora/faceshadow-teaser.mp4" data-poster="/assets/images/pekora/faceshadow-poster.jpg" style="--i: 1">
             <img src="/assets/images/pekora/faceshadow-poster.jpg" alt="" decoding="async">
             <span class="level__name">Anime Shading Model</span>
           </a>
-          <a class="level" href="/projects/painterly-shader/" data-poster="/assets/images/painterly/painterly.png">
+          <a class="level fade" href="/projects/painterly-shader/" data-poster="/assets/images/painterly/painterly.png" style="--i: 2">
             <img src="/assets/images/painterly/painterly.png" alt="" decoding="async">
             <span class="level__name">Painterly Shader</span>
           </a>
-          <a class="level" href="/projects/a-gentelmans-dispute/" data-poster="/assets/images/AGD/egypt-teaser.jpg">
+          <a class="level fade" href="/projects/a-gentelmans-dispute/" data-poster="/assets/images/AGD/egypt-teaser.jpg" style="--i: 3">
             <img src="/assets/images/AGD/egypt-teaser.jpg" alt="" decoding="async">
             <span class="level__name">A Gentlemen’s Dispute</span>
           </a>
-          <a class="level" href="/projects/decent-farewell/" data-poster="/assets/images/decentfarewell/farewell-teaser.jpg">
+          <a class="level fade" href="/projects/decent-farewell/" data-poster="/assets/images/decentfarewell/farewell-teaser.jpg" style="--i: 4">
             <img src="/assets/images/decentfarewell/farewell-teaser.jpg" alt="" decoding="async">
             <span class="level__name">A Decent Farewell</span>
           </a>
         </nav>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
+
+  <nav class="scene-dots" aria-label="Scenes">
+    <a class="scene-dots__dot is-active" href="#scene-title" aria-label="Title"></a>
+    <a class="scene-dots__dot" href="#scene-about" aria-label="About"></a>
+    <a class="scene-dots__dot" href="#scene-highlights" aria-label="Highlights"></a>
+  </nav>
 
   <script src="/assets/js/site.js"></script>
   <script src="/assets/js/home.js"></script>

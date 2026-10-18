@@ -62,9 +62,9 @@ test('home: highlight tiles in order with poster and video', () => {
   assert.equal(tiles[0][1], '/projects/alpha/');
   assert.match(tiles[0][2], /data-video="\/assets\/videos\/painterly\/painterly\.mp4"/);
   assert.match(tiles[0][2], /data-poster="\/assets\/images\/painterly\/painterly\.png"/);
-  assert.match(html, /<a class="level is-active"/);
+  assert.match(html, /<a class="level is-active[ "]/);
   assert.match(html, /<video class="title__video" src="\/assets\/videos\/painterly\/painterly\.mp4" poster="\/assets\/images\/painterly\/painterly\.png"/);
-  assert.match(html, /<p class="title__role">Technical Artist<\/p>/);
+  assert.match(html, /<p class="title__role[^"]*"[^>]*>Technical Artist<\/p>/);
   assert.match(html, /'#games':\s*'\/games\/'/);
 });
 
@@ -101,20 +101,52 @@ test('no About page is generated', () => {
   assert.ok(![...out.values()].some((html) => html.includes('href="/about/"')));
 });
 
-test('home shows the About content between the title and the highlights', () => {
+test('home is three scenes in order: title, about, highlights', () => {
   const html = page('index.html');
-  const title = html.indexOf('class="title__name"');
-  const about = html.indexOf('class="title__about"');
-  const heading = html.indexOf('class="levels__heading"');
-  const tiles = html.indexOf('class="levels"');
-  assert.ok(title < about && about < heading && heading < tiles, 'order: title, about, Highlights heading, tiles');
-  const block = html.slice(about, heading);
-  assert.match(block, /<strong class="accent">Technical Artist<\/strong>/);
-  assert.match(block, /<img class="title__photo" src="\/assets\/images\/pfp\.png"/);
+  const scenes = [...html.matchAll(/<section class="scene scene--(\w+)" id="([\w-]+)"/g)].map((m) => [m[1], m[2]]);
+  assert.deepEqual(scenes, [['title', 'scene-title'], ['about', 'scene-about'], ['highlights', 'scene-highlights']]);
+  const at = (name) => html.indexOf(`scene--${name}"`);
+  const slice = (from, to) => html.slice(at(from), to ? at(to) : html.indexOf('</main>'));
+
+  const title = slice('title', 'about');
+  assert.match(title, /class="title__name[^"]*"[^>]*>Victor Lu</);
+  assert.match(title, /class="title__menu/);
+
+  const about = slice('about', 'highlights');
+  assert.match(about, /<strong class="accent">Technical Artist<\/strong>/);
+  assert.match(about, /<img class="title__photo[^"]*"[^>]*src="\/assets\/images\/pfp\.png"/);
   for (const link of ['mailto:vclu@andrew.cmu.edu', 'https://www.linkedin.com/in/victor-chan-lu/', 'https://www.artstation.com/donkey0319', 'https://github.com/donkey0319', '/assets/resume/Victor_Lu_Resume.pdf']) {
-    assert.ok(block.includes(`href="${link}"`), link);
+    assert.ok(about.includes(`href="${link}"`), link);
   }
-  assert.match(html, /<h2 class="levels__heading">Highlights<\/h2>/);
+
+  const highlights = slice('highlights');
+  assert.match(highlights, /<h2 class="levels__heading[^"]*"[^>]*>Highlights<\/h2>/);
+  assert.match(highlights, /<a class="level[^"]*" href="\/projects\/alpha\/"/);
+});
+
+test('one fixed background sits outside the scenes', () => {
+  const html = page('index.html');
+  const bg = html.indexOf('class="home__bg"');
+  assert.ok(bg !== -1 && bg < html.indexOf('scene--title'), 'background comes before the scenes');
+  assert.equal((html.match(/<video /g) || []).length, 1, 'a single background video');
+});
+
+test('every scene element fades, in order', () => {
+  const html = page('index.html');
+  for (const name of ['title', 'about', 'highlights']) {
+    const start = html.indexOf(`scene--${name}"`);
+    const end = html.indexOf('</section>', start);
+    const fades = [...html.slice(start, end).matchAll(/class="[^"]*\bfade\b[^"]*"[^>]*? style="--i: (\d+)"/g)].map((m) => Number(m[1]));
+    assert.ok(fades.length >= 2, `${name} has fading elements`);
+    assert.deepEqual(fades, fades.map((_, i) => i), `${name} fade order counts up from 0`);
+  }
+});
+
+test('dots link to the three scenes and a scroll hint points to About', () => {
+  const html = page('index.html');
+  const dots = [...html.matchAll(/<a class="scene-dots__dot[^"]*" href="#([\w-]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(dots, ['scene-title', 'scene-about', 'scene-highlights']);
+  assert.match(html, /<a class="scene__hint[^"]*" href="#scene-about"/);
 });
 
 test('no redirect pages are generated for old addresses', () => {

@@ -124,10 +124,13 @@ export function homePage({ site, projects }) {
   const video = (p) => p.highlightVideo || p.preview;
   const first = levels[0];
 
+  // Each element that fades in gets its place in the stagger: style="--i: n".
+  const fade = (i) => `style="--i: ${i}"`;
+
   const tiles = levels
     .map((p, i) => {
       const v = video(p) ? ` data-video="${esc(video(p))}"` : '';
-      return `<a class="level${i === 0 ? ' is-active' : ''}" href="${projectUrl(p)}"${v} data-poster="${esc(image(p))}">
+      return `<a class="level${i === 0 ? ' is-active' : ''} fade" href="${projectUrl(p)}"${v} data-poster="${esc(image(p))}" ${fade(i + 1)}>
   <img src="${esc(image(p))}" alt="" decoding="async">
   <span class="level__name">${esc(p.title)}</span>
 </a>`;
@@ -138,47 +141,58 @@ export function homePage({ site, projects }) {
     ? `<video class="title__video"${video(first) ? ` src="${esc(video(first))}"` : ''} poster="${esc(image(first))}" autoplay muted loop playsinline preload="metadata"></video>`
     : '';
 
-  const main = `  <main class="title">
-    <!-- Background: starts on the first highlight; home.js swaps it as you hover the tiles below. -->
-    <div class="title__bg" aria-hidden="true">
-      ${bg}
-    </div>
+  const main = `  <!-- One background behind all three scenes; home.js swaps it as you hover a highlight. -->
+  <div class="home__bg" aria-hidden="true">
+    ${bg}
+  </div>
 
-    <div class="title__inner container">
-      <div class="title__text">
-        <h1 class="title__name">Victor Lu</h1>
-        <p class="title__role">${esc(site.titleRole)}</p>
-        <ul class="title__menu">
+  <main class="home">
+    <section class="scene scene--title" id="scene-title" aria-label="Title">
+      <div class="scene__inner container">
+        <h1 class="title__name fade" ${fade(0)}>Victor Lu</h1>
+        <p class="title__role fade" ${fade(1)}>${esc(site.titleRole)}</p>
+        <ul class="title__menu fade" ${fade(2)}>
           <li><a href="/work/">All Work</a></li>
           <li><a href="/games/">Games</a></li>
           <li><a href="${RESUME}" target="_blank" rel="noopener">Resume</a></li>
         </ul>
       </div>
+      <a class="scene__hint" href="#scene-about" aria-label="Scroll to About">scroll <span aria-hidden="true">▾</span></a>
+    </section>
 
-      <!-- About: the text below the settings in content/site.md. -->
-      <section class="title__about" aria-label="About">
-        <img class="title__photo" src="/assets/images/pfp.png" alt="Victor Lu">
-        <div class="title__bio">
+    <!-- About: the text below the settings in content/site.md. -->
+    <section class="scene scene--about" id="scene-about" aria-label="About">
+      <div class="scene__inner container about">
+        <img class="title__photo fade" ${fade(0)} src="/assets/images/pfp.png" alt="Victor Lu">
+        <div class="title__bio fade" ${fade(1)}>
 ${indent(renderAbout(site.aboutMarkdown), 10)}
-          <ul class="title__contact">
-            <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
-            <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
-            <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
-            <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
-            <li><a href="${RESUME}" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
-          </ul>
         </div>
-      </section>
+        <ul class="title__contact fade" ${fade(2)}>
+          <li><a href="mailto:vclu@andrew.cmu.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>vclu@andrew.cmu.edu</a></li>
+          <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
+          <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-artstation" aria-hidden="true"></i>ArtStation</a></li>
+          <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a></li>
+          <li><a href="${RESUME}" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Resume</a></li>
+        </ul>
+      </div>
+    </section>
 
-      <!-- Highlights come from highlights: in content/site.md. -->
-      <section class="title__highlights">
-        <h2 class="levels__heading">Highlights</h2>
+    <!-- Highlights come from highlights: in content/site.md. -->
+    <section class="scene scene--highlights" id="scene-highlights" aria-label="Highlights">
+      <div class="scene__inner container">
+        <h2 class="levels__heading fade" ${fade(0)}>Highlights</h2>
         <nav class="levels" aria-label="Highlights">
 ${indent(tiles, 10)}
         </nav>
-      </section>
-    </div>
-  </main>`;
+      </div>
+    </section>
+  </main>
+
+  <nav class="scene-dots" aria-label="Scenes">
+    <a class="scene-dots__dot is-active" href="#scene-title" aria-label="Title"></a>
+    <a class="scene-dots__dot" href="#scene-about" aria-label="About"></a>
+    <a class="scene-dots__dot" href="#scene-highlights" aria-label="Highlights"></a>
+  </nav>`;
 
   const headExtra = `  <script>
     // Links from the old one-page layout (/#games, /#work) now have their own pages.

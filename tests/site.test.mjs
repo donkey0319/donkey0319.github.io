@@ -245,3 +245,15 @@ test('committed HTML is up to date with content/ (run: npm run build)', () => {
 test('the About page is gone', () => {
   assert.ok(!existsSync(path.join(ROOT, 'about')));
 });
+
+test('home scenes: fades only hide content once home.js runs, respect reduced motion, no snapping', () => {
+  const css = read('assets/css/style.css');
+  assert.match(css, /html\.scenes \.scene \.fade/);
+  assert.doesNotMatch(css.replace(/html\.scenes \.scene \.fade/g, 'X'), /(^|[}\s,])\.fade\s*\{[^}]*opacity:\s*0/m);
+  const reduced = css.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*?\n\}/g) || [];
+  assert.ok(reduced.some((b) => b.includes('.fade')), 'reduced motion turns fades off');
+  assert.doesNotMatch(css, /scroll-snap/);
+  const js = read('assets/js/home.js');
+  assert.match(js, /classList\.add\('scenes'\)/);
+  assert.match(js, /IntersectionObserver/);
+});
