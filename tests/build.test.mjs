@@ -130,3 +130,7 @@ test('top bar has no social icons', () => {
     assert.doesNotMatch(header, /nav__social|fa-brands|fa-envelope/, p);
   }
 });
+
+test('highlight tiles have no number labels', () => {
+  assert.doesNotMatch(page('index.html'), /level__num/);
+});

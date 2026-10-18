@@ -440,16 +440,6 @@ html.js .reveal.is-visible {
   transition: opacity 0.25s var(--ease);
 }
 
-.level__num {
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  color: var(--muted);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-}
-
 .level__name {
   display: block;
   padding: 10px 12px 12px;

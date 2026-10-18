@@ -130,7 +130,6 @@ export function homePage({ site, projects }) {
       const v = video(p) ? ` data-video="${esc(video(p))}"` : '';
       return `<a class="level${i === 0 ? ' is-active' : ''}" href="${projectUrl(p)}"${v} data-poster="${esc(image(p))}">
   <img src="${esc(image(p))}" alt="" decoding="async">
-  <span class="level__num">${String(i + 1).padStart(2, '0')}</span>
   <span class="level__name">${esc(p.title)}</span>
 </a>`;
     })
