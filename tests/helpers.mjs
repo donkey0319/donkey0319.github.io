@@ -30,12 +30,13 @@ export function resolves(ref) {
 
 export const REDESIGNED = [
   'index.html',
+  'work/index.html',
+  'games/index.html',
   'about/index.html',
   'artwork/1-cafebabe-pekora/index.html',
   'artwork/2-painterly-shader/index.html',
   'artwork/3-ramu-cinematic/index.html',
   'artwork/4-mocap-addon/index.html',
-  'games/1-grannys-gift/index.html',
   'games/2-a-gentelmans-dispute/index.html',
   'games/3-decent-farewell/index.html',
   'games/4-kungfu-penguin/index.html',
@@ -43,5 +44,7 @@ export const REDESIGNED = [
   'games/6-mask-exe/index.html',
 ];
 
-// Pages converted so far; grows task by task until it equals REDESIGNED.
-export const CONVERTED = ['index.html', 'about/index.html', ...REDESIGNED.filter((p) => /^(artwork|games)\//.test(p))];
+// Listing pages and the nav link each one marks as current.
+export const LISTINGS = { 'index.html': '/', 'work/index.html': '/work/', 'games/index.html': '/games/', 'about/index.html': '/about/' };
+
+export const PROJECTS = REDESIGNED.filter((p) => /^(artwork|games)\/[^/]+\/index\.html$/.test(p));

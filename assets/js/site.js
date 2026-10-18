@@ -1,14 +1,16 @@
 (function () {
-  // True only when the visitor arrived from the home page on this site, so
+  var LISTINGS = ['/', '/work/', '/games/'];
+
+  // True only when the visitor arrived from a listing page on this site, so
   // "← All work" can step back to the exact filter and scroll position they
-  // left. Anything else (direct visit, search engine, a fresh tab opened from
-  // home with nothing to go back to) follows the plain link.
+  // left. Anything else (direct visit, search engine, a fresh tab with
+  // nothing to go back to) follows the plain link.
   function shouldUseHistoryBack(referrer, origin, historyLength) {
     if (!referrer) return false;
     if (historyLength !== undefined && historyLength < 2) return false;
     try {
       var url = new URL(referrer);
-      return url.origin === origin && url.pathname === '/';
+      return url.origin === origin && LISTINGS.indexOf(url.pathname) !== -1;
     } catch (err) {
       return false;
     }

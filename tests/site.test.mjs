@@ -3,9 +3,21 @@ import assert from 'node:assert/strict';
 import { existsSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
-import { ROOT, read, localRefs, resolves, CONVERTED, REDESIGNED } from './helpers.mjs';
+import { ROOT, read, localRefs, resolves, REDESIGNED, LISTINGS, PROJECTS } from './helpers.mjs';
 
 const require = createRequire(import.meta.url);
+
+const NAV = ['/', '/work/', '/games/', '/about/'];
+const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, '');
+const navOf = (html) => (html.match(/<ul class="nav__links">([\s\S]*?)<\/ul>/) || [])[1] || '';
+const cardsOf = (html) =>
+  [...html.matchAll(/<article class="card[^"]*"([^>]*)>[\s\S]*?href="([^"]*)"/g)].map((m) => ({
+    categories: ((m[1].match(/data-categories="([^"]*)"/) || [])[1] || '').split(/\s+/).filter(Boolean),
+    href: m[2],
+  }));
+
+// ---------------------------------------------------------------------------
+// Assets and scripts
 
 test('resume exists at fixed name', () => {
   const dir = path.join(ROOT, 'assets/resume');
@@ -17,10 +29,8 @@ test('resume exists at fixed name', () => {
 test('reveal never hides content without JS', () => {
   const css = read('assets/css/style.css');
   assert.match(css, /html\.js\s+\.reveal/);
-  // No rule whose whole selector is a bare `.reveal` may set opacity: 0.
   const bare = /(^|[}\s,])\.reveal\s*\{[^}]*opacity:\s*0/m;
-  const rules = css.replace(/html\.js\s+\.reveal/g, 'X');
-  assert.doesNotMatch(rules, bare);
+  assert.doesNotMatch(css.replace(/html\.js\s+\.reveal/g, 'X'), bare);
 });
 
 test('reduced motion disables reveal', () => {
@@ -29,131 +39,198 @@ test('reduced motion disables reveal', () => {
   assert.ok(block.some((b) => b.includes('.reveal')));
 });
 
-test('shouldUseHistoryBack only for same-origin home referrers', () => {
+test('back link steps back only to a listing page on this site', () => {
   const { shouldUseHistoryBack } = require('../assets/js/site.js');
   const o = 'https://donkey0319.github.io';
-  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/#games', o), true);
-  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/', o), true);
-  assert.equal(shouldUseHistoryBack('https://www.google.com/', o), false);
-  assert.equal(shouldUseHistoryBack('', o), false);
-  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/games/4-kungfu-penguin/', o), false);
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/work/#shaders', o, 2), true);
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/games/', o, 2), true);
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/', o, 2), true);
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/work/', o, 1), false);
+  assert.equal(shouldUseHistoryBack('https://www.google.com/', o, 2), false);
+  assert.equal(shouldUseHistoryBack('', o, 2), false);
+  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/games/4-kungfu-penguin/', o, 2), false);
+});
+
+test('site.js marks itself as running', () => {
+  assert.match(read('assets/js/site.js'), /window\.__siteReady\s*=\s*true/);
 });
 
 // ---------------------------------------------------------------------------
-// Pages
+// Every page
 
-const RESUME_LINK = '<a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a>';
-const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, '');
-
-test('home has 10 cards with valid categories', () => {
-  const { CATEGORIES } = require('../assets/js/work-filter.js');
-  const html = read('index.html');
-  const cats = [...html.matchAll(/class="card[^"]*"[^>]*data-categories="([^"]*)"/g)].map((m) => m[1]);
-  assert.equal(cats.length, 10);
-  for (const token of cats.join(' ').split(/\s+/)) assert.ok(CATEGORIES.includes(token), token);
-});
-
-test('art pieces are Work and games are Games', () => {
-  const html = read('index.html');
-  for (const m of html.matchAll(/data-categories="([^"]*)"[\s\S]*?href="([^"]*)"/g)) {
-    assert.equal(m[1], m[2].startsWith('/games/') ? 'games' : 'work', m[2]);
-  }
-});
-
-test('every category has a tile and at least one card', () => {
-  const { CATEGORIES } = require('../assets/js/work-filter.js');
-  const html = read('index.html');
-  const tiles = [...html.matchAll(/data-filter="([^"]*)"/g)].map((m) => m[1]);
-  assert.deepEqual(tiles, CATEGORIES);
-  for (const c of CATEGORIES) assert.match(html, new RegExp(`data-categories="[^"]*\\b${c}\\b`));
-});
-
-test('card videos are muted and inline', () => {
-  const videos = read('index.html').match(/<video\b[^>]*>/g) || [];
-  assert.ok(videos.length > 0);
-  for (const v of videos) {
-    assert.match(v, /\bmuted\b/);
-    assert.match(v, /\bplaysinline\b/);
-  }
-});
-
-for (const page of CONVERTED) {
-  test(`${page}: uses only the new stylesheet and shared nav`, () => {
+for (const page of REDESIGNED) {
+  test(`${page}: uses only the new stylesheet`, () => {
     const html = read(page);
     assert.ok(html.includes('/assets/css/style.css'));
     assert.ok(html.includes('/assets/js/site.js'));
     for (const old of ['theme.css', 'site.css', 'main.min.js', 'page-fade.js', 'fontawesome-free@latest']) {
       assert.ok(!html.includes(old), `still references ${old}`);
     }
-    assert.ok(html.includes(RESUME_LINK));
+  });
+
+  test(`${page}: nav is Home, Work, Games, About`, () => {
+    const hrefs = [...navOf(read(page)).matchAll(/href="([^"]*)"/g)].map((m) => m[1]);
+    assert.deepEqual(hrefs, NAV);
   });
 
   test(`${page}: no broken local references`, () => {
-    const broken = localRefs(read(page)).filter((r) => !resolves(r));
-    assert.deepEqual(broken, []);
+    assert.deepEqual(localRefs(read(page)).filter((r) => !resolves(r)), []);
   });
 
   test(`${page}: no visible TODO text`, () => {
     assert.doesNotMatch(stripComments(read(page)), /TODO/);
   });
+
+  test(`${page}: reveal falls back to visible if site.js never runs`, () => {
+    const html = read(page);
+    assert.match(html, /window\.__siteReady/);
+    assert.match(html, /classList\.remove\('js'\)/);
+  });
+
+  test(`${page}: never mentions Granny's Gift`, () => {
+    assert.doesNotMatch(read(page), /grann/i);
+  });
 }
 
-for (const page of CONVERTED.filter((p) => /^(artwork|games)\//.test(p))) {
+for (const [page, current] of Object.entries(LISTINGS)) {
+  test(`${page}: nav marks ${current} as current`, () => {
+    const marked = [...navOf(read(page)).matchAll(/href="([^"]*)" aria-current="page"/g)].map((m) => m[1]);
+    assert.deepEqual(marked, [current]);
+  });
+}
+
+test('resume is reachable from Home and About', () => {
+  for (const page of ['index.html', 'about/index.html']) {
+    assert.match(read(page), /<a href="\/assets\/resume\/Victor_Lu_Resume\.pdf" target="_blank" rel="noopener">(<i [^>]*><\/i>)?Resume<\/a>/, page);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Home: level-select title screen
+
+test('home highlights are the four chosen pieces, in order', () => {
+  const html = stripComments(read('index.html'));
+  const hrefs = [...html.matchAll(/<a class="level[^"]*"[^>]*href="([^"]*)"/g)].map((m) => m[1]);
+  assert.deepEqual(hrefs, [
+    '/artwork/1-cafebabe-pekora/',
+    '/artwork/2-painterly-shader/',
+    '/games/2-a-gentelmans-dispute/',
+    '/games/3-decent-farewell/',
+  ]);
+});
+
+test('every highlight names a background poster', () => {
+  const tiles = stripComments(read('index.html')).match(/<a class="level[^"]*"[^>]*>/g) || [];
+  assert.equal(tiles.length, 4);
+  for (const t of tiles) assert.match(t, /data-poster="\/[^"]+"/);
+});
+
+test('home title video is muted, inline and looping', () => {
+  const videos = read('index.html').match(/<video\b[^>]*>/g) || [];
+  assert.ok(videos.length > 0);
+  for (const v of videos) for (const attr of ['muted', 'playsinline', 'loop']) assert.match(v, new RegExp(`\\b${attr}\\b`));
+});
+
+test('old home hashes forward to the new pages', () => {
+  const html = read('index.html');
+  assert.match(html, /'#games':\s*'\/games\/'/);
+  assert.match(html, /'#work':\s*'\/work\/'/);
+});
+
+// ---------------------------------------------------------------------------
+// Work page: all projects + filters
+
+const LABELS = {
+  '/artwork/1-cafebabe-pekora/': ['shaders'],
+  '/artwork/2-painterly-shader/': ['shaders', 'environment'],
+  '/artwork/3-ramu-cinematic/': ['shaders', 'techanim'],
+  '/artwork/4-mocap-addon/': ['techanim'],
+  '/games/2-a-gentelmans-dispute/': ['environment'],
+  '/games/3-decent-farewell/': ['environment'],
+  '/games/4-kungfu-penguin/': ['techanim'],
+  '/games/5-ginger-air/': ['environment'],
+  '/games/6-mask-exe/': ['environment'],
+};
+
+test('work page lists every project with its labels', () => {
+  const cards = cardsOf(read('work/index.html'));
+  assert.deepEqual(
+    Object.fromEntries(cards.map((c) => [c.href, [...c.categories].sort()])),
+    Object.fromEntries(Object.entries(LABELS).map(([k, v]) => [k, [...v].sort()])),
+  );
+});
+
+test('work filters are All, Shaders, Technical Animation, Environment Design', () => {
+  const html = read('work/index.html');
+  const buttons = [...html.matchAll(/<button class="filter[^"]*"[^>]*data-filter="([^"]*)"[^>]*>([^<]*)</g)].map((m) => [m[1], m[2].trim()]);
+  assert.deepEqual(buttons, [
+    ['', 'All'],
+    ['shaders', 'Shaders'],
+    ['techanim', 'Technical Animation'],
+    ['environment', 'Environment Design'],
+  ]);
+});
+
+test('every card label has a filter button and every filter has a card', () => {
+  const html = read('work/index.html');
+  const filters = [...html.matchAll(/data-filter="([^"]+)"/g)].map((m) => m[1]);
+  const used = new Set(cardsOf(html).flatMap((c) => c.categories));
+  assert.deepEqual([...used].sort(), [...filters].sort());
+});
+
+test('no element id on the work page collides with a filter hash', () => {
+  const html = read('work/index.html');
+  const ids = [...html.matchAll(/\bid="([^"]*)"/g)].map((m) => m[1]);
+  for (const m of html.matchAll(/data-filter="([^"]+)"/g)) assert.ok(!ids.includes(m[1]), m[1]);
+});
+
+// ---------------------------------------------------------------------------
+// Games page
+
+test('games page lists the five games', () => {
+  const hrefs = cardsOf(read('games/index.html')).map((c) => c.href);
+  assert.deepEqual(hrefs, [
+    '/games/2-a-gentelmans-dispute/',
+    '/games/3-decent-farewell/',
+    '/games/4-kungfu-penguin/',
+    '/games/5-ginger-air/',
+    '/games/6-mask-exe/',
+  ]);
+});
+
+// ---------------------------------------------------------------------------
+// Project pages
+
+for (const page of PROJECTS) {
   test(`${page}: follows the project template`, () => {
     const html = read(page);
-    assert.match(html, /<a class="back" href="\/">/);
+    assert.match(html, /<a class="back" href="\/work\/">/);
     assert.match(html, /<p class="project__kind">(Shaders|Rendering|Tech Anim|Games)<\/p>/);
     assert.match(html, /<div class="project__hero">/);
     assert.ok(html.includes('class="what-i-did"') || html.includes('TODO(victor): what I did'));
   });
 }
 
-for (const page of CONVERTED.filter((p) => p.startsWith('games/'))) {
+for (const page of PROJECTS.filter((p) => p.startsWith('games/'))) {
   test(`${page}: no empty Work heading`, () => {
     assert.doesNotMatch(read(page), /<h2[^>]*>\s*Work\s*<\/h2>\s*(<\/section>|<\/div>|<\/main>|$)/);
   });
 }
 
-test('every redesigned page is converted', () => {
-  assert.deepEqual([...CONVERTED].sort(), [...REDESIGNED].sort());
-});
-
-test('old grid pages redirect into the home grid', () => {
-  assert.match(read('games/index.html'), /http-equiv="refresh" content="0; url=\/#games"/);
-  assert.match(read('artwork/index.html'), /http-equiv="refresh" content="0; url=\/#work"/);
-});
-
-test('sitemap lists About and drops the old grids', () => {
-  const xml = read('sitemap.xml');
-  assert.ok(xml.includes('<loc>https://donkey0319.github.io/about/</loc>'));
-  assert.ok(!xml.includes('<loc>https://donkey0319.github.io/games/</loc>'));
-  assert.ok(!xml.includes('<loc>https://donkey0319.github.io/artwork/</loc>'));
-});
-
 // ---------------------------------------------------------------------------
-// Final review fixes
+// Site plumbing
 
-test('back link ignores a home referrer when the tab has no history', () => {
-  const { shouldUseHistoryBack } = require('../assets/js/site.js');
-  const o = 'https://donkey0319.github.io';
-  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/', o, 1), false);
-  assert.equal(shouldUseHistoryBack('https://donkey0319.github.io/', o, 2), true);
+test("Granny's Gift page is gone", () => {
+  assert.ok(!existsSync(path.join(ROOT, 'games/1-grannys-gift')));
 });
 
-for (const page of REDESIGNED) {
-  test(`${page}: reveal falls back to visible if site.js never runs`, () => {
-    const html = read(page);
-    assert.match(html, /window\.__siteReady/);
-    assert.match(html, /classList\.remove\('js'\)/);
-  });
-}
-
-test('site.js marks itself as running', () => {
-  assert.match(read('assets/js/site.js'), /window\.__siteReady\s*=\s*true/);
+test('old artwork grid redirects to the work page', () => {
+  assert.match(read('artwork/index.html'), /http-equiv="refresh" content="0; url=\/work\/"/);
 });
 
-test('no element id collides with a category hash', () => {
-  const { CATEGORIES } = require('../assets/js/work-filter.js');
-  const ids = [...read('index.html').matchAll(/\bid="([^"]*)"/g)].map((m) => m[1]);
-  for (const c of CATEGORIES) assert.ok(!ids.includes(c), `id="${c}" makes /#${c} jump`);
+test('sitemap matches the new pages', () => {
+  const xml = read('sitemap.xml');
+  for (const p of ['/', '/work/', '/games/', '/about/']) assert.ok(xml.includes(`<loc>https://donkey0319.github.io${p}</loc>`), p);
+  assert.ok(!xml.includes('/artwork/</loc>'));
+  assert.doesNotMatch(xml, /grann/i);
 });

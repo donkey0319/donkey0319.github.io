@@ -3,38 +3,36 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const { CATEGORIES, parseHash, matches, toggle } = require('../assets/js/work-filter.js');
+const { parseHash, matches, toggle, cardState } = require('../assets/js/work-filter.js');
 
-test('categories are the two tile keys', () => {
-  assert.deepEqual(CATEGORIES, ['work', 'games']);
+// The filter keys come from the page's buttons, so adding a button adds a filter.
+const KEYS = ['shaders', 'techanim', 'environment'];
+
+test('parseHash reads known filters and ignores anything else', () => {
+  assert.equal(parseHash('#shaders', KEYS), 'shaders');
+  assert.equal(parseHash('#ENVIRONMENT', KEYS), 'environment');
+  assert.equal(parseHash('#games', KEYS), null);
+  assert.equal(parseHash('', KEYS), null);
+  assert.equal(parseHash('#', KEYS), null);
 });
 
-test('parseHash reads known categories and ignores anything else', () => {
-  assert.equal(parseHash('#work'), 'work');
-  assert.equal(parseHash('#shaders'), null);
-  assert.equal(parseHash('#games'), 'games');
-  assert.equal(parseHash('#GAMES'), 'games');
-  assert.equal(parseHash('#bogus'), null);
-  assert.equal(parseHash(''), null);
-  assert.equal(parseHash('#'), null);
-});
-
-test('matches checks whole category tokens', () => {
-  assert.equal(matches('work games', 'games'), true);
-  assert.equal(matches('games', 'work'), false);
-  assert.equal(matches('games', null), true);
-  assert.equal(matches('games', 'game'), false);
+test('matches checks whole label tokens', () => {
+  assert.equal(matches('shaders environment', 'environment'), true);
+  assert.equal(matches('techanim', 'shaders'), false);
+  assert.equal(matches('techanim', null), true);
+  assert.equal(matches('techanim', 'tech'), false);
+  assert.equal(matches('', 'shaders'), false);
 });
 
 test('toggle selects, switches and clears', () => {
-  assert.equal(toggle(null, 'games'), 'games');
-  assert.equal(toggle('games', 'games'), null);
-  assert.equal(toggle('games', 'work'), 'work');
+  assert.equal(toggle(null, 'shaders'), 'shaders');
+  assert.equal(toggle('shaders', 'shaders'), null);
+  assert.equal(toggle('shaders', 'techanim'), 'techanim');
+  assert.equal(toggle('shaders', ''), null);
 });
 
 test('cardState only forces cards visible when a filter shows them', () => {
-  const { cardState } = require('../assets/js/work-filter.js');
-  assert.deepEqual(cardState('games', null), { hidden: false, forceVisible: false });
-  assert.deepEqual(cardState('games', 'games'), { hidden: false, forceVisible: true });
-  assert.deepEqual(cardState('games', 'work'), { hidden: true, forceVisible: false });
+  assert.deepEqual(cardState('environment', null), { hidden: false, forceVisible: false });
+  assert.deepEqual(cardState('environment', 'environment'), { hidden: false, forceVisible: true });
+  assert.deepEqual(cardState('environment', 'shaders'), { hidden: true, forceVisible: false });
 });

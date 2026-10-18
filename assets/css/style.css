@@ -311,140 +311,243 @@ html.js .reveal.is-visible {
   }
 }
 
-/* Home: intro + category tiles
+/* Home: level-select title screen
    ========================================================================== */
 
-.intro {
-  padding-top: clamp(48px, 10vw, 104px);
-  padding-bottom: 32px;
+.is-home .site-header {
+  background: rgba(20, 20, 19, 0.55);
+  border-bottom-color: transparent;
 }
 
-.intro h1 {
-  margin-bottom: 0.35em;
+.title {
+  position: relative;
+  display: flex;
+  min-height: calc(100svh - 65px);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.intro p {
-  max-width: 36ch;
-  color: var(--muted);
-  font-size: clamp(1.1rem, 2.4vw, 1.3rem);
-  line-height: 1.5;
+.title__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg);
+}
+
+.title__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+}
+
+/* Darken the left (behind the name) and the bottom (behind the tiles). */
+.title__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(20, 20, 19, 0.92) 0%, rgba(20, 20, 19, 0.5) 55%, rgba(20, 20, 19, 0.15) 100%),
+    linear-gradient(to top, rgba(20, 20, 19, 0.95) 0%, rgba(20, 20, 19, 0) 45%);
+}
+
+.title__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: clamp(48px, 12vh, 140px);
+  padding-bottom: clamp(24px, 6vh, 56px);
+}
+
+.title__name {
   margin: 0;
+  font-size: clamp(2.75rem, 9vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
 }
 
-.tiles {
+.title__role {
+  margin: 14px 0 28px;
+  color: var(--accent);
+  font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.title__menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.title__menu a {
+  position: relative;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+/* Game-menu cursor that slides in on hover. */
+.title__menu a::before {
+  content: '▸';
+  position: absolute;
+  left: -1.1em;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.title__menu a:hover,
+.title__menu a:focus-visible {
+  color: var(--text);
+}
+
+.title__menu a:hover::before,
+.title__menu a:focus-visible::before {
+  opacity: 1;
+  transform: none;
+}
+
+.levels {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-@media (min-width: 720px) {
-  .tiles {
+@media (min-width: 900px) {
+  .levels {
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
 }
 
-.tile {
+.level {
   position: relative;
-  aspect-ratio: 16 / 9;
-  padding: 0;
+  display: block;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(250, 249, 245, 0.14);
   border-radius: var(--radius);
   background: var(--surface);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.25s var(--ease);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
 
-.tile img {
-  position: absolute;
-  inset: 0;
+.level img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
-  opacity: 0.42;
-  transition: opacity 0.3s var(--ease), transform 0.4s var(--ease);
+  opacity: 0.7;
+  transition: opacity 0.25s var(--ease);
 }
 
-.tile::after {
-  content: '';
+.level__num {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(20, 20, 19, 0.85), rgba(20, 20, 19, 0) 60%);
-}
-
-.tile__label {
-  position: absolute;
-  z-index: 1;
-  left: 14px;
-  bottom: 10px;
+  top: 8px;
+  left: 10px;
+  color: var(--muted);
+  font-size: 0.7rem;
   font-weight: 600;
-  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  letter-spacing: 0.12em;
 }
 
-@media (min-width: 720px) {
-  /* Shorter tiles on wide screens so the first projects show above the fold. */
-  .tile {
-    aspect-ratio: 5 / 2;
-  }
-
-  .tile__label {
-    left: 20px;
-    bottom: 16px;
-  }
+.level__name {
+  display: block;
+  padding: 10px 12px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
-.tile:hover img {
-  opacity: 0.6;
-  transform: scale(1.03);
-}
-
-.tile.is-active {
+.level:hover,
+.level:focus-visible,
+.level.is-active {
+  color: var(--text);
   border-color: var(--accent);
 }
 
-.tile.is-active img {
-  opacity: 0.72;
+.level:hover,
+.level:focus-visible {
+  transform: translateY(-4px);
 }
 
-.tile.is-active .tile__label {
+.level:hover img,
+.level:focus-visible img,
+.level.is-active img {
+  opacity: 1;
+}
+
+.level.is-active .level__name,
+.level:hover .level__name {
   color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .level,
+  .level:hover,
+  .level:focus-visible {
+    transform: none;
+  }
+}
+
+/* Listing pages (Work, Games): heading + filters
+   ========================================================================== */
+
+.listing {
+  padding-top: clamp(40px, 8vw, 80px);
+}
+
+.listing__head {
+  margin-bottom: 36px;
+}
+
+.listing__head p {
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.filter {
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.filter:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.filter.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
 }
 
 /* Work grid + cards
    ========================================================================== */
-
-.work {
-  padding-top: 64px;
-}
-
-.work__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.work__head h2 {
-  margin: 0;
-}
-
-.work__reset {
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 4px 14px;
-  color: var(--muted);
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
-}
-
-.work__reset:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
 
 .grid {
   display: grid;

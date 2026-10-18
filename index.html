@@ -13,21 +13,30 @@
   <meta property="og:url" content="https://donkey0319.github.io/">
   <meta property="og:description" content="Portfolio of Victor Lu, a technical artist working on shaders, rendering and technical animation for games.">
   <link rel="canonical" href="https://donkey0319.github.io/">
+  <script>
+    // Links from the old one-page layout (/#games, /#work) now have their own pages.
+    (function () {
+      var moved = { '#games': '/games/', '#work': '/work/' };
+      var to = moved[location.hash.toLowerCase()];
+      if (to) location.replace(to);
+    })();
+  </script>
   <script>document.documentElement.classList.add('js');addEventListener('load', function () { if (!window.__siteReady) document.documentElement.classList.remove('js'); });</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
+<body class="is-home">
   <header class="site-header">
     <nav class="nav container" aria-label="Primary">
       <a class="nav__brand" href="/">Victor Lu</a>
       <ul class="nav__links">
-        <li><a href="/" aria-current="page">Work</a></li>
+        <li><a href="/" aria-current="page">Home</a></li>
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/games/">Games</a></li>
         <li><a href="/about/">About</a></li>
-        <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
       </ul>
       <ul class="nav__social">
         <li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
@@ -38,163 +47,52 @@
     </nav>
   </header>
 
-  <main>
-    <section class="intro container reveal">
-      <h1>Hi, I'm Victor.</h1>
-      <p>A technical artist building shaders, rendering and technical animation for games.</p>
-    </section>
+  <main class="title">
+    <!-- Background: starts on the first highlight; home.js swaps it as you hover the tiles below. -->
+    <div class="title__bg" aria-hidden="true">
+      <video class="title__video" src="/assets/videos/pekora/faceshadow-teaser.mp4" poster="/assets/images/pekora/faceshadow-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
 
-    <section class="container reveal" aria-label="Browse by category">
-      <div class="tiles">
-        <button class="tile" type="button" data-filter="work" aria-pressed="false">
+    <div class="title__inner container">
+      <div class="title__text">
+        <h1 class="title__name">Victor Lu</h1>
+        <p class="title__role">Technical Artist</p>
+        <ul class="title__menu">
+          <li><a href="/work/">All Work</a></li>
+          <li><a href="/games/">Games</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/assets/resume/Victor_Lu_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+        </ul>
+      </div>
+
+      <!-- Highlights: edit these four <a class="level"> tiles to change what's featured.
+           data-video (optional) plays behind the title on hover; data-poster is the still. -->
+      <nav class="levels" aria-label="Highlights">
+        <a class="level is-active" href="/artwork/1-cafebabe-pekora/" data-video="/assets/videos/pekora/faceshadow-teaser.mp4" data-poster="/assets/images/pekora/faceshadow-poster.jpg">
           <img src="/assets/images/pekora/faceshadow-poster.jpg" alt="" decoding="async">
-          <span class="tile__label">Work</span>
-        </button>
-        <button class="tile" type="button" data-filter="games" aria-pressed="false">
-          <img src="/assets/images/kungfupenguin/penguin1-teaser.jpg" alt="" decoding="async">
-          <span class="tile__label">Games</span>
-        </button>
-      </div>
-    </section>
-
-    <section id="projects" class="work container">
-      <div class="work__head">
-        <h2>Projects</h2>
-        <button id="work-reset" class="work__reset is-hidden" type="button">Show all</button>
-      </div>
-
-      <div class="grid">
-        <article class="card reveal" data-categories="work">
-          <a class="card__link" href="/artwork/1-cafebabe-pekora/">
-            <div class="card__media">
-              <video src="/assets/videos/pekora/faceshadow-teaser.mp4" poster="/assets/images/pekora/faceshadow-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-            </div>
-            <p class="card__kind">Rendering</p>
-            <h3 class="card__title">Anime Shading Model</h3>
-            <p class="card__what">A UE5 shading model that reacts to ambient light while keeping an unlit, anime look.</p>
-            <ul class="tags"><li>UE5</li><li>Engine Customization</li><li>Rendering</li><li>Shader</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="work">
-          <a class="card__link" href="/artwork/2-painterly-shader/">
-            <div class="card__media">
-              <img src="/assets/images/painterly/painterly.png" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Shaders</p>
-            <h3 class="card__title">Painterly Shader</h3>
-            <p class="card__what">Post-processing, custom normal maps and painterly textures for a painted look.</p>
-            <ul class="tags"><li>UE5</li><li>Post-processing</li><li>Shader</li><li>Substance Painter</li><li>Substance Designer</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="work">
-          <a class="card__link" href="/artwork/3-ramu-cinematic/">
-            <div class="card__media">
-              <video src="/assets/videos/ramu/ramu-teaser.mp4" poster="/assets/images/ramu/ramu-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-            </div>
-            <p class="card__kind">Tech Anim</p>
-            <h3 class="card__title">Ramu Cinematic</h3>
-            <!-- TODO(victor): what I did (one line, shown under the title) -->
-            <ul class="tags"><li>UE5</li><li>Shader</li><li>Character Modeling</li><li>Character Animation</li><li>Rigging</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="work">
-          <a class="card__link" href="/artwork/4-mocap-addon/">
-            <div class="card__media">
-              <video src="/assets/videos/mocap/mocap-teaser.mp4" poster="/assets/images/mocap/mocap-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-            </div>
-            <p class="card__kind">Tech Anim</p>
-            <h3 class="card__title">Blender Motion Capture Addon</h3>
-            <p class="card__what">A Blender addon that uses pose-estimation AI to drive a humanoid model.</p>
-            <ul class="tags"><li>Blender</li><li>Python</li><li>Technical Animation</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="games">
-          <a class="card__link" href="/games/1-grannys-gift/">
-            <div class="card__media">
-              <img src="/assets/images/grannygift/grannygift_1-teaser.jpg" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Games</p>
-            <h3 class="card__title">Granny’s Gift</h3>
-            <!-- TODO(victor): what I did (one line, shown under the title) -->
-            <ul class="tags"><li>Unity</li><li>Xbox Adaptive Controller</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="games">
-          <a class="card__link" href="/games/2-a-gentelmans-dispute/">
-            <div class="card__media">
-              <img src="/assets/images/AGD/AGD_thumbnail.png" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Games</p>
-            <h3 class="card__title">A Gentlemen’s Dispute</h3>
-            <p class="card__what">Contract artist building map assets.</p>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="games">
-          <a class="card__link" href="/games/3-decent-farewell/">
-            <div class="card__media">
-              <img src="/assets/images/decentfarewell/farewell-teaser.jpg" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Games</p>
-            <h3 class="card__title">A Decent Farewell</h3>
-            <!-- TODO(victor): what I did (one line, shown under the title) -->
-            <ul class="tags"><li>VR</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="games">
-          <a class="card__link" href="/games/4-kungfu-penguin/">
-            <div class="card__media">
-              <img src="/assets/images/kungfupenguin/penguin1-teaser.jpg" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Games</p>
-            <h3 class="card__title">Kung-Fu Penguin</h3>
-            <p class="card__what">Modeled, rigged and animated the penguin.</p>
-            <ul class="tags"><li>Jam-O-Drum</li></ul>
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="games">
-          <a class="card__link" href="/games/5-ginger-air/">
-            <div class="card__media">
-              <img src="/assets/images/gingerair/ginger-teaser.jpg" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Games</p>
-            <h3 class="card__title">Ginger Air</h3>
-            <!-- TODO(victor): what I did (one line, shown under the title) -->
-          </a>
-        </article>
-
-        <article class="card reveal" data-categories="games">
-          <a class="card__link" href="/games/6-mask-exe/">
-            <div class="card__media">
-              <img src="/assets/images/maskexe/mask-teaser.jpg" alt="" loading="lazy" decoding="async">
-            </div>
-            <p class="card__kind">Games</p>
-            <h3 class="card__title">Mask.exe</h3>
-            <p class="card__what">3D modeling, texturing, lighting and post-processing for the final scene, plus audio scripting and camera work.</p>
-          </a>
-        </article>
-      </div>
-    </section>
+          <span class="level__num">01</span>
+          <span class="level__name">Anime Shading Model</span>
+        </a>
+        <a class="level" href="/artwork/2-painterly-shader/" data-poster="/assets/images/painterly/painterly.png">
+          <img src="/assets/images/painterly/painterly.png" alt="" decoding="async">
+          <span class="level__num">02</span>
+          <span class="level__name">Painterly Shader</span>
+        </a>
+        <a class="level" href="/games/2-a-gentelmans-dispute/" data-poster="/assets/images/AGD/egypt-teaser.jpg">
+          <img src="/assets/images/AGD/egypt-teaser.jpg" alt="" decoding="async">
+          <span class="level__num">03</span>
+          <span class="level__name">A Gentlemen’s Dispute</span>
+        </a>
+        <a class="level" href="/games/3-decent-farewell/" data-poster="/assets/images/decentfarewell/farewell-teaser.jpg">
+          <img src="/assets/images/decentfarewell/farewell-teaser.jpg" alt="" decoding="async">
+          <span class="level__num">04</span>
+          <span class="level__name">A Decent Farewell</span>
+        </a>
+      </nav>
+    </div>
   </main>
 
-  <footer class="site-footer container">
-    <ul>
-      <li><a href="mailto:vclu@andrew.cmu.edu" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.linkedin.com/in/victor-chan-lu/" target="_blank" rel="noopener me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.artstation.com/donkey0319" target="_blank" rel="noopener me" aria-label="ArtStation" title="ArtStation"><i class="fa-brands fa-artstation" aria-hidden="true"></i></a></li>
-      <li><a href="https://github.com/donkey0319" target="_blank" rel="noopener me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
-    </ul>
-    <span>© 2026 Victor Lu</span>
-  </footer>
-
   <script src="/assets/js/site.js"></script>
-  <script src="/assets/js/work-filter.js"></script>
+  <script src="/assets/js/home.js"></script>
 </body>
 </html>

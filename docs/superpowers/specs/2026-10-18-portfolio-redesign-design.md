@@ -145,3 +145,23 @@ the four `artwork/` projects, hash `#work`) and **Games** (games Victor particip
 hash `#games`). Cards keep their discipline label (Rendering / Shaders / Tech Anim) as
 the small kind line. The grid heading became "Projects" (section id `projects`) so no
 element id collides with a category hash, and `/artwork/` now redirects to `/#work`.
+
+## Revision 2026-10-18 (b): Home / Work / Games / About
+
+Supersedes the home-page and category sections above.
+
+- **Nav:** Home · Work · Games · About (+ social icons). Resume moved to the home
+  title menu and the About page.
+- **Home `/`:** one-screen "level select" title — VICTOR LU / Technical Artist over a
+  dimmed looping background, menu row (All Work · Games · About · Resume), and four
+  highlight tiles (Anime Shading Model, Painterly Shader, A Gentlemen's Dispute,
+  A Decent Farewell). Hover swaps the background; click opens the project. 2×2 on phones.
+  Old `/#games` and `/#work` links forward to the new pages.
+- **Work `/work/`:** all projects; filters All · Shaders · Technical Animation ·
+  Environment Design, read from the page's buttons (adding a button adds a filter).
+  Labels: Shaders — Anime Shading Model, Painterly, Ramu; Technical Animation — Ramu,
+  Mocap, Kung-Fu Penguin; Environment Design — Painterly, A Gentlemen's Dispute,
+  Mask.exe, A Decent Farewell, Ginger Air.
+- **Games `/games/`:** the five games, no filters.
+- **Granny's Gift** removed from the site (page, cards, sitemap); images kept in assets.
+- Project back links go to `/work/`; `/artwork/` redirects to `/work/`.
