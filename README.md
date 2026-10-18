@@ -6,12 +6,12 @@ Victor Lu's portfolio site — plain static HTML/CSS/JS, served as-is by GitHub 
 ## Layout
 
 ```
-index.html                     Home: intro, category tiles, filterable work grid
+index.html                     Home: intro, Work/Games tiles, filterable project grid
 about/index.html               About: photo, background, contact
 games/<project>/index.html     Game project pages
 artwork/<project>/index.html   Tech art project pages
 games/index.html,              Old grid pages — now redirect to the home grid
-  artwork/index.html             (/#games and / respectively)
+  artwork/index.html             (/#games and /#work respectively)
 posts/, welcome-to-my-site/    Old blog (not linked from the nav, still uses theme.css)
 
 assets/css/style.css     All site styles (palette tokens at the top)
@@ -45,7 +45,7 @@ the old one briefly; a hard refresh shows the new one immediately.
    "What I did", and the breakdown.
 2. Add a card to the grid in `index.html`:
    ```html
-   <article class="card reveal" data-categories="shaders rendering">
+   <article class="card reveal" data-categories="work">
      <a class="card__link" href="/artwork/5-new-thing/">
        <div class="card__media"><img src="..." alt="" loading="lazy" decoding="async"></div>
        <p class="card__kind">Shaders</p>
@@ -55,8 +55,9 @@ the old one briefly; a hard refresh shows the new one immediately.
      </a>
    </article>
    ```
-   `data-categories` takes one or more of `shaders`, `rendering`, `techanim`, `games`.
-   `card__kind` shows the first one's label. For a looping preview use
+   `data-categories` is `work` (individual art pieces) or `games` (games you worked on);
+   it decides which tile shows the card. `card__kind` is just the small orange label —
+   use the discipline (Shaders, Rendering, Tech Anim) for work, "Games" for games. For a looping preview use
    `<video src="..." poster="..." autoplay muted loop playsinline preload="metadata"></video>`.
 3. Add the page to `REDESIGNED` in `tests/helpers.mjs` and its URL to `sitemap.xml`.
 

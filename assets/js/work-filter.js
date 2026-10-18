@@ -1,5 +1,5 @@
 (function () {
-  var CATEGORIES = ['shaders', 'rendering', 'techanim', 'games'];
+  var CATEGORIES = ['work', 'games'];
 
   function parseHash(hash) {
     var key = String(hash || '').replace(/^#/, '').toLowerCase();
@@ -31,7 +31,7 @@
 
   var tiles = document.querySelectorAll('.tile[data-filter]');
   var cards = document.querySelectorAll('.card[data-categories]');
-  var work = document.getElementById('work');
+  var work = document.getElementById('projects');
   var reset = document.getElementById('work-reset');
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = null;

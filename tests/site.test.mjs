@@ -53,6 +53,13 @@ test('home has 10 cards with valid categories', () => {
   for (const token of cats.join(' ').split(/\s+/)) assert.ok(CATEGORIES.includes(token), token);
 });
 
+test('art pieces are Work and games are Games', () => {
+  const html = read('index.html');
+  for (const m of html.matchAll(/data-categories="([^"]*)"[\s\S]*?href="([^"]*)"/g)) {
+    assert.equal(m[1], m[2].startsWith('/games/') ? 'games' : 'work', m[2]);
+  }
+});
+
 test('every category has a tile and at least one card', () => {
   const { CATEGORIES } = require('../assets/js/work-filter.js');
   const html = read('index.html');
@@ -113,7 +120,7 @@ test('every redesigned page is converted', () => {
 
 test('old grid pages redirect into the home grid', () => {
   assert.match(read('games/index.html'), /http-equiv="refresh" content="0; url=\/#games"/);
-  assert.match(read('artwork/index.html'), /http-equiv="refresh" content="0; url=\/"/);
+  assert.match(read('artwork/index.html'), /http-equiv="refresh" content="0; url=\/#work"/);
 });
 
 test('sitemap lists About and drops the old grids', () => {
@@ -143,4 +150,10 @@ for (const page of REDESIGNED) {
 
 test('site.js marks itself as running', () => {
   assert.match(read('assets/js/site.js'), /window\.__siteReady\s*=\s*true/);
+});
+
+test('no element id collides with a category hash', () => {
+  const { CATEGORIES } = require('../assets/js/work-filter.js');
+  const ids = [...read('index.html').matchAll(/\bid="([^"]*)"/g)].map((m) => m[1]);
+  for (const c of CATEGORIES) assert.ok(!ids.includes(c), `id="${c}" makes /#${c} jump`);
 });

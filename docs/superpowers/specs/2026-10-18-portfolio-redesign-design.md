@@ -137,3 +137,11 @@ Top to bottom:
 
 Exact spacing scale, type sizes, hover states, breakpoints, file/JS structure, the
 choice between Inter and DM Sans, and precise intro wording within the spirit above.
+
+## Revision 2026-10-18: two categories
+
+Victor replaced the four category tiles with two: **Work** (individual art pieces —
+the four `artwork/` projects, hash `#work`) and **Games** (games Victor participated in,
+hash `#games`). Cards keep their discipline label (Rendering / Shaders / Tech Anim) as
+the small kind line. The grid heading became "Projects" (section id `projects`) so no
+element id collides with a category hash, and `/artwork/` now redirects to `/#work`.
